@@ -1,5 +1,7 @@
-export const content = ['*'];
-export const theme = {
-  extend: {},
+export default {
+    content: ['*'],
+    theme: {
+        extend: {},
+    },
+    plugins: [],
 };
-export const plugins = [];

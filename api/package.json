@@ -13,6 +13,7 @@
         "db:reset": "psql -U technovice -d technovice -f /api/data/create_tables.sql && psql -U technovice -d technovice -f /api/data/seeding_tables.sql"
     },
     "dependencies": {
+        "@prisma/client": "^5.19.1",
         "nodemon": "^3.1.4"
     }
 }

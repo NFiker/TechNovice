@@ -7,9 +7,12 @@
     },
     "type": "module",
     "scripts": {
-        "dev": "node app.js",
+        "dev": "nodemon app.js",
         "db:create": "psql -U technovice -d technovice -f /api/data/create_tables.sql;",
         "db:fill": "psql -U technovice -d technovice -f /api/data/seeding_tables.sql;",
         "db:reset": "psql -U technovice -d technovice -f /api/data/create_tables.sql && psql -U technovice -d technovice -f /api/data/seeding_tables.sql"
+    },
+    "dependencies": {
+        "nodemon": "^3.1.4"
     }
 }

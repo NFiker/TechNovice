@@ -4,7 +4,11 @@
         "express": "^4.19.2",
         "pg": "^8.12.0"
     },
+    "type": "module",
     "scripts": {
-        "dev": "node app.js"
+        "dev": "node app.js",
+        "db:create": "psql -U technovice -d technovice -f /api/data/create_tables.sql;",
+        "db:fill": "psql -U technovice -d technovice -f /api/data/seeding_tables.sql;",
+        "db:reset": "psql -U technovice -d technovice -f /api/data/create_tables.sql && psql -U technovice -d technovice -f /api/data/seeding_tables.sql"
     }
 }

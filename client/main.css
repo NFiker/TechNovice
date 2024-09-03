@@ -7,6 +7,11 @@ h2 {
     font-family: 'DM Serif Display', sans-serif;
 }
 
-p {
+p,
+a {
     font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+    padding: 1rem;
 }

@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+model comments {
+  com_code         Int      @id @default(autoincrement())
+  com_content      String
+  com_date         DateTime @default(now()) @db.Timestamp(6)
+  author_user_code Int
+  topic_code       Int
+  users            users    @relation(fields: [author_user_code], references: [user_code], onDelete: NoAction, onUpdate: NoAction)
+  topics           topics   @relation(fields: [topic_code], references: [topic_code], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model courses {
+  course_code      Int       @id @default(autoincrement())
+  course_title     String    @unique @db.VarChar(255)
+  course_desc      String
+  course_tags      String[]  @db.VarChar(20)
+  course_content   String
+  creation_date    DateTime  @default(now()) @db.Timestamp(6)
+  update_date      DateTime  @default(now()) @db.Timestamp(6)
+  author_user_code Int
+  users            users     @relation(fields: [author_user_code], references: [user_code], onDelete: NoAction, onUpdate: NoAction)
+  watches          watches[]
+}
+
+model topics {
+  topic_code       Int        @id @default(autoincrement())
+  topic_title      String     @db.VarChar(255)
+  topic_tag        String     @db.VarChar(20)
+  topic_content    String
+  topic_date       DateTime   @default(now()) @db.Timestamp(6)
+  author_user_code Int
+  comments         comments[]
+  users            users      @relation(fields: [author_user_code], references: [user_code], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  user_code  Int        @id @default(autoincrement())
+  nickname   String     @unique @db.VarChar(42)
+  mail       String     @unique @db.VarChar(42)
+  password   String     @db.VarChar(20)
+  first_name String     @db.VarChar(42)
+  last_name  String     @db.VarChar(42)
+  role_name  String     @default("Utilisateur") @db.VarChar(20)
+  comments   comments[]
+  courses    courses[]
+  topics     topics[]
+  watches    watches[]
+}
+
+model watches {
+  course_code      Int
+  author_user_code Int
+  start_date       DateTime @default(now()) @db.Timestamp(6)
+  users            users    @relation(fields: [author_user_code], references: [user_code], onDelete: NoAction, onUpdate: NoAction)
+  courses          courses  @relation(fields: [course_code], references: [course_code], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([course_code, author_user_code])
+}

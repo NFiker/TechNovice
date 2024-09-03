@@ -19,6 +19,11 @@ const port = process.env.PORT || 3000;
 
 app.use(router);
 
+// Route to test if the server is running
+app.get('/', (req, res) => {
+    return res.send({message: "Bienvenue sur Techno'vice API"});
+});
+
 app.listen(port, error => {
     if (!error) {
         console.log('Server is Successfully Running, and App is listening on port ' + port);

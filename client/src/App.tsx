@@ -1,4 +1,4 @@
-// src/App.tsx
+import React from 'react';
 import CourseCard from './components/CourseCard/CourseCard';
 import { Course } from './components/CourseCard/types';
 

@@ -53,6 +53,31 @@ const topicController = {
             prisma.$disconnect();
         }
     },
+
+    async updateTopic(req, res) {
+        const id = parseInt(req.params.topic_id);
+        const { topic_title, topic_tags, topic_content, author_user_id } = req.body;
+
+        try {
+            const topic = await prisma.topics.update({
+                where: {
+                    topic_id: id,
+                },
+                data: {
+                    topic_title,
+                    topic_tags,
+                    topic_content,
+                    author_user_id,
+                },
+            });
+
+            res.status(200).json(topic);
+        } catch (error) {
+            res.status(500).json({ message: 'Erreur lors de la mise à jour du cours', error });
+        } finally {
+            prisma.$disconnect();
+        }
+    },
 };
 
 export { topicController };

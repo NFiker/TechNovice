@@ -35,7 +35,7 @@ const coursesController = {
 
     // Pour l'instant l'id du user doit être rentré dans le body il n'est pas présent en paramètre
     async createCourse(req, res) {
-        let { course_title, course_desc, course_tags, course_content, author_user_id } = req.body;
+        const { course_title, course_desc, course_tags, course_content, author_user_id } = req.body;
 
         try {
             const course = await prisma.courses.create({
@@ -52,19 +52,9 @@ const coursesController = {
 
     async updateCourse(req, res) {
         const id = parseInt(req.params.course_id);
-        let { course_title, course_desc, course_tags, course_content, updated_at } = req.body;
+        const { course_title, course_desc, course_tags, course_content } = req.body;
 
         try {
-            const courseExists = await prisma.courses.findUnique({
-                where: {
-                    course_id: id,
-                },
-            });
-
-            if (!courseExists) {
-                return res.status(404).json({ message: 'Cours non trouvé' });
-            }
-
             const course = await prisma.courses.update({
                 where: {
                     course_id: id,
@@ -74,7 +64,6 @@ const coursesController = {
                     course_desc,
                     course_tags,
                     course_content,
-                    updated_at,
                 },
             });
 

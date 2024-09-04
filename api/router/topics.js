@@ -15,7 +15,7 @@ topicRouter.get('/topics/:topic_id(\\d+)', topicController.getOneTopicById);
 topicRouter.post('/topics', topicController.createTopic);
 
 // Mettre à jour un sujet
-//topicRouter.patch('/topics/:topic_id(\\d+)', topicController.updateTopic);
+topicRouter.patch('/topics/:topic_id(\\d+)', topicController.updateTopic);
 
 // Supprimer un sujet
 //topicRouter.delete('/topics/:topic_id(\\d+)', topicController.deleteTopic);

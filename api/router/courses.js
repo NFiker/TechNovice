@@ -13,7 +13,7 @@ courseRouter.get('/courses/:course_id(\\d+)', coursesController.getOneCourseById
 courseRouter.post('/courses', coursesController.createCourse);
 
 // Mettre à jour un cours
-courseRouter.put('/courses/:course_id(\\d+)', coursesController.updateCourse);
+courseRouter.patch('/courses/:course_id(\\d+)', coursesController.updateCourse);
 
 // Supprimer un cours
 //courseRouter.delete('/courses/:course_id(\\d+)', coursesController.deleteCourse);

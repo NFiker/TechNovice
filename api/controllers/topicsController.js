@@ -39,15 +39,16 @@ const topicController = {
     },
 
     async createTopic(req, res) {
-        const { topic_title, topic_tag, topic_content, topic_date, author_user_id } = req.body;
+        const { topic_title, topic_tag, topic_content, author_user_id } = req.body;
         try {
             const topic = await prisma.topics.create({
-                data: { topic_title, topic_tag, topic_content, topic_date, author_user_id },
+                data: { topic_title, topic_tag, topic_content, author_user_id },
             });
             console.log(topic);
             res.status(201).json(topic);
         } catch (error) {
             res.status(500).json({ message: 'Erreur lors de la création du sujet', error });
+            console.log(error);
         } finally {
             prisma.$disconnect();
         }

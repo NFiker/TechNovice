@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+h1,
+h2 {
+    font-family: 'DM Serif Display', sans-serif;
+}
+
+p,
+a {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+    padding: 1rem;
+    max-width: 100%;
+}

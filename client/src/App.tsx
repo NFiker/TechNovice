@@ -1,6 +1,6 @@
 import { FaCheck, FaTimes } from 'react-icons/fa';
-import CourseCard, { CourseType } from './components/CourseCard';
 import Button from './components/reusable-ui/Button';
+import CourseCard, { CourseType } from './components/reusable-ui/CourseCard';
 
 export default function App() {
     // Données factices pour 12 cours

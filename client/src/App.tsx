@@ -1,10 +1,10 @@
-// src/App.tsx
-import CourseCard from './components/CourseCard/CourseCard';
-import { Course } from './components/CourseCard/types';
+import { FaCheck, FaTimes } from 'react-icons/fa';
+import Button from './components/reusable-ui/Button';
+import CourseCard, { CourseType } from './components/reusable-ui/CourseCard';
 
 export default function App() {
     // Données factices pour 12 cours
-    const mockCourseData: Course[] = Array.from({ length: 12 }, (_, i) => ({
+    const mockCourseData: CourseType[] = Array.from({ length: 12 }, (_, i) => ({
         id: `${i + 1}`,
         category: 'Développement Web',
         teacher: `Enseignant ${i + 1}`,
@@ -24,6 +24,26 @@ export default function App() {
                     {mockCourseData.map(course => (
                         <CourseCard key={course.id} course={course} />
                     ))}
+                </div>
+                <div className="p-8 space-y-4">
+                    <Button
+                        label="Primary Button"
+                        version="primary"
+                        onClick={() => alert('Primary clicked!')}
+                    />
+                    <Button
+                        label="Success Button"
+                        version="success"
+                        onClick={() => alert('Success clicked!')}
+                        Icon={<FaCheck />}
+                    />
+                    <Button
+                        label="Danger Button"
+                        version="danger"
+                        onClick={() => alert('Danger clicked!')}
+                        Icon={<FaTimes />}
+                    />
+                    <Button label="Disabled Button" version="primary" disabled={true} />
                 </div>
             </div>
         </main>

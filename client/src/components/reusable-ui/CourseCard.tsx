@@ -1,9 +1,20 @@
 // src/components/CourseCard.tsx
 import React from 'react';
-import { Course } from '../../types';
 
+// Typage d'un cours
+export interface CourseType {
+    id: string;
+    category: string;
+    teacher: string;
+    title: string;
+    description: string;
+    duration: string;
+    imageUrl: string;
+}
+
+// Typage des props d'un cours
 interface CourseCardProps {
-    course: Course;
+    course: CourseType;
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {

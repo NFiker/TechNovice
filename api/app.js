@@ -1,12 +1,8 @@
-import express from 'express';
+const port = process.env.PORT || 3000;
 
-const app = express();
-
-app.listen(process.env.PORT || 3000, error => {
+app.listen(port, error => {
     if (!error) {
-        console.log(
-            'Server is Successfully Running, and App is listening on port ' + process.env.PORT || 3000,
-        );
+        console.log('Server is Successfully Running, and App is listening on port ' + port);
     } else {
         console.log("Error occurred, server can't start", error);
     }

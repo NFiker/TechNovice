@@ -27,7 +27,7 @@ CREATE TABLE "courses" (
 CREATE TABLE "topics" (
     "topic_id" SERIAL NOT NULL,
     "topic_title" VARCHAR(255) NOT NULL,
-    "topic_tag" VARCHAR(20) NOT NULL,
+    "topic_tag" VARCHAR(20) [] NOT NULL,
     "topic_content" TEXT NOT NULL,
     "topic_date" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "author_user_id" INTEGER NOT NULL,

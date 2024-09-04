@@ -5,15 +5,14 @@ const topicRouter = Router();
 
 // SUJET DANS LES FORUM
 
-// Récupérer les informations de tous les sujets 
-// ??? on n'a pas cette route dans les routes du cahier des charges ???
+// Récupérer les informations de tous les sujets
 topicRouter.get('/topics', topicController.getAllTopics);
 
 // Récupérer les informations d'un seul sujet via son id
 topicRouter.get('/topics/:topic_id(\\d+)', topicController.getOneTopicById);
 
 // Créer un sujet
-//topicRouter.post('/topics/topic', topicController.createTopic);
+topicRouter.post('/topics', topicController.createTopic);
 
 // Mettre à jour un sujet
 //topicRouter.patch('/topics/:topic_id(\\d+)', topicController.updateTopic);
@@ -21,7 +20,7 @@ topicRouter.get('/topics/:topic_id(\\d+)', topicController.getOneTopicById);
 // Supprimer un sujet
 //topicRouter.delete('/topics/:topic_id(\\d+)', topicController.deleteTopic);
 
-// MESSAGE SUR UN SUJET DANS LE FORUM 
+// MESSAGE SUR UN SUJET DANS LE FORUM
 
 // Accéder à un message
 //topicRouter.get('/topics/:topic_id(\\d+)/messages/:com_id(\\d+)', topicController.getOneMessage);

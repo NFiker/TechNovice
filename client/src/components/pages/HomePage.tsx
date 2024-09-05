@@ -51,13 +51,10 @@ const HomePage: React.FC = () => {
                         </p>
                         <p className="w-3/4 m-4 drop-shadow-md">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil at neque voluptatum
-                            dolore non iusto ex, distinctio quas a eaque error consequatur qui, natus
-                            dignissimos saepe. Excepturi impedit repellat natus.
                         </p>
                         <p className="w-3/4 m-4 drop-shadow-md">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil at neque voluptatum
-                            dolore non iusto ex, distinctio quas a eaque error consequatur qui, natus
-                            dignissimos saepe. Excepturi impedit repellat natus.
+                            dolore non quod, quas, quidem, quos quae quibusdam. Quisquam, quod.
                         </p>
                     </div>
                 </div>

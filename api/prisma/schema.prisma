@@ -8,41 +8,41 @@ datasource db {
 }
 
 model comments {
-  com_code         Int      @id @default(autoincrement())
-  com_content      String
-  com_date         DateTime @default(now()) @db.Timestamp(6)
-  author_user_code Int
-  topic_code       Int
-  users            users    @relation(fields: [author_user_code], references: [user_code], onDelete: NoAction, onUpdate: NoAction)
-  topics           topics   @relation(fields: [topic_code], references: [topic_code], onDelete: NoAction, onUpdate: NoAction)
+  com_id         Int      @id @default(autoincrement())
+  com_content    String
+  com_date       DateTime @default(now()) @db.Timestamp(6)
+  author_user_id Int
+  topic_id       Int
+  users          users    @relation(fields: [author_user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  topics         topics   @relation(fields: [topic_id], references: [topic_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model courses {
-  course_code      Int       @id @default(autoincrement())
-  course_title     String    @unique @db.VarChar(255)
-  course_desc      String
-  course_tags      String[]  @db.VarChar(20)
-  course_content   String
-  creation_date    DateTime  @default(now()) @db.Timestamp(6)
-  update_date      DateTime  @default(now()) @db.Timestamp(6)
-  author_user_code Int
-  users            users     @relation(fields: [author_user_code], references: [user_code], onDelete: NoAction, onUpdate: NoAction)
-  watches          watches[]
+  course_id      Int       @id @default(autoincrement())
+  course_title   String    @unique @db.VarChar(255)
+  course_desc    String
+  course_tags    String[]  @db.VarChar(20)
+  course_content String
+  creation_date  DateTime  @default(now()) @db.Timestamp(6)
+  update_date    DateTime  @default(now()) @db.Timestamp(6)
+  author_user_id Int
+  users          users     @relation(fields: [author_user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  watches        watches[]
 }
 
 model topics {
-  topic_code       Int        @id @default(autoincrement())
-  topic_title      String     @db.VarChar(255)
-  topic_tag        String     @db.VarChar(20)
-  topic_content    String
-  topic_date       DateTime   @default(now()) @db.Timestamp(6)
-  author_user_code Int
-  comments         comments[]
-  users            users      @relation(fields: [author_user_code], references: [user_code], onDelete: NoAction, onUpdate: NoAction)
+  topic_id       Int        @id @default(autoincrement())
+  topic_title    String     @db.VarChar(255)
+  topic_tag      String[]   @db.VarChar(20)
+  topic_content  String
+  topic_date     DateTime   @default(now()) @db.Timestamp(6)
+  author_user_id Int
+  comments       comments[]
+  users          users      @relation(fields: [author_user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model users {
-  user_code  Int        @id @default(autoincrement())
+  user_id    Int        @id @default(autoincrement())
   nickname   String     @unique @db.VarChar(42)
   mail       String     @unique @db.VarChar(42)
   password   String     @db.VarChar(20)
@@ -56,11 +56,11 @@ model users {
 }
 
 model watches {
-  course_code      Int
-  author_user_code Int
-  start_date       DateTime @default(now()) @db.Timestamp(6)
-  users            users    @relation(fields: [author_user_code], references: [user_code], onDelete: NoAction, onUpdate: NoAction)
-  courses          courses  @relation(fields: [course_code], references: [course_code], onDelete: NoAction, onUpdate: NoAction)
+  course_id      Int
+  author_user_id Int
+  start_date     DateTime @default(now()) @db.Timestamp(6)
+  users          users    @relation(fields: [author_user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  courses        courses  @relation(fields: [course_id], references: [course_id], onDelete: NoAction, onUpdate: NoAction)
 
-  @@id([course_code, author_user_code])
+  @@id([course_id, author_user_id])
 }

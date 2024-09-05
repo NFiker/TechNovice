@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 async function main() {
     // Exemple de requête pour récupérer tous les utilisateurs
-    const allUsers = await prisma.users.findMany();
+    const allUsers = await prisma.courses.findMany();
     console.log(allUsers);
 }
 

@@ -1,4 +1,25 @@
+import cors from 'cors';
+import express from 'express';
+import { router } from './router/index.js';
+
+const app = express();
+
+app.use(
+    cors({
+        origin: ['http://localhost:3005', 'http://localhost:3000'],
+    }),
+);
+
+app.use(express.json());
+
 const port = process.env.PORT || 3000;
+
+app.use(router);
+
+// Route to test if the server is running
+app.get('/', (req, res) => {
+    return res.send({ message: "Bienvenue sur Techno'vice API" });
+});
 
 app.listen(port, error => {
     if (!error) {

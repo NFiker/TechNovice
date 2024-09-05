@@ -20,7 +20,7 @@ export default function TesterComponents() {
 
     return (
         <div className="p-8 space-y-4">
-            <h1>TESTERCOMPONENTS</h1>
+            <h1>HOMEPAGE</h1>
             {/* Composant Searchbar pour la recherche */}
             <Searchbar<CourseType>
                 data={mockCourseData}

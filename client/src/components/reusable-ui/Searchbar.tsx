@@ -22,19 +22,23 @@ export default function Searchbar<T>({
         setQuery(value);
 
         if (value.length >= 3) {
-            const filteredResults = data.filter(item =>
-                searchKeys.some(key => item[key]?.toString().toLowerCase().includes(value)),
-            );
+            const filteredResults = filterData(value);
             onSearch(filteredResults);
         } else {
-            onSearch([]); // Pas de résultats affichés si la longueur de la requête est < 3
+            onSearch(data); // Réinitialiser avec toutes les données si < 3 caractères
         }
+    };
+
+    const filterData = (searchTerm: string): T[] => {
+        return data.filter(item =>
+            searchKeys.some(key => item[key]?.toString().toLowerCase().includes(searchTerm)),
+        );
     };
 
     const handleSelect = (item: T) => {
         if (onSelect) {
             onSelect(item);
-            setQuery(''); // Optionnel : Réinitialiser la barre de recherche après sélection
+            setQuery(''); // Optionnel : Réinitialiser après sélection
         }
     };
 
@@ -45,27 +49,35 @@ export default function Searchbar<T>({
                 value={query}
                 onChange={handleInputChange}
                 placeholder={placeholder}
-                className="w-full p-2 border border-gray-300 rounded-md"
+                className="w-30 p-2 border border-gray-300 rounded-md"
             />
             {onSelect && query.length >= 3 && (
-                <ul className="mt-2 border border-gray-300 rounded-md bg-white">
-                    {data
-                        .filter(item =>
-                            searchKeys.some(key => item[key]?.toString().toLowerCase().includes(query)),
-                        )
-                        .map((item, index) => {
-                            const displayValue = item[searchKeys[0]];
-                            return (
-                                <li
-                                    key={index}
-                                    className="p-2 cursor-pointer hover:bg-gray-100"
-                                    onClick={() => handleSelect(item)}>
-                                    {displayValue ? displayValue.toString() : 'N/A'}
-                                </li>
-                            );
-                        })}
-                </ul>
+                <SuggestionList data={filterData(query)} searchKeys={searchKeys} onSelect={handleSelect} />
             )}
         </div>
+    );
+}
+
+interface SuggestionListProps<T> {
+    data: T[];
+    searchKeys: (keyof T)[];
+    onSelect: (selectedItem: T) => void;
+}
+
+function SuggestionList<T>({ data, searchKeys, onSelect }: SuggestionListProps<T>): ReactElement {
+    return (
+        <ul className="mt-2 border border-gray-300 rounded-md bg-white">
+            {data.map((item, index) => {
+                const displayValue = item[searchKeys[0]];
+                return (
+                    <li
+                        key={index}
+                        className="p-2 cursor-pointer hover:bg-gray-100"
+                        onClick={() => onSelect(item)}>
+                        {displayValue ? displayValue.toString() : 'N/A'}
+                    </li>
+                );
+            })}
+        </ul>
     );
 }

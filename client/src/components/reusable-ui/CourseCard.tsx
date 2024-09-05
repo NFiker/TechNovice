@@ -1,4 +1,4 @@
-// src/components/CourseCard.tsx
+// src/components/reusable-ui/CourseCard.tsx
 import React from 'react';
 
 // Typage d'un cours

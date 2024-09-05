@@ -5,6 +5,9 @@
     "author": "Ludovic / Manon / Nicolas / Nasredine / Michael",
     "license": "ISC",
     "main": "index.js",
+    "engines": {
+        "node": "22.x"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "frontend": "cd client && npm start",

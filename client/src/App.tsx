@@ -1,10 +1,14 @@
-import TesterComponents from './components/pages/TesterComponents';
+
+import HomePage from './components/pages/HomePage';
+import Footer from './components/reusable-ui/Footer';
+import Header from './components/reusable-ui/Header';
 
 export default function App() {
     return (
-        <div className="space-y-8">
-            {/* Composant TesterComponents pour les tester */}
-            <TesterComponents />
-        </div>
+        <>
+            <Header />
+            <HomePage />
+            <Footer />
+        </>
     );
 }

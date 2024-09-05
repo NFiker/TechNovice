@@ -1,1 +1,1 @@
-web: vite client/index.html
+web: node api/app.js

@@ -7,7 +7,9 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node api/app.js"
+        "frontend": "cd client && npm start",
+        "api": "cd api && npm start",
+        "heroku-postbuild": "cd client && npm install && npm run build"
     },
     "keywords": [
         "course"
@@ -23,5 +25,10 @@
         "prettier": "^3.3.3",
         "typescript": "^5.5.4",
         "typescript-eslint": "^8.3.0"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "nodemon": "^3.1.4",
+        "sanitize-html": "^2.13.0"
     }
 }

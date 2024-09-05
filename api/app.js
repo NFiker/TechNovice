@@ -1,5 +1,6 @@
 import cors from 'cors';
 import express from 'express';
+import path from 'path';
 import { router } from './router/index.js';
 
 const app = express();
@@ -16,9 +17,12 @@ const port = process.env.PORT || 3000;
 
 app.use(router);
 
-// Route to test if the server is running
-app.get('/', (req, res) => {
-    return res.send({ message: "Bienvenue sur Techno'vice API" });
+// Servir les fichiers statiques du dossier 'client'
+app.use(express.static(path.join(__dirname, '../client')));
+
+// Route pour servir index.html
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
 app.listen(port, error => {

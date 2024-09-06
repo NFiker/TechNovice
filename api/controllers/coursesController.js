@@ -59,6 +59,7 @@ const coursesController = {
                 where: {
                     course_id: id,
                 },
+
                 data: {
                     course_title,
                     course_desc,
@@ -70,6 +71,25 @@ const coursesController = {
             res.status(200).json(course);
         } catch (error) {
             res.status(500).json({ message: 'Erreur lors de la mise à jour du cours', error });
+        } finally {
+            prisma.$disconnect();
+        }
+    },
+
+    // Controller pour supprimer un cours
+    async deleteCourse(req, res) {
+        const courseId = parseInt(req.params.course_id);
+
+        try {
+            const course = await prisma.courses.delete({
+                where: {
+                    course_id: courseId,
+                },
+            });
+
+            res.status(200).json(course);
+        } catch (error) {
+            res.status(500).json({ message: 'Erreur lors de suppresion du cours', error });
         } finally {
             prisma.$disconnect();
         }

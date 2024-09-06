@@ -47,6 +47,7 @@ const topicController = {
         
         topic_title = sanitizeHtml(topic_title)
         topic_tag = topic_tag.map(item=> sanitizeHtml(item))
+        console.log(topic_tag);
         topic_content = sanitizeHtml(topic_content)
         
         try {

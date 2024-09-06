@@ -72,7 +72,7 @@ const userController = {
                 return res.status(400).json({ message: error.details[0].message });
             }
             const user = await prisma.users.create({
-                data: value ,
+                data: value  ,
             });
             res.status(201).json(user);
         } catch (error) {
@@ -84,22 +84,15 @@ const userController = {
 
     async updateUser(req, res) {
         const id = parseInt(req.params.user_id);
-        const { nickname, mail, password, first_name, last_name, role_name } = req.body;
-
         try {
+            const { error, value } = schema.validate(req.body);
+            if (error) {
+                return res.status(400).json({ message: error.details[0].message });
+            }
             const user = await prisma.users.update({
-                where: {
-                    user_id: id,
-                },
+                where: { user_id: id },
 
-                data: {
-                    nickname,
-                    mail,
-                    password,
-                    first_name,
-                    last_name,
-                    role_name,
-                },
+                data:  value ,
             });
         
 

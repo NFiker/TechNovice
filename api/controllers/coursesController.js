@@ -51,7 +51,7 @@ const coursesController = {
                 return res.status(400).json({ message: error.details[0].message });
             }
             const course = await prisma.courses.create({
-                data: value
+                data:  value 
             });
 
             res.status(200).json(course);

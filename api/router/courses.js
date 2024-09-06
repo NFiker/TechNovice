@@ -7,7 +7,7 @@ const courseRouter = Router();
 courseRouter.get('/courses', coursesController.getAllCourses);
 
 // Récupérer les informations d'un seul cours via son id
-courseRouter.get('/courses/:course_id(\\d+)', coursesController.getOneCourseById);
+courseRouter.get('/api/courses/:course_id(\\d+)', coursesController.getOneCourseById);
 
 // Créer un cours
 courseRouter.post('/courses', coursesController.createCourse);

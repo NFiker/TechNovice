@@ -1,7 +1,14 @@
+
+import HomePage from './components/pages/HomePage';
+import Footer from './components/reusable-ui/Footer';
+import Header from './components/reusable-ui/Header';
+
 export default function App() {
     return (
-        <main className="App">
-            <h1>Hello World !</h1>
-        </main>
+        <>
+            <Header />
+            <HomePage />
+            <Footer />
+        </>
     );
 }

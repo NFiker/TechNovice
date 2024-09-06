@@ -14,6 +14,7 @@
         "vitest": "^2.0.5"
     },
     "dependencies": {
+        "@types/react-icons": "^3.0.0",
         "react": "^18",
         "react-dom": "^18"
     },

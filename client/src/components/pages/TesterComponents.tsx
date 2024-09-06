@@ -2,7 +2,7 @@ import { mockCourseData } from '@/fakeData';
 import { useState } from 'react';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import Button from '../reusable-ui/Button';
-import { CourseType } from '../reusable-ui/CourseCard';
+import type { CourseType } from '../reusable-ui/CourseCard';
 import Searchbar from '../reusable-ui/Searchbar';
 import CatalogCourses from './CatalogCourses'; // Assurez-vous d'utiliser le bon chemin
 

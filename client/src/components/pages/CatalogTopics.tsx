@@ -1,10 +1,11 @@
-import { useState } from 'react';
-import { mockTopicData } from '../../fakeData'; // Import des données factices
-import TopicCard from '../reusable-ui/TopicCard';
+import React from 'react';
+import TopicCard, { TopicType } from '../reusable-ui/TopicCard';
 
-export default function CatalogTopics() {
-    const [topics] = useState(mockTopicData);
+interface CatalogTopicsProps {
+    topics: TopicType[];
+}
 
+const CatalogTopics: React.FC<CatalogTopicsProps> = ({ topics }) => {
     return (
         <div className="py-8 px-4 bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800 w-full rounded-lg shadow-md p-4">
             <div>CATALOGTOPICS</div>
@@ -18,4 +19,6 @@ export default function CatalogTopics() {
             </div>
         </div>
     );
-}
+};
+
+export default CatalogTopics;

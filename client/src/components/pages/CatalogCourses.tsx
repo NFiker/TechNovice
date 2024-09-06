@@ -2,7 +2,7 @@ import React from 'react';
 import CourseCard, { CourseType } from '../reusable-ui/CourseCard';
 
 interface CatalogCoursesProps {
-    courses: CourseType[]; // On accepte désormais une prop courses
+    courses: CourseType[];
 }
 
 const CatalogCourses: React.FC<CatalogCoursesProps> = ({ courses }) => {

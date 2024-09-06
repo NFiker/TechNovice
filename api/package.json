@@ -9,7 +9,7 @@
     },
     "type": "module",
     "scripts": {
-        "start": "node app.js",
+        "start": "npx prisma db push && npx prisma generate && node app.js",
         "dev": "nodemon app.js",
         "db:create": "psql -U technovice -d technovice -f /api/data/create_tables.sql;",
         "db:fill": "psql -U technovice -d technovice -f /api/data/seeding_tables.sql;",

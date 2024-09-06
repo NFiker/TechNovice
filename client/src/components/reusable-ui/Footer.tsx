@@ -15,13 +15,9 @@ const Footer: React.FC = () => {
                     </a>
                 </div>
                 <div className="md:w-1/3 flex flex-col place-items-center py-2">
-                    <img
-                        src="./public/images/logo-small.png"
-                        alt="Logo de TechnO'vice"
-                        className="max-h-8 m-4"
-                    />
+                    <img src="img/logo-small.png" alt="Logo de TechnO'vice" className="max-h-8 m-4" />
                     <a href="./homepage.html">
-                        <img src="./public/images/logo.png" alt="Logo de TechnO'vice" className="max-h-8" />
+                        <img src="img/logo.png" alt="Logo de TechnO'vice" className="max-h-8" />
                     </a>
                 </div>
                 <div className="md:w-1/3 flex flex-col place-items-center py-2">

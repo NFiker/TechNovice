@@ -37,14 +37,14 @@ const HomePage: React.FC = () => {
                     <div className="md:container">
                         <div className="md:hidden container">
                             <a href="./index.html">
-                                <img src="./public/images/logo.png" alt="Logo de TechnO'vice" />
+                                <img src="img/logo.png" alt="Logo de TechnO'vice" />
                             </a>
                             <h1 className="text-center text-3xl text-sky-500 font-semibold">
                                 Ne restez plus un novice!
                             </h1>
                         </div>
                     </div>
-                    <div className="container bg-[url('./public/images/homepage_graphic.png')] bg-contain bg-no-repeat max-md:bg-[position:170%_0%] bg-[position:100%_0%]">
+                    <div className="container bg-[url('./public/img/homepage_graphic.png')] bg-contain bg-no-repeat max-md:bg-[position:170%_0%] bg-[position:100%_0%]">
                         <p className="font-bold text-4xl w-3/4 m-4 drop-shadow-md">
                             Libérez votre potentiel et apprenez plus vite que jamais grâce
                             <span className="text-sky-500"> aux cours TechnO'vice</span>

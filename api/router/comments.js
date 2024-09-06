@@ -12,6 +12,6 @@ commentRouter.post('/topics/:topic_id(\\d+)/message', commentsController.createC
 commentRouter.patch('/topics/:topic_id(\\d+)/message/:com_id(\\d+)', commentsController.updateComment);
 
 // Supprimer un message
-commentRouter.delete('/topics/:topic_id(\\d+)/message/:com_id(\\d+)', commentsController.deleteComment);
+commentRouter.delete('/topics/message/:com_id(\\d+)', commentsController.deleteComment);
 
 export { commentRouter };

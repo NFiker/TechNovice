@@ -24,9 +24,15 @@ const watchesController = {
 
     // Supprimer un watch
     deleteWatch: async (req, res) => {
+        const { course_id, author_user_id } = req.params;
         try {
             const watch = await prisma.watches.findUnique({
-                where: { id: parseInt(req.params.id) },
+                where: {
+                    course_id_author_user_id: {
+                        course_id: parseInt(course_id),
+                        author_user_id: parseInt(author_user_id),
+                    },
+                },
             });
 
             if (!watch) {
@@ -34,7 +40,12 @@ const watchesController = {
             }
 
             await prisma.watches.delete({
-                where: { id: parseInt(req.params.id) },
+                where: {
+                    course_id_author_user_id: {
+                        course_id: parseInt(course_id),
+                        author_user_id: parseInt(author_user_id),
+                    },
+                },
             });
 
             res.json({ message: 'Watch deleted' });

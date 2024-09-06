@@ -76,16 +76,28 @@ const commentsController = {
     },
     // Controller pour supprimer un message
     async deleteComment(req, res) {
-        const topicId = parseInt(req.params.topic_id);
-        const commentId = parseInt(req.params.com_id);
+        const { com_id } = req.params;
+
+        const comment = await prisma.comments.findUnique({
+            where: {
+                com_id: parseInt(com_id), // Rechercher uniquement par com_id
+            },
+        });
+
+        if (!comment) {
+            return res.status(404).json({ message: 'Comment not found' });
+        }
+
         try {
-            const comment = await prisma.comments.delete({
+            await prisma.comments.delete({
                 where: {
-                    // Utilisation de la clé composite
-                    com_id: commentId,
-                    topic_id: topicId,
+                    com_id: parseInt(com_id), // Supprimer uniquement par com_id
                 },
             });
+
+            if (!comment) {
+                return res.status(404).json({ message: 'Watch not found' });
+            }
 
             res.status(200).json(comment);
         } catch (error) {

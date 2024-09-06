@@ -1,4 +1,5 @@
 import { ChangeEvent, ReactElement, useState } from 'react';
+import { FaMagnifyingGlass } from 'react-icons/fa6';
 
 interface SearchbarProps<T> {
     data: T[];
@@ -10,7 +11,7 @@ interface SearchbarProps<T> {
 
 export default function Searchbar<T>({
     data,
-    placeholder = 'Search...',
+    placeholder = 'Recherchez un cours...',
     searchKeys,
     onSearch,
     onSelect,
@@ -43,14 +44,18 @@ export default function Searchbar<T>({
     };
 
     return (
-        <div className="mb-4">
+        <div className="mb-4 relative max-w-[480px] w-full">
             <input
                 type="text"
                 value={query}
                 onChange={handleInputChange}
                 placeholder={placeholder}
-                className="w-full p-2 border border-gray-300 rounded-md"
+                className="w-full border h-12 shadow p-4 rounded-lg border-teal-400"
             />
+            <button type="submit">
+                <FaMagnifyingGlass className="text-teal-400 h-5 w-5 absolute top-3.5 right-3 fill-current" />
+            </button>
+
             {onSelect && query.length >= 3 && (
                 <SuggestionList data={filterData(query)} searchKeys={searchKeys} onSelect={handleSelect} />
             )}
@@ -66,7 +71,7 @@ interface SuggestionListProps<T> {
 
 function SuggestionList<T>({ data, searchKeys, onSelect }: SuggestionListProps<T>): ReactElement {
     return (
-        <ul className="mt-2 border border-gray-300 rounded-md bg-white max-h-40 overflow-y-auto">
+        <ul className="mt-2 border border-gray-300 rounded-md bg-white max-h-40 overflow-y-auto absolute w-full z-10">
             {data.map((item, index) => {
                 const displayValue = item[searchKeys[0]];
                 return (

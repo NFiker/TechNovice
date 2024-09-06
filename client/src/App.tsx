@@ -1,4 +1,3 @@
-
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import CatalogCourses from './components/pages/CatalogCourses';
 import CatalogTopics from './components/pages/CatalogTopics';

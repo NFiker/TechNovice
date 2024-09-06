@@ -5,7 +5,7 @@ import { FaMagnifyingGlass } from 'react-icons/fa6';
 import type { CourseType } from '@/components/reusable-ui/CourseCard';
 import CourseCard from '@/components/reusable-ui/CourseCard';
 
-const HomePage: React.FC = () => {
+const Homepage: React.FC = () => {
     // Données factices pour 4 profs
     const mockTeacherData: CourseType[] = Array.from({ length: 4 }, (_, i) => ({
         id: `${i + 1}`,
@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
                             </h1>
                         </div>
                     </div>
-                    <div className="container bg-[url('./public/img/homepage_graphic.png')] bg-contain bg-no-repeat max-md:bg-[position:170%_0%] bg-[position:100%_0%]">
+                    <div className="container bg-[url('./public/img/Homepage_graphic.png')] bg-contain bg-no-repeat max-md:bg-[position:170%_0%] bg-[position:100%_0%]">
                         <p className="font-bold text-4xl w-3/4 m-4 drop-shadow-md">
                             Libérez votre potentiel et apprenez plus vite que jamais grâce
                             <span className="text-sky-500"> aux cours TechnO'vice</span>
@@ -109,4 +109,4 @@ const HomePage: React.FC = () => {
     );
 };
 
-export default HomePage;
+export default Homepage;

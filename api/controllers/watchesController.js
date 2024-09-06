@@ -25,7 +25,7 @@ const watchesController = {
     // Supprimer un watch
     deleteWatch: async (req, res) => {
         try {
-            const watch = await prisma.watch.findUnique({
+            const watch = await prisma.watches.findUnique({
                 where: { id: parseInt(req.params.id) },
             });
 
@@ -33,7 +33,7 @@ const watchesController = {
                 return res.status(404).json({ message: 'Watch not found' });
             }
 
-            await prisma.watch.delete({
+            await prisma.watches.delete({
                 where: { id: parseInt(req.params.id) },
             });
 

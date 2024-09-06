@@ -81,11 +81,9 @@ const commentsController = {
         try {
             const comment = await prisma.comments.delete({
                 where: {
-                    com_id_topic_id: {
-                        // Utilisation de la clé composite
-                        com_id: commentId,
-                        topic_id: topicId,
-                    },
+                    // Utilisation de la clé composite
+                    com_id: commentId,
+                    topic_id: topicId,
                 },
             });
 

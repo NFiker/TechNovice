@@ -24,6 +24,9 @@ const topicController = {
                 where: {
                     topic_id: id,
                 },
+                include: {
+                    comments: true,
+                },
             });
 
             if (!topic) {
@@ -74,6 +77,24 @@ const topicController = {
             res.status(200).json(topic);
         } catch (error) {
             res.status(500).json({ message: 'Erreur lors de la mise à jour du cours', error });
+        } finally {
+            prisma.$disconnect();
+        }
+    },
+    // Controller pour supprimer un sujet
+    async deleteTopic(req, res) {
+        const topicId = parseInt(req.params.topic_id);
+
+        try {
+            const topics = await prisma.topics.delete({
+                where: {
+                    topic_id: topicId,
+                },
+            });
+
+            res.status(200).json(topics);
+        } catch (error) {
+            res.status(500).json({ message: 'Erreur lors de suppresion du sujet', error });
         } finally {
             prisma.$disconnect();
         }

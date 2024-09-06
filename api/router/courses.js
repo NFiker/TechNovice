@@ -16,6 +16,6 @@ courseRouter.post('/courses', coursesController.createCourse);
 courseRouter.patch('/courses/:course_id(\\d+)', coursesController.updateCourse);
 
 // Supprimer un cours
-//courseRouter.delete('/courses/:course_id(\\d+)', coursesController.deleteCourse);
+courseRouter.delete('/courses/:course_id(\\d+)', coursesController.deleteCourse);
 
 export { courseRouter };

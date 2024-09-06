@@ -4,17 +4,17 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DB_URL")
+  url      = env("DATABASE_URL")
 }
 
 model comments {
   com_id         Int      @id @default(autoincrement())
   com_content    String
   com_date       DateTime @default(now()) @db.Timestamp(6)
-  author_user_id Int
+  author_user_id Int?
   topic_id       Int
-  users          users    @relation(fields: [author_user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
-  topics         topics   @relation(fields: [topic_id], references: [topic_id], onDelete: NoAction, onUpdate: NoAction)
+  users          users?    @relation(fields: [author_user_id], references: [user_id], onDelete: SetNull, onUpdate: NoAction)
+  topics         topics   @relation(fields: [topic_id], references: [topic_id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model courses {
@@ -25,8 +25,8 @@ model courses {
   course_content String
   creation_date  DateTime  @default(now()) @db.Timestamp(6)
   update_date    DateTime  @default(now()) @db.Timestamp(6)
-  author_user_id Int
-  users          users     @relation(fields: [author_user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  author_user_id Int?
+  users          users?     @relation(fields: [author_user_id], references: [user_id], onDelete: SetNull, onUpdate: NoAction)
   watches        watches[]
 }
 
@@ -36,9 +36,9 @@ model topics {
   topic_tag      String[]   @db.VarChar(20)
   topic_content  String
   topic_date     DateTime   @default(now()) @db.Timestamp(6)
-  author_user_id Int
+  author_user_id Int?
   comments       comments[]
-  users          users      @relation(fields: [author_user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  users          users?      @relation(fields: [author_user_id], references: [user_id], onDelete: SetNull, onUpdate: NoAction)
 }
 
 model users {
@@ -59,8 +59,8 @@ model watches {
   course_id      Int
   author_user_id Int
   start_date     DateTime @default(now()) @db.Timestamp(6)
-  users          users    @relation(fields: [author_user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
-  courses        courses  @relation(fields: [course_id], references: [course_id], onDelete: NoAction, onUpdate: NoAction)
+  users          users    @relation(fields: [author_user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction)
+  courses        courses  @relation(fields: [course_id], references: [course_id], onDelete: Cascade, onUpdate: NoAction)
 
   @@id([course_id, author_user_id])
 }

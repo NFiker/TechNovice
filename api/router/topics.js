@@ -18,20 +18,6 @@ topicRouter.post('/topics', topicController.createTopic);
 topicRouter.patch('/topics/:topic_id(\\d+)', topicController.updateTopic);
 
 // Supprimer un sujet
-//topicRouter.delete('/topics/:topic_id(\\d+)', topicController.deleteTopic);
-
-// MESSAGE SUR UN SUJET DANS LE FORUM
-
-// Accéder à un message
-//topicRouter.get('/topics/:topic_id(\\d+)/messages/:com_id(\\d+)', topicController.getOneMessage);
-
-// Créer un message
-//topicRouter.post('/topics/:topic_id(\\d+)/messages', topicController.createMessage);
-
-// Modifier un message
-//topicRouter.patch('/topics/:topic_id(\\d+)/messages/:com_id(\\d+)', topicController.updateMessage);
-
-// Supprimer un message
-//topicRouter.delete('/topics/:topic_id(\\d+)/messages/:com_id(\\d+)', topicController.deleteMessage);
+topicRouter.delete('/topics/:topic_id(\\d+)', topicController.deleteTopic);
 
 export { topicRouter };

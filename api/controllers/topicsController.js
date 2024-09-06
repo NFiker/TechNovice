@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import sanitizeHtml from 'sanitize-html';
 
 const prisma = new PrismaClient();
 
@@ -42,16 +43,21 @@ const topicController = {
     },
 
     async createTopic(req, res) {
-        const { topic_title, topic_tag, topic_content, author_user_id } = req.body;
+        let { topic_title, topic_tag, topic_content, author_user_id } = req.body;
+        
+        topic_title = sanitizeHtml(topic_title)
+        topic_tag = topic_tag.map(item=> sanitizeHtml(item))
+        topic_content = sanitizeHtml(topic_content)
+        
         try {
             const topic = await prisma.topics.create({
                 data: { topic_title, topic_tag, topic_content, author_user_id },
             });
-            console.log(topic);
+            
             res.status(201).json(topic);
         } catch (error) {
+            console.log(error)
             res.status(500).json({ message: 'Erreur lors de la création du sujet', error });
-            console.log(error);
         } finally {
             prisma.$disconnect();
         }

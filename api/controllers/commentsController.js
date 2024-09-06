@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import sanitizeHtml from 'sanitize-html';
 
 const prisma = new PrismaClient();
 
@@ -6,7 +7,7 @@ const commentsController = {
     // Controller pour créer un message
     async createComment(req, res) {
         const { topic_id } = req.params;
-        const { com_content, author_user_id } = req.body;
+        let { com_content, author_user_id } = req.body;
 
         // Vérifier si le contenu du message est renseigné correctement
         if (!com_content) {
@@ -14,7 +15,9 @@ const commentsController = {
         }
         if (!author_user_id) {
             return res.status(400).json({ error: 'Auteur du message obligatoire' });
-        }
+        } 
+        
+        com_content = sanitizeHtml(com_content)
         // verifier si utilisateur existe
         try {
             const user = await prisma.users.findUnique({

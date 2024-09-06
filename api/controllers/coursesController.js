@@ -1,6 +1,15 @@
 import { PrismaClient } from '@prisma/client';
+import Joi from 'joi';
 
 const prisma = new PrismaClient();
+
+const courseSchema = Joi.object({
+    course_title: Joi.string().min(3).max(255).required(),
+    course_desc: Joi.string().required(),
+    course_tags: Joi.array().items(Joi.string().max(20)),
+    course_content: Joi.string().required(),
+    author_user_id: Joi.number().required(),
+});
 
 const coursesController = {
     async getAllCourses(req, res) {
@@ -35,11 +44,14 @@ const coursesController = {
 
     // Pour l'instant l'id du user doit être rentré dans le body il n'est pas présent en paramètre
     async createCourse(req, res) {
-        const { course_title, course_desc, course_tags, course_content, author_user_id } = req.body;
 
         try {
+            const { error, value } = courseSchema.validate(req.body);
+            if (error) {
+                return res.status(400).json({ message: error.details[0].message });
+            }
             const course = await prisma.courses.create({
-                data: { course_title, course_desc, course_tags, course_content, author_user_id },
+                data: value
             });
 
             res.status(200).json(course);

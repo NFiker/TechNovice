@@ -10,6 +10,9 @@ watchesRouter.post(
 );
 
 // Supprimer un cours commencé (parce qu'on l'a fini en fait tavu)
-watchesRouter.delete('/watches/courses/:course_id(\\d+)/users/:user_id(\\d+)', watchesController.deleteWatch);
+watchesRouter.delete(
+    '/watches/courses/:course_id(\\d+)/users/:author_user_id(\\d+)',
+    watchesController.deleteWatch,
+);
 
 export { watchesRouter };

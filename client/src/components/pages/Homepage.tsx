@@ -18,6 +18,10 @@ const Homepage: React.FC = () => {
                             Libérez votre potentiel et apprenez plus vite que jamais grâce aux cours
                             <span className="text-sky-500"> TechnO'vice</span>
                         </p>
+                        <p className="w-3/4 m-4 drop-shadow-md">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil at neque
+                            voluptatum.
+                        </p>
                     </div>
                 </section>
 
@@ -34,6 +38,7 @@ const Homepage: React.FC = () => {
                 {/* Section des cours */}
                 <section className="md:col-span-3 md:row-span-6 flex flex-col">
                     <h2 className="text-3xl font-semibold">Nos cours du moment</h2>
+                    <p className="mb-8">Découvrez nos cours les plus populaires</p>
                     <CourseList courses={mockCourseData.slice(0, 6)} />
                     <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full">
                         Découvrez le catalogue
@@ -43,6 +48,7 @@ const Homepage: React.FC = () => {
                 {/* Section des enseignants */}
                 <section className="md:col-span-3 md:row-span-4 bg-indigo-600 text-white rounded-2xl flex flex-col">
                     <h2 className="text-3xl font-semibold">Nos enseignants</h2>
+                    <p className="mb-8">Discutez avec eux</p>
                     <TeacherList teachers={mockTeacherData.slice(0, 4)} />
                     <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full">
                         Découvrez le forum
@@ -52,6 +58,7 @@ const Homepage: React.FC = () => {
                 {/* Section des topics */}
                 <section className="md:col-span-3 md:row-span-4 bg-green-600 text-white rounded-2xl flex flex-col mt-6">
                     <h2 className="text-3xl font-semibold">Topics populaires</h2>
+                    <p className="mb-8">Participez aux discussions</p>
                     <TopicList topics={mockTopicData.slice(0, 4)} />
                     <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mt-6 rounded-full">
                         Voir tous les topics

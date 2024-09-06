@@ -1,14 +1,26 @@
 
-import HomePage from './components/pages/HomePage';
-import Footer from './components/reusable-ui/Footer';
-import Header from './components/reusable-ui/Header';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import CatalogCourses from './components/pages/CatalogCourses';
+import CatalogTopics from './components/pages/CatalogTopics';
+import Course from './components/pages/Course';
+import Homepage from './components/pages/Homepage';
+import Login from './components/pages/Login';
+import Topic from './components/pages/Topic';
+import { mockCourseData, mockTopicData } from './fakeData'; // Import des données factices
 
-export default function App() {
+function App() {
     return (
-        <>
-            <Header />
-            <HomePage />
-            <Footer />
-        </>
+        <Router>
+            <Routes>
+                <Route path="/" element={<Homepage />} />
+                <Route path="/catalog-courses" element={<CatalogCourses courses={mockCourseData} />} />
+                <Route path="/course/:id" element={<Course />} />
+                <Route path="/catalog-topics" element={<CatalogTopics topics={mockTopicData} />} />
+                <Route path="/topic/:id" element={<Topic />} />
+                <Route path="/login" element={<Login />} />
+            </Routes>
+        </Router>
     );
 }
+
+export default App;

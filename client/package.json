@@ -17,7 +17,8 @@
     "dependencies": {
         "@types/react-icons": "^3.0.0",
         "react": "^18",
-        "react-dom": "^18"
+        "react-dom": "^18",
+        "react-router-dom": "^6.26.1"
     },
     "type": "module",
     "proxy": "http://localhost:3000"

@@ -4,10 +4,9 @@ import { FaCheck, FaTimes } from 'react-icons/fa';
 import Button from '../reusable-ui/Button';
 import { CourseType } from '../reusable-ui/CourseCard';
 import Searchbar from '../reusable-ui/Searchbar';
-import CatalogCourse from './CatalogCourse';
+import CatalogCourses from './CatalogCourses'; // Assurez-vous d'utiliser le bon chemin
 
 export default function TesterComponents() {
-    // État pour les cours filtrés
     const [filteredCourses, setFilteredCourses] = useState<CourseType[]>(mockCourseData);
 
     const handleCourseSelect = (selectedCourse: CourseType) => {
@@ -20,7 +19,8 @@ export default function TesterComponents() {
 
     return (
         <div className="p-8 space-y-4">
-            {/* Composant Searchbar pour la recherche */}
+            <h1>Tester Components</h1>
+
             <Searchbar<CourseType>
                 data={mockCourseData}
                 placeholder="Rechercher un cours..."
@@ -28,8 +28,9 @@ export default function TesterComponents() {
                 onSearch={handleSearchResults}
                 onSelect={handleCourseSelect}
             />
-            {/* Composant CatalogCourse pour afficher les cours */}
-            <CatalogCourse courses={filteredCourses} />
+
+            {/* Affichage des cours filtrés */}
+            <CatalogCourses courses={filteredCourses} />
 
             <Button label="Primary Button" version="primary" onClick={() => alert('Primary clicked!')} />
             <Button

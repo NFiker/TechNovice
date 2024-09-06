@@ -1,25 +1,18 @@
-// src/components/reusable-ui/CourseCard.tsx
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import { mockCourseData } from '../../fakeData'; // Import des données factices
 
-// Typage d'un cours
-export interface CourseType {
-    id: string;
-    category: string;
-    teacher: string;
-    title: string;
-    description: string;
-    duration: string;
-    imageUrl: string;
-}
+const Course: React.FC = () => {
+    const { id } = useParams<{ id: string }>();
+    const course = mockCourseData.find(course => course.id === id);
 
-// Typage des props d'un cours
-interface CourseCardProps {
-    course: CourseType;
-}
+    if (!course) {
+        return <div>Cours non trouvé</div>;
+    }
 
-const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
     return (
-        <div className="bg-white border-2 border-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+        <div className="bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div>COURSE</div>
             <div className="relative">
                 <img
                     className="rounded-t-lg object-cover h-40 w-full"
@@ -45,4 +38,4 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
     );
 };
 
-export default CourseCard;
+export default Course;

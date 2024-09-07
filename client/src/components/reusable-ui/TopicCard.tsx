@@ -29,7 +29,7 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic }) => {
                 <p className="text-sm text-gray-600 mb-4">{topic.category}</p>
                 <p className="text-sm text-gray-600 mb-4">{topic.description}</p>
                 <p className="text-sm text-gray-600 mb-4">{topic.duration}</p>
-                <button className="bg-blue-600 text-white text-xs font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                <button className="bg-sky-600 text-white text-xs font-bold py-2 px-4 rounded-lg hover:bg-sky-700 transition-colors">
                     En savoir plus
                 </button>
             </div>

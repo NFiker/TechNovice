@@ -27,7 +27,7 @@ const TeacherCard: React.FC<TeacherCardProps> = ({ teacher }) => {
                 <h5 className="text-lg font-bold text-gray-800 mb-2">{teacher.name}</h5>
                 <p className="text-sm text-gray-600 mb-4">{teacher.subject}</p>
                 <p className="text-sm text-gray-600 mb-4">{teacher.bio}</p>
-                <button className="bg-blue-600 text-white text-xs font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                <button className="bg-teal-600 text-white text-xs font-bold py-2 px-4 rounded-lg hover:bg-teal-700 transition-colors">
                     Voir le profil
                 </button>
             </div>

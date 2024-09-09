@@ -1,6 +1,7 @@
 // src/components/reusable-ui/TopicCard.tsx
 import React from 'react';
 
+// Typage d'un sujet
 export interface TopicType {
     id: string;
     title: string;
@@ -10,6 +11,7 @@ export interface TopicType {
     imageUrl: string;
 }
 
+// Typage des props d'un sujet
 interface TopicCardProps {
     topic: TopicType;
 }

@@ -1,75 +1,69 @@
+import React from 'react';
+
 import CourseList from '@/components/pages/CourseList';
 import TeacherList from '@/components/pages/TeacherList';
-import TopicList from '@/components/pages/TopicList';
-import Searchbar from '@/components/reusable-ui/Searchbar';
-import { mockCourseData, mockTeacherData, mockTopicData } from '@/fakeData';
-import React from 'react';
+import { mockCourseData, mockTeacherData } from '@/fakeData';
 import Footer from '../reusable-ui/Footer';
 import Header from '../reusable-ui/Header';
 
-const Homepage: React.FC = () => {
+const HomepageLudo: React.FC = () => {
     return (
         <>
-            {/* Header */}
             <Header />
-
             <main>
-                <div className="container md:grid md:grid-cols-6 md:grid-rows-6 md:gap-2">
+                <div
+                    className="herosection h-[calc(100vh-64px)] grid md:grid-cols-2 md:grid-rows-2 gap-4"
+                    style={{ position: 'relative' }}>
                     {/* Section promotionnelle */}
-                    <section className="md:col-span-3 md:row-span-2">
-                        <div
-                            className="bg-cover bg-no-repeat"
-                            style={{ backgroundImage: "url('/img/Homepage_graphic.png')" }}>
-                            <p className="font-bold text-4xl w-3/4 m-4 drop-shadow-md">
-                                Libérez votre potentiel et apprenez plus vite que jamais grâce aux cours
-                                <span className="text-sky-500"> TechnO'vice</span>
-                            </p>
-                        </div>
-                    </section>
-
-                    {/* Barre de recherche */}
-                    <section className="md:hidden flex justify-center">
-                        <Searchbar
-                            data={mockCourseData}
-                            placeholder="Recherchez un cours..."
-                            searchKeys={['title', 'teacher']}
-                            onSearch={results => console.log(results)}
+                    <div className="promo-section bg-[url('./public/img/Homepage_graphic.png')] bg-cover p-8">
+                        <h1 className="text-5xl font-bold text-sky-500 mb-4">Ne restez plus un novice!</h1>
+                        <p className="text-lg mb-2">
+                            Libérez votre potentiel et apprenez plus vite que jamais grâce
+                            <span className="text-sky-500"> aux cours TechnO'vice</span>
+                        </p>
+                        <p className="text-lg">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil at neque voluptatum
+                            dolore non quod, quas, quidem, quos quae quibusdam. Quisquam, quod.
+                        </p>
+                        <img
+                            src="/img/homepage_graphic.png"
+                            alt="Graphique avec des formes géométriques"
+                            className="object-contain max-h-48 md:max-h-64"
                         />
-                    </section>
+                    </div>
 
                     {/* Section des cours */}
-                    <section className="md:col-span-3 md:row-span-6 flex flex-col">
-                        <h2 className="text-3xl font-semibold">Nos cours du moment</h2>
-                        <CourseList courses={mockCourseData.slice(0, 6)} />
-                        <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full">
+                    <div className="course-section flex flex-col justify-between p-8">
+                        <h2 className="text-3xl font-semibold mb-4">Nos cours du moment</h2>
+                        <p className="mb-8">Découvrez nos cours les plus populaires</p>
+                        <CourseList courses={mockCourseData.slice(0, 4)} />
+                        <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
                             Découvrez le catalogue
                         </button>
-                    </section>
+                    </div>
 
                     {/* Section des enseignants */}
-                    <section className="md:col-span-3 md:row-span-4 bg-indigo-600 text-white rounded-2xl flex flex-col">
-                        <h2 className="text-3xl font-semibold">Nos enseignants</h2>
+                    <div className="teacher-section bg-indigo-600 text-white p-8 rounded-lg">
+                        <h2 className="text-3xl font-semibold mb-4">Nos enseignants</h2>
+                        <p className="mb-8">Discutez avec eux</p>
                         <TeacherList teachers={mockTeacherData.slice(0, 4)} />
-                        <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full">
+                        <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
                             Découvrez le forum
                         </button>
-                    </section>
+                    </div>
+                </div>
 
-                    {/* Section des topics */}
-                    <section className="md:col-span-3 md:row-span-4 bg-green-600 text-white rounded-2xl flex flex-col mt-6">
-                        <h2 className="text-3xl font-semibold">Topics populaires</h2>
-                        <TopicList topics={mockTopicData.slice(0, 4)} />
-                        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mt-6 rounded-full">
-                            Voir tous les topics
-                        </button>
-                    </section>
+                {/* Section Topics (après la herosection) */}
+                <div className="topics-section p-8">
+                    <h2 className="text-3xl font-semibold mb-4">Découvrez nos topics</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {/* Affichage des topics ici */}
+                    </div>
                 </div>
             </main>
-
-            {/* Footer */}
             <Footer />
         </>
     );
 };
 
-export default Homepage;
+export default HomepageLudo;

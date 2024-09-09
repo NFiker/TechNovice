@@ -2,7 +2,7 @@
     "name": "projet-techno-vice",
     "version": "0.1.0",
     "description": "TechnO'vice project, courses web platform",
-    "author": "Ludovic / Manon / Nicolas / Nasredine / Michael",
+    "author": "Ludovic Hartmann / Manon Leonard / Nicolas Bagat / Nasredine Kherfi / Michael Parisi",
     "license": "ISC",
     "main": "index.js",
     "engines": {
@@ -12,7 +12,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "frontend": "cd client && npm start",
         "api": "cd api && npm start",
-        "heroku-postbuild": "cd client && npm install && npm start"
+        "heroku-postbuild": "cd client && npm install && npm run build && cd ../api && npm install && npx prisma generate",
+        "dev": "cd client && npm run build && cd ../api && npm run dev"
     },
     "keywords": [
         "course"

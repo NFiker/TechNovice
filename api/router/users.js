@@ -4,18 +4,18 @@ import { userController } from '../controllers/usersController.js';
 const userRouter = Router();
 
 // Récupérer les informations de tous profils
-userRouter.get('/users', userController.getAllUsers);
+userRouter.get('/api/users', userController.getAllUsers);
 
 // Récupérer les informations d'un seul profil
-userRouter.get('/users/:user_id(\\d+)', userController.getOneUserById);
+userRouter.get('/api/users/:user_id(\\d+)', userController.getOneUserById);
 
 // Créer un profil (inscription)
-userRouter.post('/users', userController.createUser);
+userRouter.post('/api/users', userController.createUser);
 
 // Modifier les informations du profil
-userRouter.patch('/users/:user_id(\\d+)', userController.updateUser);
+userRouter.patch('/api/users/:user_id(\\d+)', userController.updateUser);
 
 // Supprimer un profil
-userRouter.delete('/users/:user_id(\\d+)', userController.deleteUser);
+userRouter.delete('/api/users/:user_id(\\d+)', userController.deleteUser);
 
 export { userRouter };

@@ -3,7 +3,7 @@ import CatalogCourses from './components/pages/CatalogCourses';
 import CatalogTopics from './components/pages/CatalogTopics';
 import Course from './components/pages/Course';
 import Homepage from './components/pages/Homepage';
-import Login from './components/pages/Login';
+import Login from './components/reusable-ui/Login';
 import Topic from './components/pages/Topic';
 import { mockCourseData, mockTopicData } from './fakeData'; // Import des données factices
 

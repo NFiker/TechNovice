@@ -34,6 +34,12 @@ const Header: React.FC = () => {
                         <a className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
                             Catalogue
                         </a>
+                        <a className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
+                            Connexion
+                        </a>
+                        <a className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
+                            Inscription
+                        </a>
                     </div>
                 </div>
                 <form
@@ -57,12 +63,12 @@ const Header: React.FC = () => {
                 <nav className="font-semibold">
                     <ul className="flex justify-around items-center">
                         <li>
-                            <a className="text-indigo-600 hover:text-indigo-800" href="">
+                            <a className="text-indigo-600 hover:text-indigo-800 max-md:hidden" href="">
                                 Se connecter
                             </a>
                         </li>
                         <li>
-                            <a className="text-indigo-600 hover:text-indigo-800" href="">
+                            <a className="text-indigo-600 hover:text-indigo-800 max-md:hidden" href="">
                                 S'inscrire
                             </a>
                         </li>

@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
@@ -42,13 +43,22 @@ const userController = {
     async createUser(req, res) {
         const { nickname, mail, password, first_name, last_name, role_name } = req.body;
         try {
+            const hashedPassword = await bcrypt.hash(password, 10);
+
             const user = await prisma.users.create({
-                data: { nickname, mail, password, first_name, last_name, role_name },
+                data: {
+                    nickname,
+                    mail,
+                    password: hashedPassword,
+                    first_name,
+                    last_name,
+                    role_name,
+                },
             });
 
             res.status(201).json(user);
         } catch (error) {
-            res.status(500).json({ message: 'Erreur lors de la récupération du profil', error });
+            res.status(500).json({ message: "Erreur lors de la création de l'utilisateur", error });
         } finally {
             prisma.$disconnect();
         }

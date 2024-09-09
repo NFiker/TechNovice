@@ -14,6 +14,7 @@ En quelques exemples : Les bases du logiciel Word, comment faire un achat sur Am
 
 -   [x] React
 -   [x] React-dom
+-   [x] React-icons
 -   [x] Vite
 -   [x] Vitest
 -   [x] Typescript
@@ -21,7 +22,7 @@ En quelques exemples : Les bases du logiciel Word, comment faire un achat sur Am
 ### Back
 
 -   [x] Nodejs
--   [ ] Prisma
+-   [x] Prisma
 -   [x] Express
 -   [x] dotenv
 -   [x] PG

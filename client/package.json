@@ -1,7 +1,10 @@
 {
     "scripts": {
         "dev": "vite",
-        "test": "vitest"
+        "test": "vitest",
+        "build": "vite build",
+        "preview": "vite preview",
+        "start": "vite preview"
     },
     "devDependencies": {
         "@types/react": "^18.3.5",
@@ -14,8 +17,11 @@
         "vitest": "^2.0.5"
     },
     "dependencies": {
+        "@types/react-icons": "^3.0.0",
         "react": "^18",
-        "react-dom": "^18"
+        "react-dom": "^18",
+        "react-router-dom": "^6.26.1"
     },
-    "type": "module"
+    "type": "module",
+    "proxy": "http://localhost:3000"
 }

@@ -13,7 +13,7 @@
         "frontend": "cd client && npm start",
         "api": "cd api && npm start",
         "heroku-postbuild": "cd client && npm install && npm start && cd ../api && npm install && npx prisma generate",
-        "dev": "cd client && npm start && cd ../api && npm run dev"
+        "dev": "cd client && npm run build && cd ../api && npm run dev"
     },
     "keywords": [
         "course"

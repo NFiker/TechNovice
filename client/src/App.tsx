@@ -3,8 +3,9 @@ import CatalogCourses from './components/pages/CatalogCourses';
 import CatalogTopics from './components/pages/CatalogTopics';
 import Course from './components/pages/Course';
 import Homepage from './components/pages/Homepage';
-import Login from './components/reusable-ui/Login';
 import Topic from './components/pages/Topic';
+import Login from './components/reusable-ui/Login';
+import Signup from './components/reusable-ui/Signup';
 import { mockCourseData, mockTopicData } from './fakeData'; // Import des données factices
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/catalog-topics" element={<CatalogTopics topics={mockTopicData} />} />
                 <Route path="/topic/:id" element={<Topic />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
             </Routes>
         </Router>
     );

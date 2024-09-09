@@ -6,18 +6,18 @@ const topicRouter = Router();
 // SUJET DANS LES FORUM
 
 // Récupérer les informations de tous les sujets
-topicRouter.get('/topics', topicController.getAllTopics);
+topicRouter.get('/api/topics', topicController.getAllTopics);
 
 // Récupérer les informations d'un seul sujet via son id
-topicRouter.get('/topics/:topic_id(\\d+)', topicController.getOneTopicById);
+topicRouter.get('/api/topics/:topic_id(\\d+)', topicController.getOneTopicById);
 
 // Créer un sujet
-topicRouter.post('/topics', topicController.createTopic);
+topicRouter.post('/api/topics', topicController.createTopic);
 
 // Mettre à jour un sujet
-topicRouter.patch('/topics/:topic_id(\\d+)', topicController.updateTopic);
+topicRouter.patch('/api/topics/:topic_id(\\d+)', topicController.updateTopic);
 
 // Supprimer un sujet
-topicRouter.delete('/topics/:topic_id(\\d+)', topicController.deleteTopic);
+topicRouter.delete('/api/topics/:topic_id(\\d+)', topicController.deleteTopic);
 
 export { topicRouter };

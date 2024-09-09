@@ -2,98 +2,110 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const coursesController = {
-    async getAllCourses(req, res) {
-        try {
-            const courses = await prisma.courses.findMany();
-            res.status(200).json(courses);
-        } catch (error) {
-            res.status(500).json({ message: 'Erreur lors de la récupération des cours', error });
-        } finally {
-            prisma.$disconnect();
-        }
-    },
+const commentsController = {
+    // Controller pour créer un message
+    async createComment(req, res) {
+        const { topic_id } = req.params;
+        const { com_content, author_user_id } = req.body;
 
-    async getOneCourseById(req, res) {
-        const id = parseInt(req.params.course_id);
+        // Vérifier si le contenu du message est renseigné correctement
+        if (!com_content) {
+            return res.status(400).json({ error: 'Contenu du message obligatoire' });
+        }
+        if (!author_user_id) {
+            return res.status(400).json({ error: 'Auteur du message obligatoire' });
+        }
+        // verifier si utilisateur existe
         try {
-            const course = await prisma.courses.findUnique({
-                where: {
-                    course_id: id,
+            const user = await prisma.users.findUnique({
+                where: { user_id: parseInt(author_user_id) },
+            });
+
+            if (!user) {
+                return res.status(404).json({ error: 'Utilisateur non trouvé.' });
+            }
+
+            // Vérifier si le sujet existe
+            const topic = await prisma.topics.findUnique({
+                where: { topic_id: parseInt(topic_id, 10) },
+            });
+
+            if (!topic) {
+                return res.status(404).json({ error: 'Sujet non trouvé.' });
+            }
+
+            const comment = await prisma.comments.create({
+                data: {
+                    com_content,
+                    topic_id: parseInt(topic_id),
+                    author_user_id: parseInt(author_user_id),
                 },
             });
-            if (!course) {
-                return res.status(404).json({ message: 'Cours non trouvé' });
-            }
-            res.status(200).json(course);
+            res.status(200).json(comment);
         } catch (error) {
-            res.status(500).json({ message: 'Erreur lors de la récupération du cours', error });
+            res.status(500).json({ message: 'Erreur lors de la création du message', error });
         } finally {
             prisma.$disconnect();
         }
     },
+    // Controller pour modifier un message
+    async updateComment(req, res) {
+        const topicId = parseInt(req.params.topic_id);
+        const commentId = parseInt(req.params.com_id);
 
-    // Pour l'instant l'id du user doit être rentré dans le body il n'est pas présent en paramètre
-    async createCourse(req, res) {
-        const { course_title, course_desc, course_tags, course_content, author_user_id } = req.body;
-
-        try {
-            const course = await prisma.courses.create({
-                data: { course_title, course_desc, course_tags, course_content, author_user_id },
-            });
-
-            res.status(200).json(course);
-        } catch (error) {
-            res.status(500).json({ message: 'Erreur lors de la création du cours', error });
-        } finally {
-            prisma.$disconnect();
-        }
-    },
-
-    async updateCourse(req, res) {
-        const id = parseInt(req.params.course_id);
-        const { course_title, course_desc, course_tags, course_content } = req.body;
+        const { com_content } = req.body;
 
         try {
-            const course = await prisma.courses.update({
+            const comment = await prisma.comments.update({
                 where: {
-                    course_id: id,
+                    topic_id: topicId,
+                    com_id: commentId,
                 },
 
                 data: {
-                    course_title,
-                    course_desc,
-                    course_tags,
-                    course_content,
+                    com_content,
                 },
             });
 
-            res.status(200).json(course);
+            res.status(200).json(comment);
         } catch (error) {
-            res.status(500).json({ message: 'Erreur lors de la mise à jour du cours', error });
+            res.status(500).json({ message: 'Erreur lors de la mise à jour du message', error });
         } finally {
             prisma.$disconnect();
         }
     },
+    // Controller pour supprimer un message
+    async deleteComment(req, res) {
+        const { com_id } = req.params;
 
-    // Controller pour supprimer un cours
-    async deleteCourse(req, res) {
-        const courseId = parseInt(req.params.course_id);
+        const comment = await prisma.comments.findUnique({
+            where: {
+                com_id: parseInt(com_id), // Rechercher uniquement par com_id
+            },
+        });
+
+        if (!comment) {
+            return res.status(404).json({ message: 'Comment not found' });
+        }
 
         try {
-            const course = await prisma.courses.delete({
+            await prisma.comments.delete({
                 where: {
-                    course_id: courseId,
+                    com_id: parseInt(com_id), // Supprimer uniquement par com_id
                 },
             });
 
-            res.status(200).json(course);
+            if (!comment) {
+                return res.status(404).json({ message: 'Watch not found' });
+            }
+
+            res.status(200).json(comment);
         } catch (error) {
-            res.status(500).json({ message: 'Erreur lors de suppresion du cours', error });
+            res.status(500).json({ message: 'Erreur lors de suppresion du message', error });
         } finally {
             prisma.$disconnect();
         }
     },
 };
 
-export { coursesController };
+export default commentsController ;

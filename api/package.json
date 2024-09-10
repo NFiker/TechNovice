@@ -11,15 +11,14 @@
     "scripts": {
         "start": "npx prisma db push && npx prisma generate && node app.js",
         "dev": "nodemon app.js",
-        "db:create": "psql -U technovice -d technovice -f /api/data/create_tables.sql;",
-        "db:fill": "psql -U technovice -d technovice -f /api/data/seeding_tables.sql;",
-        "db:reset": "psql -U technovice -d technovice -f /api/data/create_tables.sql && psql -U technovice -d technovice -f /api/data/seeding_tables.sql"
     },
     "dependencies": {
         "@prisma/client": "^5.19.1",
+        "bcrypt": "^5.1.1",
         "cors": "^2.8.5",
         "http-errors": "^2.0.0",
         "joi": "^17.13.3",
+        "jsonwebtoken": "^9.0.2",
         "nodemon": "^3.1.4",
         "sanitize-html": "^2.13.0"
     }

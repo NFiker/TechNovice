@@ -49,7 +49,7 @@ export default function Searchbar<T>({
                 value={query}
                 onChange={handleInputChange}
                 placeholder={placeholder}
-                className="w-30 p-2 border border-gray-300 rounded-md"
+                className="w-full p-2 border border-gray-300 rounded-md"
             />
             {onSelect && query.length >= 3 && (
                 <SuggestionList data={filterData(query)} searchKeys={searchKeys} onSelect={handleSelect} />
@@ -66,7 +66,7 @@ interface SuggestionListProps<T> {
 
 function SuggestionList<T>({ data, searchKeys, onSelect }: SuggestionListProps<T>): ReactElement {
     return (
-        <ul className="mt-2 border border-gray-300 rounded-md bg-white">
+        <ul className="mt-2 border border-gray-300 rounded-md bg-white max-h-40 overflow-y-auto">
             {data.map((item, index) => {
                 const displayValue = item[searchKeys[0]];
                 return (

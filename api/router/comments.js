@@ -8,12 +8,12 @@ const commentRouter = Router();
 // MESSAGE SUR UN SUJET DANS LE FORUM
 
 // Créer un message
-commentRouter.post('/topics/:topic_id(\\d+)/message',Validator('comments'), commentsController.createComment);
+commentRouter.post('/api/topics/:topic_id(\\d+)/message',Validator('comments'), commentsController.createComment);
 
 // Modifier un message
-commentRouter.patch('/topics/:topic_id(\\d+)/message/:com_id(\\d+)', commentsController.updateComment);
+commentRouter.patch('/api/topics/:topic_id(\\d+)/message/:com_id(\\d+)', commentsController.updateComment);
 
 // Supprimer un message
-commentRouter.delete('/topics/:topic_id(\\d+)/message/:com_id(\\d+)', commentsController.deleteComment);
+commentRouter.delete('/api/topics/message/:com_id(\\d+)', commentsController.deleteComment);
 
 export { commentRouter };

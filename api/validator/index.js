@@ -3,6 +3,7 @@ import courses from './courses.validator.js'
 import topics from './topics.validator.js'
 import users from './users.validator.js'
 import watches from './watches.validator.js'
+import login from './login.validator.js'
 
-export default { comments, courses, topics, users, watches }
+export default { comments, courses, topics, users, watches, login }
 

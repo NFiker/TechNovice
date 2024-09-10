@@ -10,7 +10,7 @@
     "type": "module",
     "scripts": {
         "start": "npx prisma db push && npx prisma generate && node app.js",
-        "dev": "nodemon app.js",
+        "dev": "nodemon app.js"
     },
     "dependencies": {
         "@prisma/client": "^5.19.1",

@@ -1,4 +1,5 @@
 //* middlewares/Validator.js
+
 import createHttpError from 'http-errors';
 
 //* Include joi to check error type

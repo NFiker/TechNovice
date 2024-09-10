@@ -1,7 +1,7 @@
 import { Router } from 'express';
+import { authRouter } from './auth.js';
 import { commentRouter } from './comments.js';
 import { courseRouter } from './courses.js';
-import { loginRouter } from './login.js';
 import { topicRouter } from './topics.js';
 import { userRouter } from './users.js';
 import { watchesRouter } from './watches.js';
@@ -13,6 +13,6 @@ router.use(topicRouter);
 router.use(userRouter);
 router.use(commentRouter);
 router.use(watchesRouter);
-router.use(loginRouter);
+router.use(authRouter);
 
 export { router };

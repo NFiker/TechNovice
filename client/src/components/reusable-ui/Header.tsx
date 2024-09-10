@@ -34,18 +34,18 @@ const Header: React.FC = () => {
             }`}>
             <div className="flex border-b">
                 <div className="max-md:hidden container w-1/4">
-                    <a href="./index.html">
+                    <Link to="/">
                         <img src="img/logo.png" alt="Logo de TechnO'vice" />
-                    </a>
+                    </Link>
                     <h1 className="text-center text-lg text-sky-500 font-semibold">
                         Ne restez plus un novice!
                     </h1>
                 </div>
 
                 <div className="md:hidden container w-1/4">
-                    <a href="./index.html">
+                    <Link to="/">
                         <img src="img/logo-small.png" alt="Logo de TechnO'vice" className="max-h-16" />
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="container w-1/2 flex max-md:w-1/4">

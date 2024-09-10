@@ -62,7 +62,7 @@ export default function Searchbar<ItemType>({
     };
 
     return (
-        <div className="relative">
+        <div className="relative w-full">
             <input
                 type="text"
                 value={query}

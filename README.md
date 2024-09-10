@@ -26,8 +26,8 @@ En quelques exemples : Les bases du logiciel Word, comment faire un achat sur Am
 -   [x] Express
 -   [x] dotenv
 -   [x] PG
--   [X ] cors
--   [X ] joi
+-   [x] cors
+-   [x] joi
 
 ### Autres
 

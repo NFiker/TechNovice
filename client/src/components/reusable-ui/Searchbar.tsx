@@ -1,4 +1,5 @@
-import { ChangeEvent, ReactElement, useState } from 'react';
+import type { ChangeEvent, ReactElement } from 'react';
+import { useState } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 
 interface SearchbarProps<ItemType> {
@@ -61,7 +62,7 @@ export default function Searchbar<ItemType>({
     };
 
     return (
-        <div className="mb-4 relative max-w-[480px] w-full place-content-center">
+        <div className="relative">
             <input
                 type="text"
                 value={query}

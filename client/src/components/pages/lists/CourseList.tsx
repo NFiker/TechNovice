@@ -1,5 +1,6 @@
 import React from 'react';
-import CourseCard, { CourseType } from '../../reusable-ui/cards/CourseCard';
+import type { CourseType } from '../../reusable-ui/cards/CourseCard';
+import CourseCard from '../../reusable-ui/cards/CourseCard';
 
 interface CourseListProps {
     courses: CourseType[];

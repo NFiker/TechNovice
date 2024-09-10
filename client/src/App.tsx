@@ -2,7 +2,7 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 import Homepage from './components/pages/Homepage';
-import Login from './components/pages/Login';
+import Login from './components/reusable-ui/Login';
 
 import CourseDetail from './components/pages/details/CourseDetail';
 import TeacherDetail from './components/pages/details/TeacherDetail';
@@ -19,7 +19,6 @@ function App() {
             <Routes>
                 {/* Homepages versions */}
                 <Route path="/" element={<Homepage />} />
-
                 {/* Catalogues */}
                 <Route path="/catalogue-des-cours" element={<CourseList courses={mockCourseData} />} />
                 <Route path="/catalogue-des-sujets" element={<TopicList topics={mockTopicData} />} />
@@ -28,7 +27,7 @@ function App() {
                     element={<TeacherList teachers={mockTeacherData} />}
                 />
                 {/* Connexion */}
-                <Route path="/se-connecter" element={<Login />} />
+                <Route path="/login" element={<Login />} />
                 {/* Pages de détail */}
                 <Route path="/sujet/:id" element={<TopicDetail />} /> {/* Route pour TopicDetail */}
                 <Route path="/cours/:id" element={<CourseDetail />} /> {/* Route pour CourseDetail */}

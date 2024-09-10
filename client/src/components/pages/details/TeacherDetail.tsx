@@ -2,7 +2,7 @@ import { mockTeacherData } from '@/fakeData'; // Importation des données factic
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-const teacherDetail: React.FC = () => {
+const TeacherDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>(); // Récupération de l'ID de l'enseignant à partir de l'URL
     const teacher = mockTeacherData.find(teacher => teacher.id === id); // Recherche de l'enseignant par ID
 
@@ -21,4 +21,4 @@ const teacherDetail: React.FC = () => {
     );
 };
 
-export default teacherDetail;
+export default TeacherDetail;

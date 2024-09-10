@@ -1,5 +1,6 @@
 // src/components/pages/TopicList.tsx
-import TopicCard, { TopicType } from '@/components/reusable-ui/cards/TopicCard';
+import type { TopicType } from '@/components/reusable-ui/cards/TopicCard';
+import TopicCard from '@/components/reusable-ui/cards/TopicCard';
 import { mockTopicData } from '@/fakeData';
 import React from 'react';
 

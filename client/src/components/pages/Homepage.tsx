@@ -1,88 +1,126 @@
 import React from 'react';
 
-import CourseList from '@/components/pages/lists/CourseList';
-import TeacherList from '@/components/pages/lists/TeacherList';
-import { mockCourseData, mockTeacherData, mockTopicData } from '@/fakeData';
-import Footer from '../reusable-ui/Footer';
-import Header from '../reusable-ui/Header';
-import Searchbar from '../reusable-ui/Searchbar';
-import TopicList from './lists/TopicList';
+import { FaMagnifyingGlass } from 'react-icons/fa6';
+
+import type { CourseType } from '@/components/reusable-ui/cards/CourseCard';
+import CourseCard from '@/components/reusable-ui/cards/CourseCard';
+import Carousel from '@/components/reusable-ui/Carousel';
+import Footer from '@/components/reusable-ui/Footer';
+import Header from '@/components/reusable-ui/Header';
 
 const Homepage: React.FC = () => {
-    const handleSearch = (results: any[]) => {
-        // Logique pour gérer les résultats de recherche
-        console.log('Results:', results);
-    };
+    // Données factices pour 4 profs
+    const mockTeacherData: CourseType[] = Array.from({ length: 4 }, (_, i) => ({
+        id: `${i + 1}`,
+        category: 'Développement Web',
+        teacher: `Enseignant ${i + 1}`,
+        title: `Cours ${i + 1}: Introduction à React`,
+        description:
+            'Apprenez les bases de React, la bibliothèque JavaScript pour construire des interfaces utilisateur.',
+        duration: `${Math.floor(Math.random() * 10) + 1}h ${Math.floor(Math.random() * 59) + 1}m`,
+        imageUrl: 'https://via.placeholder.com/150',
+    }));
 
-    const handleSelect = (selectedItem: any) => {
-        // Logique pour gérer la sélection d'un élément
-        console.log('Selected item:', selectedItem);
-    };
+    // Données factices pour 6 cours
+    const mockCourseData: CourseType[] = Array.from({ length: 6 }, (_, i) => ({
+        id: `${i + 1}`,
+        category: 'Développement Web',
+        teacher: `Enseignant ${i + 1}`,
+        title: `Cours ${i + 1}: Introduction à React`,
+        description:
+            'Apprenez les bases de React, la bibliothèque JavaScript pour construire des interfaces utilisateur.',
+        duration: `${Math.floor(Math.random() * 10) + 1}h ${Math.floor(Math.random() * 59) + 1}m`,
+        imageUrl: 'https://via.placeholder.com/150',
+    }));
+
+    const cards = mockCourseData.map(course => <CourseCard key={course.id} course={course} />);
 
     return (
         <>
             <Header />
-            <main className="relative">
-                <div
-                    className="herosection h-full grid md:grid-cols-2 md:grid-rows-2 gap-4"
-                    style={{ position: 'relative' }}>
-                    {/* Section promotionnelle */}
-                    <div className="promo-section bg-[url('./public/img/Homepage_graphic.png')] bg-cover p-8 flex flex-col justify-center">
-                        <h1 className="text-5xl font-bold text-sky-500 mb-4">Ne restez plus un novice!</h1>
-                        <p className="text-lg mb-2">
-                            Libérez votre potentiel et apprenez plus vite que jamais grâce
-                            <span className="text-sky-500"> aux cours TechnO'vice</span>
-                        </p>
-                        <p className="text-lg">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil at neque voluptatum
-                            dolore non quod, quas, quidem, quos quae quibusdam. Quisquam, quod.
-                        </p>
-                        <img
-                            src="/img/homepage_graphic.png"
-                            alt="Graphique avec des formes géométriques"
-                            className="object-contain max-h-48 md:max-h-64 ml-auto"
-                            style={{ maxWidth: '100%', height: 'auto' }}
-                        />
+            <main>
+                <div className="container md:grid md:grid-cols-6 md:grid-rows-6 md:gap-2">
+                    <div className="container md:col-span-3 md:row-span-2">
+                        <div className="md:container">
+                            <div className="md:hidden container">
+                                <a href="./index.html">
+                                    <img src="img/logo.png" alt="Logo de TechnO'vice" />
+                                </a>
+                                <h1 className="text-center text-3xl text-sky-500 font-semibold">
+                                    Ne restez plus un novice!
+                                </h1>
+                            </div>
+                        </div>
+                        <div className="md:container md:bg-[url('img/homepage_graphic.png')] max-md:bg-[url('img/homepage_graphic_semi.png')] bg-contain bg-no-repeat max-md:bg-[position:170%_0%] bg-[position:100%_0%]">
+                            <p className="font-bold text-4xl md:w-3/4 m-4 drop-shadow-md">
+                                Libérez votre potentiel et apprenez plus vite que jamais grâce
+                                <span className="text-sky-500"> aux cours TechnO'vice</span>
+                            </p>
+                            <p className="w-3/4 m-4 drop-shadow-md">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil at neque
+                                voluptatum
+                            </p>
+                            <p className="w-3/4 m-4 drop-shadow-md">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil at neque
+                                voluptatum dolore non quod, quas, quidem, quos quae quibusdam. Quisquam, quod.
+                            </p>
+                        </div>
                     </div>
 
-                    {/* Section des cours */}
-                    <div className="course-section flex flex-col justify-between p-8">
-                        <h2 className="text-3xl font-semibold mb-4">Nos cours du moment</h2>
+                    <div className="md:container md:hidden flex place-content-center">
+                        <form action="/search" className="md:hidden max-w-[480px] w-full">
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    name=""
+                                    className="w-full border h-12 shadow p-4 rounded-lg border-teal-400"
+                                    placeholder="Recherchez un cours..."
+                                />
+                                <button type="submit">
+                                    <FaMagnifyingGlass className="text-teal-400 h-5 w-5 absolute top-3.5 right-3 fill-current" />
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div className="container md:col-span-3 md:row-span-6 md:col-start-4 flex flex-col">
+                        <h2 className="text-3xl font-semibold">Nos cours du moment</h2>
                         <p className="mb-8">Découvrez nos cours les plus populaires</p>
-                        <CourseList courses={mockCourseData.slice(0, 4)} />
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {mockCourseData.map(course => (
+                                <CourseCard key={course.id} course={course} />
+                            ))}
+                        </div>
+
                         <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
                             Découvrez le catalogue
                         </button>
                     </div>
 
-                    {/* Section des enseignants */}
-                    <div className="teacher-section flex flex-col justify-between p-8">
-                        <h2 className="text-3xl font-semibold mb-4">Nos enseignants</h2>
+                    <div className="container md:col-span-3 md:row-span-4 md:row-start-3 bg-indigo-600 text-white rounded-2xl flex flex-col">
+                        <h2 className="text-3xl font-semibold">Nos enseignants</h2>
                         <p className="mb-8">Discutez avec eux</p>
-                        <TeacherList teachers={mockTeacherData.slice(0, 4)} />
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {mockTeacherData.map(course => (
+                                <CourseCard key={course.id} course={course} />
+                            ))}
+                        </div>
+
                         <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
                             Découvrez le forum
                         </button>
                     </div>
                 </div>
+                <div className="container">
+                    <div className="container md:col-span-3 md:row-span-6 md:col-start-4 flex flex-col">
+                        <h2 className="text-3xl font-semibold">Nos catégories les plus populaires</h2>
+                        <p className="mb-8">Découvrez notre séléction de cours par catégorie</p>
 
-                {/* Searchbar ajoutée ici */}
-                <div className="searchbar flex flex-row justify-end text-center pr-10">
-                    <h1 className="pr-10 text-3xl">Sujets</h1>
-                    <Searchbar
-                        data={mockTopicData}
-                        searchType="topic"
-                        searchKeys={['title', 'category', 'description']}
-                        onSearch={handleSearch}
-                        onSelect={handleSelect}
-                    />
-                </div>
-
-                {/* Section Topics (après la herosection) */}
-                <div className="topic-section flex flex-col justify-between p-8">
-                    <div className="max-w-screen-xl mx-auto px-4">
-                        <h2 className="text-3xl font-semibold text-white mb-4">Découvrez nos topics</h2>
-                        <TopicList topics={mockTopicData.slice(0, 4)} />
+                        <div className="container mx-auto py-10">
+                            <Carousel cards={cards} />
+                        </div>
                     </div>
                 </div>
             </main>

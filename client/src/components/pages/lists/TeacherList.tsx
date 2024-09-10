@@ -1,5 +1,6 @@
 // src/components/pages/TeacherList.tsx
-import TeacherCard, { TeacherType } from '@/components/reusable-ui/cards/TeacherCard';
+import type { TeacherType } from '@/components/reusable-ui/cards/TeacherCard';
+import TeacherCard from '@/components/reusable-ui/cards/TeacherCard';
 import { mockTeacherData } from '@/fakeData';
 import React from 'react';
 

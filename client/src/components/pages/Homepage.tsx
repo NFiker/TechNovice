@@ -4,6 +4,7 @@ import { FaMagnifyingGlass } from 'react-icons/fa6';
 
 import type { CourseType } from '@/components/reusable-ui/CourseCard';
 import CourseCard from '@/components/reusable-ui/CourseCard';
+import Carousel from '../reusable-ui/Carousel';
 import Footer from '../reusable-ui/Footer';
 import Header from '../reusable-ui/Header';
 
@@ -31,6 +32,8 @@ const Homepage: React.FC = () => {
         duration: `${Math.floor(Math.random() * 10) + 1}h ${Math.floor(Math.random() * 59) + 1}m`,
         imageUrl: 'https://via.placeholder.com/150',
     }));
+
+    const cards = mockCourseData.map(course => <CourseCard key={course.id} course={course} />);
 
     return (
         <>
@@ -108,6 +111,16 @@ const Homepage: React.FC = () => {
                         <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
                             Découvrez le forum
                         </button>
+                    </div>
+                </div>
+                <div className="container">
+                    <div className="container md:col-span-3 md:row-span-6 md:col-start-4 flex flex-col">
+                        <h2 className="text-3xl font-semibold">Nos catégories les plus populaires</h2>
+                        <p className="mb-8">Découvrez notre séléction de cours par catégorie</p>
+
+                        <div className="container mx-auto py-10">
+                            <Carousel cards={cards} />
+                        </div>
                     </div>
                 </div>
             </main>

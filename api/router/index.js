@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { authRouter } from './auth.js';
 import { commentRouter } from './comments.js';
 import { courseRouter } from './courses.js';
 import { topicRouter } from './topics.js';
@@ -12,5 +13,6 @@ router.use(topicRouter);
 router.use(userRouter);
 router.use(commentRouter);
 router.use(watchesRouter);
+router.use(authRouter);
 
 export { router };

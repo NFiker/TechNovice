@@ -1,9 +1,9 @@
 // src/App.tsx
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+
 import Homepage from './components/pages/Homepage';
-import HomepageLudo from './components/pages/HomepageLudo';
-import HomepageOld from './components/pages/HomepageOld';
 import Login from './components/pages/Login';
+
 import CourseDetail from './components/pages/details/CourseDetail';
 import TeacherDetail from './components/pages/details/TeacherDetail';
 import TopicDetail from './components/pages/details/TopicDetail';
@@ -19,8 +19,7 @@ function App() {
             <Routes>
                 {/* Homepages versions */}
                 <Route path="/" element={<Homepage />} />
-                <Route path="/old" element={<HomepageOld />} />
-                <Route path="/l" element={<HomepageLudo />} />
+
                 {/* Catalogues */}
                 <Route path="/catalogue-des-cours" element={<CourseList courses={mockCourseData} />} />
                 <Route path="/catalogue-des-sujets" element={<TopicList topics={mockTopicData} />} />

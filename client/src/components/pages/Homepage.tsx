@@ -1,21 +1,33 @@
 import React from 'react';
 
-import CourseList from '@/components/pages/CourseList';
-import TeacherList from '@/components/pages/TeacherList';
-import { mockCourseData, mockTeacherData } from '@/fakeData';
+import CourseList from '@/components/pages/lists/CourseList';
+import TeacherList from '@/components/pages/lists/TeacherList';
+import { mockCourseData, mockTeacherData, mockTopicData } from '@/fakeData';
 import Footer from '../reusable-ui/Footer';
 import Header from '../reusable-ui/Header';
+import Searchbar from '../reusable-ui/Searchbar';
+import TopicList from './lists/TopicList';
 
-const HomepageLudo: React.FC = () => {
+const Homepage: React.FC = () => {
+    const handleSearch = (results: any[]) => {
+        // Logique pour gérer les résultats de recherche
+        console.log('Results:', results);
+    };
+
+    const handleSelect = (selectedItem: any) => {
+        // Logique pour gérer la sélection d'un élément
+        console.log('Selected item:', selectedItem);
+    };
+
     return (
         <>
             <Header />
-            <main>
+            <main className="relative">
                 <div
-                    className="herosection h-[calc(100vh-64px)] grid md:grid-cols-2 md:grid-rows-2 gap-4"
+                    className="herosection h-full grid md:grid-cols-2 md:grid-rows-2 gap-4"
                     style={{ position: 'relative' }}>
                     {/* Section promotionnelle */}
-                    <div className="promo-section bg-[url('./public/img/Homepage_graphic.png')] bg-cover p-8">
+                    <div className="promo-section bg-[url('./public/img/Homepage_graphic.png')] bg-cover p-8 flex flex-col justify-center">
                         <h1 className="text-5xl font-bold text-sky-500 mb-4">Ne restez plus un novice!</h1>
                         <p className="text-lg mb-2">
                             Libérez votre potentiel et apprenez plus vite que jamais grâce
@@ -28,7 +40,8 @@ const HomepageLudo: React.FC = () => {
                         <img
                             src="/img/homepage_graphic.png"
                             alt="Graphique avec des formes géométriques"
-                            className="object-contain max-h-48 md:max-h-64"
+                            className="object-contain max-h-48 md:max-h-64 ml-auto"
+                            style={{ maxWidth: '100%', height: 'auto' }}
                         />
                     </div>
 
@@ -43,7 +56,7 @@ const HomepageLudo: React.FC = () => {
                     </div>
 
                     {/* Section des enseignants */}
-                    <div className="teacher-section bg-indigo-600 text-white p-8 rounded-lg">
+                    <div className="teacher-section flex flex-col justify-between p-8">
                         <h2 className="text-3xl font-semibold mb-4">Nos enseignants</h2>
                         <p className="mb-8">Discutez avec eux</p>
                         <TeacherList teachers={mockTeacherData.slice(0, 4)} />
@@ -53,11 +66,23 @@ const HomepageLudo: React.FC = () => {
                     </div>
                 </div>
 
+                {/* Searchbar ajoutée ici */}
+                <div className="searchbar flex flex-row justify-end text-center pr-10">
+                    <h1 className="pr-10 text-3xl">Sujets</h1>
+                    <Searchbar
+                        data={mockTopicData}
+                        searchType="topic"
+                        searchKeys={['title', 'category', 'description']}
+                        onSearch={handleSearch}
+                        onSelect={handleSelect}
+                    />
+                </div>
+
                 {/* Section Topics (après la herosection) */}
-                <div className="topics-section p-8">
-                    <h2 className="text-3xl font-semibold mb-4">Découvrez nos topics</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {/* Affichage des topics ici */}
+                <div className="topic-section flex flex-col justify-between p-8">
+                    <div className="max-w-screen-xl mx-auto px-4">
+                        <h2 className="text-3xl font-semibold text-white mb-4">Découvrez nos topics</h2>
+                        <TopicList topics={mockTopicData.slice(0, 4)} />
                     </div>
                 </div>
             </main>
@@ -66,4 +91,4 @@ const HomepageLudo: React.FC = () => {
     );
 };
 
-export default HomepageLudo;
+export default Homepage;

@@ -36,7 +36,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
                 <p className="text-sm text-gray-600 mb-4">{course.description}</p>
                 <div className="flex justify-between items-center">
                     <span className="text-sm font-medium text-gray-900">{course.duration}</span>
-                    <button className="bg-indigo-600 text-white text-xs font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors">
+                    <button className="bg-indigo-800 text-white text-xs font-bold py-2 px-4 rounded-lg hover:bg-indigo-600 transition-colors">
                         S'inscrire
                     </button>
                 </div>

@@ -1,6 +1,6 @@
-import CourseList from '@/components/pages/CourseList';
-import TeacherList from '@/components/pages/TeacherList';
-import TopicList from '@/components/pages/TopicList';
+import CourseList from '@/components/pages/lists/CourseList';
+import TeacherList from '@/components/pages/lists/TeacherList';
+import TopicList from '@/components/pages/lists/TopicList';
 import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
 import { mockCourseData, mockTeacherData, mockTopicData } from '@/fakeData';

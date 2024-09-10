@@ -1,6 +1,6 @@
-import { CourseType } from './components/reusable-ui/CourseCard';
+import { CourseType } from './components/reusable-ui/cards/CourseCard';
 import { TeacherType } from './components/reusable-ui/TeacherCard';
-import { TopicType } from './components/reusable-ui/TopicCard';
+import { TopicType } from './components/reusable-ui/cards/TopicCard';
 
 // Données factices pour 12 cours
 export const mockCourseData: CourseType[] = Array.from({ length: 12 }, (_, i) => ({

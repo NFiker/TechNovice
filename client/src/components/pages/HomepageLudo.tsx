@@ -2,8 +2,8 @@ import React from 'react';
 
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 
-import type { CourseType } from '@/components/reusable-ui/CourseCard';
-import CourseCard from '@/components/reusable-ui/CourseCard';
+import type { CourseType } from '@/components/reusable-ui/cards/CourseCard';
+import CourseCard from '@/components/reusable-ui/cards/CourseCard';
 import Footer from '../reusable-ui/Footer';
 import Header from '../reusable-ui/Header';
 

@@ -1,6 +1,8 @@
+import { mockCourseData } from '@/fakeData';
 import React, { useEffect, useState } from 'react';
-import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { IoIosArrowDown } from 'react-icons/io';
+import { Link } from 'react-router-dom'; // Importer 'Link' de react-router-dom
+import Searchbar from './Searchbar';
 
 const Header: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -8,11 +10,7 @@ const Header: React.FC = () => {
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
-            if (scrollPosition > 100) {
-                setIsScrolled(true);
-            } else {
-                setIsScrolled(false);
-            }
+            setIsScrolled(scrollPosition > 100);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -20,6 +18,14 @@ const Header: React.FC = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+    const handleSearch = (results: any[]) => {
+        console.log('Results:', results);
+    };
+
+    const handleSelect = (selectedItem: any) => {
+        console.log('Selected item:', selectedItem);
+    };
 
     return (
         <header
@@ -52,43 +58,43 @@ const Header: React.FC = () => {
                         </div>
 
                         <div className="invisible absolute z-50 flex w-full flex-col bg-gray-100 py-1 px-4 text-gray-800 shadow-xl group-hover:visible rounded-lg">
-                            <a className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
+                            {/* Utiliser 'Link' pour le forum */}
+                            <Link
+                                to="/catalogue-des-sujets"
+                                className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
                                 Forum
-                            </a>
-                            <a className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
+                            </Link>
+                            <Link
+                                to="/catalogue-des-cours"
+                                className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
                                 Catalogue
-                            </a>
+                            </Link>
                         </div>
                     </div>
-                    <form
-                        action="/search"
-                        className="max-md:hidden max-w-[480px] w-full pl-4 place-content-center">
-                        <div className="relative">
-                            <input
-                                type="text"
-                                name=""
-                                className="w-full border h-12 shadow p-4 rounded-lg border-teal-400"
-                                placeholder="Recherchez un cours..."
-                            />
-                            <button type="submit">
-                                <FaMagnifyingGlass className="text-teal-400 h-5 w-5 absolute top-3.5 right-3 fill-current" />
-                            </button>
-                        </div>
-                    </form>
+
+                    <div className="max-md:hidden max-w-[480px] w-full pl-4 place-content-center">
+                        <Searchbar
+                            data={mockCourseData}
+                            searchType="course"
+                            searchKeys={['title', 'category', 'description']}
+                            onSearch={handleSearch}
+                            onSelect={handleSelect}
+                        />
+                    </div>
                 </div>
 
                 <div className="max-md:w-1/2 container w-1/4 place-content-center">
                     <nav className="font-semibold">
                         <ul className="flex justify-around items-center">
                             <li>
-                                <a className="text-indigo-600 hover:text-indigo-800" href="">
+                                <Link to="se-connecter" className="text-indigo-600 hover:text-indigo-800">
                                     Se connecter
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a className="text-indigo-600 hover:text-indigo-800" href="">
+                                <Link to="se-connecter" className="text-indigo-600 hover:text-indigo-800">
                                     S'inscrire
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </nav>

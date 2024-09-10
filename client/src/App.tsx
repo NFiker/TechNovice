@@ -1,11 +1,11 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import CourseList from './components/pages/CourseList';
 import Homepage from './components/pages/Homepage';
 import HomepageLudo from './components/pages/HomepageLudo';
 import HomepageOld from './components/pages/HomepageOld';
 import Login from './components/pages/Login';
-import TeacherList from './components/pages/TeacherList';
-import TopicList from './components/pages/TopicList';
+import CourseList from './components/pages/lists/CourseList';
+import TeacherList from './components/pages/lists/TeacherList';
+import TopicList from './components/pages/lists/TopicList';
 import { mockCourseData, mockTeacherData, mockTopicData } from './fakeData';
 
 function App() {

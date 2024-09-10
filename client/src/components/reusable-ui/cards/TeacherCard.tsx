@@ -36,7 +36,7 @@ const TeacherCard: React.FC<TeacherCardProps> = ({ teacher }) => {
                 <p className="text-sm text-gray-600 mb-4">{teacher.bio}</p>
                 <button
                     onClick={handleClick}
-                    className="bg-teal-800 text-white text-xs font-bold py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors">
+                    className="bg-indigo-800 text-white text-xs font-bold py-2 px-4 rounded-lg hover:bg-indigo-600 transition-colors">
                     Voir le profil
                 </button>
             </div>

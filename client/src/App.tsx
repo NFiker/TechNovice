@@ -31,9 +31,8 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 {/* Pages de détail */}
                 <Route path="/sujet/:id" element={<TopicDetail />} /> {/* Route pour TopicDetail */}
-                <Route path="/cours/:id" element={<CourseDetail />} /> {/* Route pour CourseDetail */}
+                <Route path="/courses/:course_id" element={<CourseDetail />} /> {/* Route pour CourseDetail */}
                 <Route path="/enseignant/:id" element={<TeacherDetail />} /> {/* Route pour TeacherDetail */}
-                <Route path="/courses/:course_id" element={<CourseCardTestAPI />} />{' '}
                 {/* Route pour TeacherDetail */}
             </Routes>
         </Router>

@@ -6,7 +6,7 @@ import createHttpError from 'http-errors';
 // import Joi from 'joi'
 
 //* Include all validators
-import Validators from '../validators/index.js';
+import Validators from '../validator/index.js';
 
 export default function (validator) {
     //! If validator is not exist, throw err

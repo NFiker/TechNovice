@@ -5,7 +5,7 @@ export interface CourseType {
     course_id: number;
     course_title: string;
     course_desc: string;
-    course_tags?: string;
+    course_tags: string[];
     course_content: string;
     author_user_id: number;
 }
@@ -18,9 +18,15 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
     return (
         <div className="bg-white border-2 border-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
             <div className="relative">
-                <img className="rounded-t-lg object-cover h-40 w-full" src="" alt={course.course_title} />
-                <div className="absolute top-2 left-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">
-                    {course.course_tags}
+                <img
+                    className="rounded-t-lg object-cover h-40 w-full"
+                    src="https://placehold.co/600x400"
+                    alt={course.course_title}
+                />
+                <div className="absolute top-2 left-2 flex">
+                    {course.course_tags.map(tag => (
+                        <div className="bg-blue-600 text-white text-xs px-2 py-1 mr-2 rounded">{tag}</div>
+                    ))}
                 </div>
             </div>
             <div className="p-4">

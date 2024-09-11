@@ -58,7 +58,11 @@ const userController = {
 
             res.status(201).json(user);
         } catch (error) {
-            res.status(500).json({ message: "Erreur lors de la création de l'utilisateur", error });
+            if (error?.code === 'P2002' && error?.meta?.target?.[0] === 'nickname && mail') {
+                return res.status(409).json({ message: 'DUPLICATE_NICKNAME && DUPLICATE_MAIL' });
+            }
+            // On ne donne généralement pas de détail sur les erreurs 500
+            res.status(500).json({ message: 'INTERNAL_SERVER_ERROR' });
         } finally {
             prisma.$disconnect();
         }
@@ -86,11 +90,16 @@ const userController = {
 
             res.status(200).json(user);
         } catch (error) {
-            res.status(500).json({ message: 'Erreur lors de la mise à jour du profil', error });
+            if (error?.code === 'P2002' && error?.meta?.target?.[0] === 'nickname & mail') {
+                return res.status(409).json({ message: 'DUPLICATE_NICKNAME && DUPLICATE_MAIL' });
+            }
+            // On ne donne généralement pas de détail sur les erreurs 500
+            res.status(500).json({ message: 'INTERNAL_SERVER_ERROR' });
         } finally {
             prisma.$disconnect();
         }
     },
+
     // Controller pour supprimer un profil
     async deleteUser(req, res) {
         const userId = parseInt(req.params.user_id);

@@ -11,7 +11,7 @@ const commentRouter = Router();
 commentRouter.post('/api/topics/:topic_id(\\d+)/message', validators('comments'), commentsController.createComment);
 
 // Modifier un message
-commentRouter.patch('/api/topics/:topic_id(\\d+)/message/:com_id(\\d+)', commentsController.updateComment);
+commentRouter.patch('/api/topics/:topic_id(\\d+)/message/:com_id(\\d+)',validators('comments'), commentsController.updateComment);
 
 // Supprimer un message
 commentRouter.delete('/api/topics/message/:com_id(\\d+)', commentsController.deleteComment);

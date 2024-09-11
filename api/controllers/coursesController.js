@@ -15,8 +15,9 @@ const coursesController = {
     },
 
     async getOneCourseById(req, res) {
-        const id = parseInt(req.params.course_id);
         try {
+            const id = parseInt(req.params.course_id);
+
             const course = await prisma.courses.findUnique({
                 where: {
                     course_id: id,
@@ -35,16 +36,20 @@ const coursesController = {
 
     // Pour l'instant l'id du user doit être rentré dans le body il n'est pas présent en paramètre
     async createCourse(req, res) {
-        const { course_title, course_desc, course_tags, course_content, author_user_id } = req.body;
-
         try {
+            const { course_title, course_desc, course_tags, course_content, author_user_id } = req.body;
+
             const course = await prisma.courses.create({
                 data: { course_title, course_desc, course_tags, course_content, author_user_id },
             });
 
             res.status(200).json(course);
         } catch (error) {
-            res.status(500).json({ message: 'Erreur lors de la création du cours', error });
+            if (error?.code === 'P2002' && error?.meta?.target?.[0] === 'course_title') {
+                return res.status(409).json({ message: 'DUPLICATE_COURSE_TITLE' });
+            }
+            // On ne donne généralement pas de détail sur les erreurs 500
+            res.status(500).json({ message: 'INTERNAL_SERVER_ERROR' });
         } finally {
             prisma.$disconnect();
         }

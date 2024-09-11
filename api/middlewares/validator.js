@@ -16,7 +16,7 @@ export default  function(validator) {
     return async function(req, res, next) {
         try {
             //on utilise un validateur spécifique (validator) pour valider les données contenues dans req.body
-            // validateAsync : C'est une méthode asynchrone qui vérifie les données de manière non bloquante (asynchrone)
+            // validateAsync : C'est une méthode asynchrone qui vérifie les données de manière non bloquante 
             const validated = await validators[validator].validateAsync(req.body)
             req.body = validated
             next()

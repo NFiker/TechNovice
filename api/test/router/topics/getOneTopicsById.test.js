@@ -4,7 +4,7 @@
 
 // describe('GET /api/topics/:topic_id', () => {
 //     it('should throw a 404 if topic is not found', async () => {
-//         const response = await request(app)
+//         const response = await request(this.app)
 //             .get('api/topics/1')
 //             .set('Accept', 'application/json')
 
@@ -22,14 +22,15 @@
 //             "author_user_id": 1
 //         }
 
-//         const res = await request(app)
-//             .post('/topics')
+//         const res = await request(this.app)
+//             .post('/api/topics')
 //             .send(payload);
+//             .expect(200);
 
 //         const topicId = res.body.topic_id;
 
-//         const response = await request(app)
-//             .get('/topics/' + courseId)
+//         const response = await request(this.app)
+//             .get('/api/topics/' + topicId)
 //             .set('Accept', 'application/json');
 
 //         expect(response.status).to.equal(200);

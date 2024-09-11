@@ -1,13 +1,12 @@
 import React from 'react';
 
-import CourseCard from '@/components/reusable-ui/cards/CourseCard';
-import Carousel from '@/components/reusable-ui/Carousel';
+import CourseList from '@/components/pages/lists/CourseList';
+import TeacherList from '@/components/pages/lists/TeacherList';
 import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
 import { mockCourseData, mockTeacherData } from '@/fakeData';
+import { Link } from 'react-router-dom';
 import Searchbar from '../reusable-ui/Searchbar';
-import CourseList from '@/components/pages/lists/CourseList';
-import TeacherList from '@/components/pages/lists/TeacherList';
 
 const Homepage: React.FC = () => {
     const handleSearch = (results: any[]) => {
@@ -20,8 +19,6 @@ const Homepage: React.FC = () => {
         console.log('Selected item:', selectedItem);
     };
 
-    const cards = mockCourseData.map(course => <CourseCard key={course.id} course={course} />);
-
     return (
         <>
             <Header />
@@ -30,9 +27,9 @@ const Homepage: React.FC = () => {
                     <div className="container md:col-span-3 md:row-span-2">
                         <div className="md:container">
                             <div className="md:hidden container">
-                                <a href="./index.html">
+                                <Link to="/">
                                     <img src="img/logo.png" alt="Logo de TechnO'vice" />
-                                </a>
+                                </Link>
                                 <h1 className="text-center text-3xl text-sky-500 font-semibold">
                                     Ne restez plus un novice!
                                 </h1>
@@ -58,7 +55,7 @@ const Homepage: React.FC = () => {
                         <Searchbar
                             data={mockCourseData}
                             searchType="course"
-                            searchKeys={['title', 'category', 'description']}
+                            searchKeys={['course_title', 'course_tags', 'course_desc']}
                             onSearch={handleSearch}
                             onSelect={handleSelect}
                         />
@@ -69,7 +66,7 @@ const Homepage: React.FC = () => {
                         <p className="mb-8">Découvrez nos cours les plus populaires</p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <CourseList courses={mockCourseData.slice(0, 6)} />
+                            <CourseList />
                         </div>
 
                         <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
@@ -95,9 +92,7 @@ const Homepage: React.FC = () => {
                         <h2 className="text-3xl font-semibold">Nos catégories les plus populaires</h2>
                         <p className="mb-8">Découvrez notre séléction de cours par catégorie</p>
 
-                        <div className="container mx-auto py-10">
-                            <Carousel cards={cards} />
-                        </div>
+                        <div className="container mx-auto py-10"></div>
                     </div>
                 </div>
             </main>

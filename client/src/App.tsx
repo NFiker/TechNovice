@@ -11,6 +11,7 @@ import TopicDetail from './components/pages/details/TopicDetail';
 import CourseList from './components/pages/lists/CourseList';
 import TeacherList from './components/pages/lists/TeacherList';
 import TopicList from './components/pages/lists/TopicList';
+import CourseCardTestAPI from './components/reusable-ui/CourseCardTestAPI';
 import { mockCourseData, mockTeacherData, mockTopicData } from './fakeData';
 
 function App() {
@@ -32,6 +33,8 @@ function App() {
                 <Route path="/sujet/:id" element={<TopicDetail />} /> {/* Route pour TopicDetail */}
                 <Route path="/cours/:id" element={<CourseDetail />} /> {/* Route pour CourseDetail */}
                 <Route path="/enseignant/:id" element={<TeacherDetail />} /> {/* Route pour TeacherDetail */}
+                <Route path="/courses/:course_id" element={<CourseCardTestAPI />} />{' '}
+                {/* Route pour TeacherDetail */}
             </Routes>
         </Router>
     );

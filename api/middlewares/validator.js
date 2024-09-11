@@ -6,12 +6,12 @@ import createHttpError from 'http-errors';
 // import Joi from 'joi'
 
 //* Include all validators
-import Validators from '../validators/index.js';
+import Validators from '../validator/index.js';
 
 export default function (validator) {
     //! If validator is not exist, throw err
     if (!Object.prototype.hasOwnProperty.call(Validators, validator)) {
-        throw new Error(`'${validator}' validator is not exist`);
+        throw new Error(`${validator}' validator is not exist'`);
     }
 
     return async function (req, res, next) {

@@ -1,5 +1,6 @@
 // Homepage.tsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Login: React.FC = () => {
     return (
@@ -43,11 +44,11 @@ const Login: React.FC = () => {
                         </button>
                     </div>
                     <div className="w-full flex flex-col gap-2 mt-4">
-                        <a
+                        <Link
                             className="font-semibold text-sm text-center text-indigo-600 hover:underline hover:underline-offset-2"
-                            href="">
+                            to="/inscription">
                             Pas de compte ? inscrivez-vous ici !
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </form>

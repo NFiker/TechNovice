@@ -82,7 +82,7 @@ const Header: React.FC = () => {
                     <Searchbar
                         data={mockCourseData}
                         searchType="course"
-                        searchKeys={['title', 'category', 'description']}
+                        searchKeys={['course_title', 'course_tags', 'course_desc']}
                         onSearch={handleSearch}
                         onSelect={handleSelect}
                     />

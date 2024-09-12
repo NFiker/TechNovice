@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import { FaInstagram } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
     return (
@@ -15,10 +16,10 @@ const Footer: React.FC = () => {
                     </a>
                 </div>
                 <div className="md:w-1/3 flex flex-col place-items-center py-2">
-                    <img src="img/logo-small.png" alt="Logo de TechnO'vice" className="max-h-8 m-4" />
-                    <a href="./homepage.html">
-                        <img src="img/logo.png" alt="Logo de TechnO'vice" className="max-h-8" />
-                    </a>
+                    <Link to="/">
+                        <img src="img/logo-small.png" alt="Logo de TechnO'vice" className="max-h-8 m-4" />
+                    </Link>
+                    <img src="img/logo.png" alt="Logo de TechnO'vice" className="max-h-8" />
                 </div>
                 <div className="md:w-1/3 flex flex-col place-items-center py-2">
                     <p className="font-semibold text-indigo-600">Suivez nous !</p>

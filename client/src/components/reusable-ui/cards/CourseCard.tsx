@@ -1,5 +1,6 @@
 // src/components/reusable-ui/CourseCard.tsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export interface CourseType {
     course_id: number;
@@ -15,6 +16,11 @@ interface CourseCardProps {
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
+    const navigate = useNavigate(); // Utilisation du hook de navigation
+
+    const handleClick = () => {
+        navigate(`cours/${course.course_id}`); // Redirection vers la page de détails du cours
+    };
     return (
         <div className="bg-white border-2 border-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
             <div className="relative">
@@ -34,7 +40,9 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
                 <h5 className="text-lg font-bold text-gray-800 mb-2">{course.course_title}</h5>
                 <p className="text-sm text-gray-600 mb-4">{course.course_desc}</p>
                 <div className="flex justify-between items-center">
-                    <button className="bg-blue-600 text-white text-xs font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                    <button
+                        onClick={handleClick}
+                        className="bg-blue-600 text-white text-xs font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
                         S'inscrire
                     </button>
                 </div>

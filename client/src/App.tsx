@@ -12,6 +12,8 @@ import TeacherList from './components/pages/lists/TeacherList';
 import TopicList from './components/pages/lists/TopicList';
 import { mockTeacherData, mockTopicData } from './fakeData';
 
+import UserDashboard from './components/pages/UserDashboard';
+
 function App() {
     return (
         <Router>
@@ -33,6 +35,16 @@ function App() {
                 {/* Route pour CourseDetail */}
                 <Route path="/enseignant/:id" element={<TeacherDetail />} /> {/* Route pour TeacherDetail */}
                 {/* Route pour TeacherDetail */}
+                <Route
+                    path="/dashboard/:user_id"
+                    element={
+                        <>
+                            {console.log('Rendering UserDashboard')}
+                            <UserDashboard />
+                        </>
+                    }
+                />
+                <Route path="*" element={<div>404 - Not Found</div>} />
             </Routes>
         </Router>
     );

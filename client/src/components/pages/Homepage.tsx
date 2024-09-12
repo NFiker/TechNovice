@@ -22,7 +22,7 @@ const Homepage: React.FC = () => {
     return (
         <>
             <Header />
-            <main>
+            <main className="mt-32">
                 <div className="container md:grid md:grid-cols-6 md:grid-rows-6 md:gap-2">
                     <div className="container md:col-span-3 md:row-span-2">
                         <div className="md:container">

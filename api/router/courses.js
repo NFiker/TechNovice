@@ -14,7 +14,7 @@ courseRouter.get('/api/courses/:course_id(\\d+)', coursesController.getOneCourse
 courseRouter.post('/api/courses', validators('courses'), coursesController.createCourse);
 
 // Mettre à jour un cours
-courseRouter.patch('/api/courses/:course_id(\\d+)',validators('comments'), coursesController.updateCourse);
+courseRouter.patch('/api/courses/:course_id(\\d+)',validators('courses'), coursesController.updateCourse);
 
 // Supprimer un cours
 courseRouter.delete('/api/courses/:course_id(\\d+)', coursesController.deleteCourse);

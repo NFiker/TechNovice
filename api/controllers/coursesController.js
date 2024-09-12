@@ -45,10 +45,8 @@ const coursesController = {
 
             res.status(200).json(course);
         } catch (error) {
-            console.log(`[{error}]:`, error);
-            if (error?.code === 'P2002' && error?.meta?.target?.[0] === 'course_title') {
-                return res.status(409).json({ message: 'DUPLICATE_COURSE_TITLE' });
-            }
+            res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur", error });
+            
             // On ne donne généralement pas de détail sur les erreurs 500
             res.status(500).json({ message: 'INTERNAL_SERVER_ERROR' });
         } finally {

@@ -13,7 +13,6 @@ before(async function () {
     this.app = app;
     await prisma.users.deleteMany();
     const user = await createTestUser();
-    console.log(`[{user}]:`, user);
     this.user_id = user.user_id;
 });
 

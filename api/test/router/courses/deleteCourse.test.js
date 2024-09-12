@@ -5,22 +5,13 @@ import { createTestCourse } from '../../fixtures.js';
 
 const prisma = new PrismaClient();
 
-describe('GET /api/courses/:course_id', () => {
+describe('DELETE /api/courses/:course_id', () => {
     let courseId = null;
 
     before(async () => {
         await prisma.courses.deleteMany(); // Nettoyer la base de données de test
         const course = await createTestCourse(); // Insérer des données de test
         courseId = course.course_id;
-    });
-
-    it('should throw a 404 if course is not found', async function () {
-        const response = await request(this.app)
-            .get('/api/courses/999')
-            .set('Accept', 'application/json')
-
-        expect(response.status).to.equal(404);
-        expect(response.body.message).to.equal('Cours non trouvé');
     });
 
     it('should succeed if course is found', async function () {

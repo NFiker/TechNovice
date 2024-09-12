@@ -1,24 +1,10 @@
 import { mockCourseData } from '@/fakeData';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import Searchbar from './Searchbar';
 
 const Header: React.FC = () => {
-    const [isScrolled, setIsScrolled] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollPosition = window.scrollY;
-            setIsScrolled(scrollPosition > 100);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
     const handleSearch = (results: any[]) => {
         console.log('Results:', results);
     };
@@ -28,10 +14,7 @@ const Header: React.FC = () => {
     };
 
     return (
-        <header
-            className={`flex fixed border-b top-0 left-0 w-full z-50 transition-transform duration-500 bg-white shadow-md ${
-                isScrolled ? 'translate-y-0' : '-translate-y-full'
-            }`}>
+        <header className="flex fixed border-b top-0 left-0 w-full z-50 bg-white shadow-md">
             <div className="max-md:hidden container w-1/4">
                 <Link to="/">
                     <img src="img/logo.png" alt="Logo de TechnO'vice" />
@@ -82,7 +65,7 @@ const Header: React.FC = () => {
                     <Searchbar
                         data={mockCourseData}
                         searchType="course"
-                        searchKeys={['title', 'category', 'description']}
+                        searchKeys={['course_title', 'course_tags', 'course_desc']}
                         onSearch={handleSearch}
                         onSelect={handleSelect}
                     />

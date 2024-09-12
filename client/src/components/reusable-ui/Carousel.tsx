@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import CourseList from '../pages/lists/CourseList';
 import type { CourseType } from './cards/CourseCard';
 
-interface CarouselProps {
-    cards: React.ReactNode[];
-}
-
-const Carousel: React.FC<CarouselProps> = ({ cards }) => {
+const Carousel: React.FC = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const [courses, setCourses] = useState<CourseType[]>([]);
@@ -69,18 +65,9 @@ const Carousel: React.FC<CarouselProps> = ({ cards }) => {
             {/* Carousel Container */}
             <div className="overflow-hidden">
                 <div
-                    className="flex transition-transform duration-300 ease-in-out"
+                    className="transition-transform duration-300 ease-in-out"
                     style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-                    <CourseList className="w-full md:w-1/3 flex-shrink-0 p-4"/>
-
-                    {/* {cards.map((card, index) => (
-                        <div
-                            key={index}
-                            className="w-full md:w-1/3 flex-shrink-0 p-4" // w-full for mobile, md:w-1/3 for desktop
-                        >
-                            {card}
-                        </div>
-                    ))} */}
+                    <CourseList className="w-full md:w-1/3 flex flex-shrink-0 p-4" />
                 </div>
             </div>
 

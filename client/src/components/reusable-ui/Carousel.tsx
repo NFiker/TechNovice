@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import CourseList from '../pages/lists/CourseList';
+import type { CourseType } from './cards/CourseCard';
 
 interface CarouselProps {
     cards: React.ReactNode[];
@@ -7,8 +9,40 @@ interface CarouselProps {
 const Carousel: React.FC<CarouselProps> = ({ cards }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    const [courses, setCourses] = useState<CourseType[]>([]);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const response = await fetch(`https://technovice-app-196e28ed15ce.herokuapp.com/api/courses`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch courses');
+                }
+                const data: CourseType[] = await response.json();
+                setCourses(data); // Stocker tous les cours récupérés
+            } catch (error) {
+                if (error instanceof Error) {
+                    setError(error.message);
+                }
+            } finally {
+                setLoading(false); // Mettre à jour l'état de chargement
+            }
+        };
+        fetchCourses();
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
     const nextSlide = () => {
-        if (currentIndex + 1 < cards.length) {
+        if (currentIndex + 1 < courses.length) {
             setCurrentIndex(currentIndex + 1);
         } else {
             setCurrentIndex(0); // Retour à la première carte
@@ -19,7 +53,7 @@ const Carousel: React.FC<CarouselProps> = ({ cards }) => {
         if (currentIndex - 1 >= 0) {
             setCurrentIndex(currentIndex - 1);
         } else {
-            setCurrentIndex(cards.length - 1); // Retour à la dernière carte
+            setCurrentIndex(courses.length - 1); // Retour à la dernière carte
         }
     };
 
@@ -37,14 +71,16 @@ const Carousel: React.FC<CarouselProps> = ({ cards }) => {
                 <div
                     className="flex transition-transform duration-300 ease-in-out"
                     style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-                    {cards.map((card, index) => (
+                    <CourseList className="w-full md:w-1/3 flex-shrink-0 p-4"/>
+
+                    {/* {cards.map((card, index) => (
                         <div
                             key={index}
                             className="w-full md:w-1/3 flex-shrink-0 p-4" // w-full for mobile, md:w-1/3 for desktop
                         >
                             {card}
                         </div>
-                    ))}
+                    ))} */}
                 </div>
             </div>
 

@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import type { CourseType } from '../../reusable-ui/cards/CourseCard';
 import CourseCard from '../../reusable-ui/cards/CourseCard';
 
-const CourseList: React.FC = () => {
+export interface CourseListProps {
+    className?: string;
+}
+
+const CourseList: React.FC<CourseListProps> = ({ className }) => {
     const [courses, setCourses] = useState<CourseType[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -24,7 +28,6 @@ const CourseList: React.FC = () => {
                 setLoading(false); // Mettre à jour l'état de chargement
             }
         };
-
         fetchCourses();
     }, []);
 
@@ -37,11 +40,11 @@ const CourseList: React.FC = () => {
     }
 
     return (
-        <>
+        <div className={className}>
             {courses.map(course => (
                 <CourseCard key={course.course_id} course={course} />
             ))}
-        </>
+        </div>
     );
 };
 

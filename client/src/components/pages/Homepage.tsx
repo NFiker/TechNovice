@@ -65,9 +65,7 @@ const Homepage: React.FC = () => {
                         <h2 className="text-3xl font-semibold">Nos cours du moment</h2>
                         <p className="mb-8">Découvrez nos cours les plus populaires</p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <CourseList />
-                        </div>
+                        <CourseList className="grid grid-cols-1 md:grid-cols-2 gap-6" />
 
                         <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
                             Découvrez le catalogue
@@ -92,7 +90,7 @@ const Homepage: React.FC = () => {
                         <h2 className="text-3xl font-semibold">Nos catégories les plus populaires</h2>
                         <p className="mb-8">Découvrez notre séléction de cours par catégorie</p>
 
-                        <div className="container mx-auto py-10"></div>
+                        <div className="container mx-auto py-10">{/* <Carousel /> */}</div>
                     </div>
                 </div>
             </main>

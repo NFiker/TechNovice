@@ -45,6 +45,7 @@ const coursesController = {
 
             res.status(200).json(course);
         } catch (error) {
+            console.log(`[{error}]:`, error);
             if (error?.code === 'P2002' && error?.meta?.target?.[0] === 'course_title') {
                 return res.status(409).json({ message: 'DUPLICATE_COURSE_TITLE' });
             }

@@ -1,62 +1,41 @@
-// import { expect } from 'chai';
-// import request from 'supertest';
-// import createTestCourses from '../fixtures.js';
-// import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
+import { expect } from 'chai';
+import request from 'supertest';
+import { createTestCourse } from '../../fixtures.js';
 
-// const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
-// beforeEach(async () => {
-//   await prisma.courses.deleteMany(); // Nettoyer la base de données de test
-//   await createTestCourses(); // Insérer des données de test
-// });
+describe.only('GET /api/courses/:course_id', () => {
+    let courseId = null;
 
-// describe.only('GET /api/courses/:course_id', () => {
+    before(async () => {
+        await prisma.courses.deleteMany(); // Nettoyer la base de données de test
+        const course = await createTestCourse(); // Insérer des données de test
+        courseId = course.course_id;
+    });
 
-//     before(() => {
-//        console.log('[---> [BEFORE ALL [courses] TESTS] <---]:', true);
-//     });
+    it('should throw a 404 if course is not found', async function () {
+        const response = await request(this.app)
+            .get('/api/courses/999')
+            .set('Accept', 'application/json')
 
-//     it('should throw a 404 if course is not found', async function () {
-//         const response = await request(this.app)
-//             .get('/api/courses/999')
-//             .set('Accept', 'application/json')
+        expect(response.status).to.equal(404);
+        expect(response.body.message).to.equal('Cours non trouvé');
+    });
 
-//         expect(response.status).to.equal(404);
-//         expect(response.body.message).to.equal('Cours non trouvé');
-//     });
+    it.only('should succeed if course is found', async function () {
+        const response = await request(this.app)
+            .get('/api/courses/' + courseId)
+            .set('Accept', 'application/json');
 
-//     it('should succeed if course is found', async function () {
-//         const payload = {
-//         "course_title": "Les fonctions de base Word",
-//         "course_desc": "Comment écrire et mettre en forme un texte, comment mettre en forme les paragraphes ou imprimer, comprendre les icônes du ruban Accueil.",
-//         "course_tags": [
-//             "Word", "Bureautique"
-//         ],
-//         "course_content": "Windows vous permet d’accéder en un clic à l’aide d’un raccourci sur le bureau à un logiciel utilisé fréquemment.",
-//         "author_user_id": 1
-//         }
-
-//         const res = await request(this.app)
-//             .post('/api/courses')
-//             .send(payload)
-//             .expect(200);
-
-//         const courseId = res.body.course_id;
-
-//         const response = await request(this.app)
-//             .get('/api/courses/' + courseId)
-//             .set('Accept', 'application/json');
-
-//         console.log(`[{response.body}]:`, response.body);
-//         expect(response.status).to.equal(200);
-//         expect(response.body).to.be.an('object').with.all.keys(["course_id","course_title","course_content","creation_date","update_date","author_user_id"]);
-//         expect(response.body.creation_date).to.be.a('string');
-//         expect(response.body.update_date).to.be.a('string');
-//         expect(response.body).to.equal({
-//             ...payload,
-//             course_id: courseId
-//         });
-//     });
-// });
+        expect(response.status).to.equal(200);
+        expect(response.body).to.be.an('object').with.all.keys(["course_id","course_title","course_desc","course_tags","course_content","author_user_id", "creation_date", "update_date"]);
+        expect(response.body.course_id).to.eq(courseId);
+        expect(response.body.course_title).to.be.a("string");
+        expect(response.body.course_desc).to.be.a("string");
+        expect(response.body.course_tags).to.be.a("array").lengthOf(2);
+        expect(response.body.course_content).to.be.a("string");
+    });
+});
 
    

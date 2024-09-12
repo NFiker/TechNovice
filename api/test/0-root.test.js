@@ -1,12 +1,20 @@
+import { PrismaClient } from '@prisma/client';
 import { expect } from 'chai';
+import dotenv from 'dotenv';
 import request from 'supertest';
 import app from '../app.js';
-import dotenv from 'dotenv';
+import { createTestUser } from './fixtures.js';
+
 dotenv.config({ path: '.env.test' });
 process.env.DATABASE_URL = process.env.TEST_DATABASE_URL;
+const prisma = new PrismaClient();
 
-before(function () {
+before(async function () {
     this.app = app;
+    await prisma.users.deleteMany();
+    const user = await createTestUser();
+    console.log(`[{user}]:`, user);
+    this.user_id = user.user_id;
 });
 
 describe('Test Techno\'vice', () => {

@@ -82,7 +82,7 @@ const Header: React.FC = () => {
                     <Searchbar
                         data={mockCourseData}
                         searchType="course"
-                        searchKeys={['title', 'category', 'description']}
+                        searchKeys={['course_title', 'course_tags', 'course_desc']}
                         onSearch={handleSearch}
                         onSelect={handleSelect}
                     />
@@ -93,12 +93,16 @@ const Header: React.FC = () => {
                 <nav className="font-semibold">
                     <ul className="flex justify-around items-center">
                         <li>
-                            <Link to="/" className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
+                            <Link
+                                to="/connexion"
+                                className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
                                 Se connecter
                             </Link>
                         </li>
                         <li>
-                            <Link to="/" className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
+                            <Link
+                                to="/inscription"
+                                className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
                                 S'inscrire
                             </Link>
                         </li>

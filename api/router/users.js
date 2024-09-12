@@ -9,6 +9,9 @@ userRouter.get('/api/users', userController.getAllUsers);
 // Récupérer les informations d'un seul profil
 userRouter.get('/api/users/:user_id(\\d+)', userController.getOneUserById);
 
+// Récupérer les informations de tous les professeurs
+userRouter.get('/api/teachers', userController.getAllTeachers);
+
 // Créer un profil (inscription)
 userRouter.post('/api/users', userController.createUser);
 

@@ -40,6 +40,25 @@ const userController = {
         }
     },
 
+    async getAllTeachers(req, res) {
+        try {
+            const teachers = await prisma.users.findMany({
+                where: {
+                    role_name: 'Professeur',
+                },
+            });
+
+            if (!teachers) {
+                return res.status(404).json({ message: 'Aucun enseignant trouvé' });
+            }
+            res.status(200).json(teachers);
+        } catch (error) {
+            res.status(500).json({ message: 'Erreur lors de la récupération des enseignants', error });
+        } finally {
+            prisma.$disconnect();
+        }
+    },
+
     async createUser(req, res) {
         const { nickname, mail, password, first_name, last_name, role_name } = req.body;
         try {

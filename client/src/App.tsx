@@ -10,7 +10,8 @@ import TopicDetail from './components/pages/details/TopicDetail';
 
 import TeacherList from './components/pages/lists/TeacherList';
 import TopicList from './components/pages/lists/TopicList';
-import { mockTeacherData, mockTopicData } from './fakeData';
+import Signup from './components/reusable-ui/Signup';
+import { mockTopicData } from './fakeData';
 
 function App() {
     return (
@@ -21,13 +22,11 @@ function App() {
                 {/* Catalogues */}
                 {/* <Route path="/catalogue-des-cours" element={<CourseList courses={mockCourseData} />} /> */}
                 <Route path="/catalogue-des-sujets" element={<TopicList topics={mockTopicData} />} />
-                <Route
-                    path="/catalogue-des-enseignants"
-                    element={<TeacherList teachers={mockTeacherData} />}
-                />
+                <Route path="/catalogue-des-enseignants" element={<TeacherList />} />
                 {/* Connexion */}
-                <Route path="/login" element={<Login />} />
+                <Route path="/connexion" element={<Login />} />
                 {/* Pages de détail */}
+                <Route path="/inscription" element={<Signup />} />
                 <Route path="/sujet/:id" element={<TopicDetail />} /> {/* Route pour TopicDetail */}
                 <Route path="/courses/:course_id" element={<CourseDetail />} />{' '}
                 {/* Route pour CourseDetail */}

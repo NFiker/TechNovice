@@ -1,6 +1,6 @@
 //* middlewares/Validator.js
-//Une bibliothèque qui permet de créer facilement des erreurs HTTP
-import createHttpError from 'http-errors'
+
+import createHttpError from 'http-errors';
 
 //* Importe tous les validadors 
 import validators from '../validator/index.js'
@@ -13,7 +13,7 @@ export default  function(validator) {
         throw new Error(`'${validator}' validator is not exist`)
     }
 
-    return async function(req, res, next) {
+    return async function (req, res, next) {
         try {
             //on utilise un validateur spécifique (validator) pour valider les données contenues dans req.body
             // validateAsync : C'est une méthode asynchrone qui vérifie les données de manière non bloquante 
@@ -24,7 +24,7 @@ export default  function(validator) {
             //Si l'erreur vient de Joi, cela signifie que les données envoyées par le client ne sont pas conformes (erreur HTTP 422 )
             //Cette ligne vérifie si l'erreur provient de la validation (via la bibliothèque Joi).
             if (err.isJoi) {
-                return next(createHttpError(422, {message: err.message}))
+                return next(createHttpError(422, { message: err.message }));
             }
             // Si l'erreur n'est pas liée à la validation,  cette ligne crée une erreur HTTP 500
             next(createHttpError(500))

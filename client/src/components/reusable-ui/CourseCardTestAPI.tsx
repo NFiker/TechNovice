@@ -20,7 +20,9 @@ const CourseCardTestAPI: React.FC = () => {
     useEffect(() => {
         const fetchCourse = async (course_id: string) => {
             try {
-                const response = await fetch(`http://localhost:3000/api/courses/${course_id}`);
+                const response = await fetch(
+                    `https://technovice-app-196e28ed15ce.herokuapp.com/api/courses/${course_id}`,
+                );
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

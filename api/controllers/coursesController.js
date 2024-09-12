@@ -15,9 +15,8 @@ const coursesController = {
     },
 
     async getOneCourseById(req, res) {
+        const id = parseInt(req.params.course_id);
         try {
-            const id = parseInt(req.params.course_id);
-
             const course = await prisma.courses.findUnique({
                 where: {
                     course_id: id,
@@ -36,19 +35,16 @@ const coursesController = {
 
     // Pour l'instant l'id du user doit être rentré dans le body il n'est pas présent en paramètre
     async createCourse(req, res) {
-        try {
-            const { course_title, course_desc, course_tags, course_content, author_user_id } = req.body;
+        const { course_title, course_desc, course_tags, course_content, author_user_id } = req.body;
 
+        try {
             const course = await prisma.courses.create({
                 data: { course_title, course_desc, course_tags, course_content, author_user_id },
             });
 
             res.status(200).json(course);
         } catch (error) {
-            res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur", error });
-            
-            // On ne donne généralement pas de détail sur les erreurs 500
-            res.status(500).json({ message: 'INTERNAL_SERVER_ERROR' });
+            res.status(500).json({ message: 'Erreur lors de la création du cours', error });
         } finally {
             prisma.$disconnect();
         }

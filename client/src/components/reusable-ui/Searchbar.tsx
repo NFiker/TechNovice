@@ -1,41 +1,60 @@
-import { ChangeEvent, ReactElement, useState } from 'react';
+import type { ChangeEvent, ReactElement } from 'react';
+import { useState } from 'react';
+import { FaMagnifyingGlass } from 'react-icons/fa6';
 
-interface SearchbarProps<T> {
-    data: T[];
+interface SearchbarProps<ItemType> {
+    data: ItemType[];
     placeholder?: string;
-    searchKeys: (keyof T)[];
-    onSearch: (results: T[]) => void;
-    onSelect?: (selectedItem: T) => void;
+    searchKeys: (keyof ItemType)[];
+    onSearch: (results: ItemType[]) => void;
+    onSelect?: (selectedItem: ItemType) => void;
+    searchType: 'course' | 'topic' | 'teacher' | 'category'; // Nouvelle prop pour définir le type de recherche
 }
 
-export default function Searchbar<T>({
+export default function Searchbar<ItemType>({
     data,
-    placeholder = 'Search...',
+    placeholder,
     searchKeys,
     onSearch,
     onSelect,
-}: SearchbarProps<T>): ReactElement {
+    searchType,
+}: SearchbarProps<ItemType>): ReactElement {
     const [query, setQuery] = useState<string>('');
+
+    const getPlaceholder = (): string => {
+        switch (searchType) {
+            case 'course':
+                return 'Recherchez un cours...';
+            case 'topic':
+                return 'Recherchez un topic...';
+            case 'teacher':
+                return 'Recherchez un enseignant...';
+            case 'category':
+                return 'Recherchez une catégorie...';
+            default:
+                return 'Recherchez...';
+        }
+    };
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value.toLowerCase();
         setQuery(value);
 
-        if (value.length >= 3) {
+        if (value.length >= 2) {
             const filteredResults = filterData(value);
             onSearch(filteredResults);
         } else {
-            onSearch(data); // Réinitialiser avec toutes les données si < 3 caractères
+            onSearch(data); // Réinitialiser avec toutes les données si < 2 caractères
         }
     };
 
-    const filterData = (searchTerm: string): T[] => {
+    const filterData = (searchTerm: string): ItemType[] => {
         return data.filter(item =>
             searchKeys.some(key => item[key]?.toString().toLowerCase().includes(searchTerm)),
         );
     };
 
-    const handleSelect = (item: T) => {
+    const handleSelect = (item: ItemType) => {
         if (onSelect) {
             onSelect(item);
             setQuery(''); // Optionnel : Réinitialiser après sélection
@@ -43,30 +62,38 @@ export default function Searchbar<T>({
     };
 
     return (
-        <div className="mb-4">
+        <div className="relative w-full">
             <input
                 type="text"
                 value={query}
                 onChange={handleInputChange}
-                placeholder={placeholder}
-                className="w-full p-2 border border-gray-300 rounded-md"
+                placeholder={placeholder || getPlaceholder()} // Utiliser le placeholder dynamique
+                className="w-full border h-12 shadow p-4 rounded-lg border-teal-400"
             />
-            {onSelect && query.length >= 3 && (
+            <button type="submit">
+                <FaMagnifyingGlass className="text-teal-400 h-5 w-5 absolute top-3.5 right-3 fill-current" />
+            </button>
+
+            {onSelect && query.length >= 2 && (
                 <SuggestionList data={filterData(query)} searchKeys={searchKeys} onSelect={handleSelect} />
             )}
         </div>
     );
 }
 
-interface SuggestionListProps<T> {
-    data: T[];
-    searchKeys: (keyof T)[];
-    onSelect: (selectedItem: T) => void;
+interface SuggestionListProps<ItemType> {
+    data: ItemType[];
+    searchKeys: (keyof ItemType)[];
+    onSelect: (selectedItem: ItemType) => void;
 }
 
-function SuggestionList<T>({ data, searchKeys, onSelect }: SuggestionListProps<T>): ReactElement {
+function SuggestionList<ItemType>({
+    data,
+    searchKeys,
+    onSelect,
+}: SuggestionListProps<ItemType>): ReactElement {
     return (
-        <ul className="mt-2 border border-gray-300 rounded-md bg-white max-h-40 overflow-y-auto">
+        <ul className="mt-2 border border-gray-300 rounded-md bg-white max-h-40 overflow-y-auto absolute w-full z-10">
             {data.map((item, index) => {
                 const displayValue = item[searchKeys[0]];
                 return (

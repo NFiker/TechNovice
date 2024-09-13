@@ -4,7 +4,7 @@ import CourseList from '@/components/pages/lists/CourseList';
 import TeacherList from '@/components/pages/lists/TeacherList';
 import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
-import { mockCourseData, mockTeacherData } from '@/fakeData';
+import { mockCourseData } from '@/fakeData';
 import { Link } from 'react-router-dom';
 import Carousel from '../reusable-ui/Carousel';
 import Searchbar from '../reusable-ui/Searchbar';
@@ -69,7 +69,7 @@ const Homepage: React.FC = () => {
                         <CourseList className="grid grid-cols-1 md:grid-cols-2 gap-6" />
 
                         <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
-                            Découvrez le catalogue
+                            <Link to="catalogue-des-cours">Découvrez le catalogue</Link>
                         </button>
                     </div>
 
@@ -78,11 +78,11 @@ const Homepage: React.FC = () => {
                         <p className="mb-8">Discutez avec eux</p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <TeacherList teachers={mockTeacherData.slice(0, 4)} />
+                            <TeacherList />
                         </div>
 
                         <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
-                            Découvrez le forum
+                            <Link to="catalogue-des-sujets">Découvrez le forum</Link>
                         </button>
                     </div>
                 </div>

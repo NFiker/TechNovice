@@ -57,18 +57,22 @@ const SignInComponent = () => {
                             id="email"
                             type="email"
                             name="email"
+                            value={formData.mail}
                             onChange={event => setFormData({ ...formData, mail: event.target.value })}
+                            required
                         />
                     </div>
                     <div className="w-full flex flex-col gap-2">
                         <label className="font-semibold">Mot de passe</label>
                         <input
                             id="password"
-                            type="password"
+                            type="text"
                             name="password"
                             className="border rounded-lg px-3 py-2 mb-5 text-sm w-full"
                             placeholder="••••••••"
+                            value={formData.password}
                             onChange={event => setFormData({ ...formData, password: event.target.value })}
+                            required
                         />
                     </div>
                     <div className="mt-5">

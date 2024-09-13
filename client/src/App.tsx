@@ -18,6 +18,7 @@ import Legal from './components/pages/annexes/Legal';
 import Error404 from './components/pages/errors/Error404';
 import TeacherList from './components/pages/lists/TeacherList';
 import TopicList from './components/pages/lists/TopicList';
+import SignInComponent from './components/reusable-ui/Login';
 import Signup from './components/reusable-ui/Signup';
 import { mockTopicData } from './fakeData';
 
@@ -52,7 +53,7 @@ function App() {
                     {/* Connexion */}
                     <Route path="/connexion" element={<Login />} />
                     {/* Inscription */}
-                    <Route path="/inscription" element={<Signup />} />
+                    <Route path="/inscription" element={<SignInComponent />} />
                     {/* Profil */}
                     <Route path="/profil" element={<Profile />} />
                     {/* Tableau de bord */}

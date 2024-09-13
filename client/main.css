@@ -16,3 +16,22 @@ a {
     padding: 1.5em 1rem 1.5rem 1rem;
     max-width: 100%;
 }
+
+.hide {
+    display: none;
+}
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
+
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #000;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: 10px;
+}

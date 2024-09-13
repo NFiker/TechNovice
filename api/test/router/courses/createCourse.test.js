@@ -26,7 +26,6 @@ describe('POST /api/courses/', () => {
             .post('/api/courses/')
             .send(payload)
             .expect(200);
-            console.log('POST response:', response.body);
 
             expect(response.status).to.equal(200);
             expect(response.body)

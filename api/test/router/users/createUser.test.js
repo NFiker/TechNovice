@@ -22,18 +22,27 @@
 //     }
 
 //     it('should succeed if user is found', async function ()  {
-//      
+     
 //         const response = await request(this.app)
 //             .post('/api/users/')
 //             .send(payload)
-//             .expect(201);
-//             console.log('POST response:', response.body);
-//             console.log('Payload envoyé:', payload);
+//             .expect(200);
 
 //         console.log('[---> [ici aussi] <---]:', true);
 
-//             expect(response.status).to.equal(201);
-//             expect(response.body).to.be.an('object').with.all.keys(["user_id","nickname","mail","password","first_name","last_name","role_name"]);
+//             expect(response.status).to.equal(200);
+//             expect(response.body)
+//             .to.be.an('object')
+//             .with.all.keys([
+//                 "user_id",
+//                 "nickname",
+//                 "mail",
+//                 "password",
+//                 "first_name",
+//                 "last_name",
+//                 "role_name"
+//             ]);
+
 //             expect(response.body.user_id).to.not.be.null;
 //             expect(response.body.nickname).to.be.a("string");
 //             expect(response.body.mail).to.be.a("string");

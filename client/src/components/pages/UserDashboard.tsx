@@ -64,8 +64,8 @@ const UserDashboard: React.FC = () => {
             <main className="mt-32">
                 <div className="container mx-auto p-4">
                     <h1 className="text-3xl font-bold mb-6">Tableau de bord de {user.nickname}</h1>
-                    <h2 className="text-2xl font-semibold mb-4">Mes cours suivis</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 border-teal-200 rounded-3xl p-16 border-2">
+                        <h2 className="text-2xl font-semibold mb-4">Mes cours suivis</h2>
                         {user.watches.map(watch => {
                             const course = user.courses.find(c => c.course_id === watch.course_id);
                             return course ? (
@@ -80,6 +80,22 @@ const UserDashboard: React.FC = () => {
                             ) : null;
                         })}
                     </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 border-teal-200 rounded-3xl p-16 border-2">
+                    <h2 className="text-2xl font-semibold mb-4">Mes topics créés</h2>
+                    {user.watches.map(watch => {
+                        const course = user.courses.find(c => c.course_id === watch.course_id);
+                        return course ? (
+                            <CourseCard
+                                key={course.course_id}
+                                course={course}
+                                buttonLabel="Continuer le cours"
+                                onButtonClick={() => {
+                                    /* Ajoutez ici la logique pour continuer le cours */
+                                }}
+                            />
+                        ) : null;
+                    })}
                 </div>
                 <Footer />
             </main>

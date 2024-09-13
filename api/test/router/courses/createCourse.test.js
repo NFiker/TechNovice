@@ -23,18 +23,30 @@ describe('POST /api/courses/', () => {
     }
     it('should succeed if course is found', async function ()  {
         const response = await request(this.app)
-            .post('/api/courses')
+            .post('/api/courses/')
             .send(payload)
             .expect(200);
             console.log('POST response:', response.body);
 
             expect(response.status).to.equal(200);
-            expect(response.body).to.be.an('object').with.all.keys(["course_id","course_title","course_desc","course_tags","course_content","author_user_id", "creation_date", "update_date"]);
+            expect(response.body)
+                .to.be.an('object')
+                .with.all.keys([
+                    "course_id",
+                    "course_title",
+                    "course_desc",
+                    "course_tags",
+                    "course_content",
+                    "author_user_id",
+                    "creation_date", 
+                    "update_date"
+                ]);
             expect(response.body.course_id).to.not.be.null;
             expect(response.body.course_title).to.be.a("string");
             expect(response.body.course_desc).to.be.a("string");
             expect(response.body.course_tags).to.be.a("array").lengthOf(2);
             expect(response.body.course_content).to.be.a("string");
+            expect(response.body.author_user_id).to.be.a("number");
         });
     });
 

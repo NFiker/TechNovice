@@ -4,9 +4,11 @@ import CourseCard from '../../reusable-ui/cards/CourseCard';
 
 export interface CourseListProps {
     className?: string;
+    carouselClassName?: string;
+    style?: React.CSSProperties;
 }
 
-const CourseList: React.FC<CourseListProps> = ({ className }) => {
+const CourseList: React.FC<CourseListProps> = ({ className, carouselClassName, style }) => {
     const [courses, setCourses] = useState<CourseType[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -40,9 +42,9 @@ const CourseList: React.FC<CourseListProps> = ({ className }) => {
     }
 
     return (
-        <div className={className}>
+        <div className={className} style={style}>
             {courses.map(course => (
-                <CourseCard key={course.course_id} course={course} />
+                <CourseCard key={course.course_id} course={course} className={carouselClassName} />
             ))}
         </div>
     );

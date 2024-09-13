@@ -64,11 +64,11 @@ const Carousel: React.FC = () => {
 
             {/* Carousel Container */}
             <div className="overflow-hidden">
-                <div
-                    className="transition-transform duration-300 ease-in-out"
-                    style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-                    <CourseList className="w-full md:w-1/3 flex flex-shrink-0 p-4" />
-                </div>
+                <CourseList
+                    style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                    className="flex transition-transform duration-300 ease-in-out p-4"
+                    carouselClassName="w-full md:w-1/3 flex-shrink-0"
+                />
             </div>
 
             {/* Arrow Right */}

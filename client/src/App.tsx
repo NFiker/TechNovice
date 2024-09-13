@@ -39,7 +39,7 @@ function App() {
                 {/* Route pour TeacherDetail */}
                 <Route path="/enseignant/:id" element={<TeacherDetail />} /> {/* Route pour TeacherDetail */}
                 {/* Profil */}
-                <Route path="/profil" element={<Profile />} />
+                <Route path="/profil/:id" element={<Profile />} />
                 {/* Tableau de bord */}
                 <Route path="/tableau" element={<Dashboard />} />
                 {/* A-propos */}

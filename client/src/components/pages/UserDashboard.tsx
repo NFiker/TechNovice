@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import type { CourseType } from '../reusable-ui/cards/CourseCard';
 import CourseCard from '../reusable-ui/cards/CourseCard';
+import type { TopicType } from '../reusable-ui/cards/TopicCard';
+import TopicCard from '../reusable-ui/cards/TopicCard';
 import Footer from '../reusable-ui/Footer';
 import Header from '../reusable-ui/Header';
 
@@ -14,7 +16,7 @@ interface User {
     last_name: string;
     role_name: string;
     comments: any[];
-    topics: any[];
+    topics: TopicType[];
     courses: CourseType[];
     watches: {
         course_id: number;
@@ -64,38 +66,45 @@ const UserDashboard: React.FC = () => {
             <main className="mt-32">
                 <div className="container mx-auto p-4">
                     <h1 className="text-3xl font-bold mb-6">Tableau de bord de {user.nickname}</h1>
-                    <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 border-teal-200 rounded-3xl p-16 border-2">
-                        <h2 className="text-2xl font-semibold mb-4">Mes cours suivis</h2>
-                        {user.watches.map(watch => {
-                            const course = user.courses.find(c => c.course_id === watch.course_id);
-                            return course ? (
-                                <CourseCard
-                                    key={course.course_id}
-                                    course={course}
-                                    buttonLabel="Continuer le cours"
-                                    onButtonClick={() => {
-                                        /* Ajoutez ici la logique pour continuer le cours */
-                                    }}
-                                />
-                            ) : null;
-                        })}
+                    <div className="flex flex-col lg:flex-row gap-4">
+                        <div className="lg:w-1/2 border-teal-200 rounded-3xl p-8 border-2">
+                            <h2 className="text-2xl font-semibold mb-4">Mes cours suivis</h2>
+                            <div className="space-y-6">
+                                {' '}
+                                {/* Ajout de cette div avec espace vertical */}
+                                {user.watches.map(watch => {
+                                    const course = user.courses.find(c => c.course_id === watch.course_id);
+                                    return course ? (
+                                        <CourseCard
+                                            key={course.course_id}
+                                            course={course}
+                                            buttonLabel="Continuer le cours"
+                                            onButtonClick={() => {
+                                                /* Ajoutez ici la logique pour continuer le cours */
+                                            }}
+                                        />
+                                    ) : null;
+                                })}
+                            </div>
+                        </div>
+                        <div className="lg:w-1/2 border-teal-200 rounded-3xl p-8 border-2">
+                            <h2 className="text-2xl font-semibold mb-4">Mes topics créés</h2>
+                            <div className="space-y-6">
+                                {' '}
+                                {/* Ajout de cette div avec espace vertical */}
+                                {user.topics.map(topic => (
+                                    <TopicCard
+                                        key={topic.topic_id}
+                                        topic={topic}
+                                        buttonLabel="Voir le topic"
+                                        onButtonClick={() => {
+                                            /* Ajoutez ici la logique pour voir le topic */
+                                        }}
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 border-teal-200 rounded-3xl p-16 border-2">
-                    <h2 className="text-2xl font-semibold mb-4">Mes topics créés</h2>
-                    {user.watches.map(watch => {
-                        const course = user.courses.find(c => c.course_id === watch.course_id);
-                        return course ? (
-                            <CourseCard
-                                key={course.course_id}
-                                course={course}
-                                buttonLabel="Continuer le cours"
-                                onButtonClick={() => {
-                                    /* Ajoutez ici la logique pour continuer le cours */
-                                }}
-                            />
-                        ) : null;
-                    })}
                 </div>
                 <Footer />
             </main>

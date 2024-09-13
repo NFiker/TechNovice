@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
 import CourseList from '../pages/lists/CourseList';
 import type { CourseType } from './cards/CourseCard';
 
@@ -54,28 +55,24 @@ const Carousel: React.FC = () => {
     };
 
     return (
-        <div className="relative w-full">
-            {/* Arrow Left */}
-            <button
-                onClick={prevSlide}
-                className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-indigo-600 text-white p-2 rounded-full shadow-lg hover:bg-indigo-900">
-                &lt;
+        <div className="relative w-full flex items-center justify-center">
+            {/* Left arrow */}
+            <button className="absolute left-0 p-4" onClick={prevSlide}>
+                <FaArrowLeft className="h-8 w-8 text-indigo-600 hover:text-indigo-900" />
             </button>
 
-            {/* Carousel Container */}
-            <div className="overflow-hidden">
+            {/* Carousel container */}
+            <div className="w-5/6 overflow-hidden">
                 <CourseList
                     style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-                    className="flex transition-transform duration-300 ease-in-out p-4"
-                    carouselClassName="w-full md:w-1/3 flex-shrink-0"
+                    className="flex transition-transform duration-500 md:gap-4"
+                    carouselClassName="min-w-full md:min-w-[32%]"
                 />
             </div>
 
-            {/* Arrow Right */}
-            <button
-                onClick={nextSlide}
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-indigo-600 text-white p-2 rounded-full shadow-lg hover:bg-indigo-900">
-                &gt;
+            {/* Right arrow */}
+            <button className="absolute right-0 p-4" onClick={nextSlide}>
+                <FaArrowRight className="h-8 w-8 text-indigo-600 hover:text-indigo-900" />
             </button>
         </div>
     );

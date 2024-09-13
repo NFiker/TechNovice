@@ -91,7 +91,16 @@ const Homepage: React.FC = () => {
                         <h2 className="text-3xl font-semibold">Nos catégories les plus populaires</h2>
                         <p className="mb-8">Découvrez notre séléction de cours par catégorie</p>
 
-                        <div className="container mx-auto py-10">
+                        <div className="container">
+                            <h2 className="text-2xl mb-4">Excel</h2>
+                            <Carousel />
+                        </div>
+                        <div className="container">
+                            <h2 className="text-2xl mb-4">Word</h2>
+                            <Carousel />
+                        </div>
+                        <div className="container">
+                            <h2 className="text-2xl mb-4">Achats en ligne</h2>
                             <Carousel />
                         </div>
                     </div>

@@ -1,52 +1,42 @@
 // Homepage.tsx
-import axios, { AxiosError } from 'axios';
-import { useFormik } from 'formik';
+import axios from 'axios';
 import { useState } from 'react';
 import useSignIn from 'react-auth-kit/hooks/useSignIn';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 
-function Login() {
-    const [error, setError] = useState('');
+const SignInComponent = () => {
     const signIn = useSignIn();
-
-    const formik = useFormik({
-        initialValues: {
-            mail: '',
-            password: '',
-        },
-        onSubmit: async values => {
-            console.log('Values: ', values);
-
-            try {
-                const response = await axios.post(
-                    'https://technovice-app-196e28ed15ce.herokuapp.com/login',
-                    values,
-                );
-
-                signIn({
-                    auth: {
-                        token: response.data.token,
-                        type: 'Bearer',
-                    },
-                    refresh: response.data.token,
-
-                    userState: { name: 'React User' },
-                });
-            } catch (error) {
-                if (error && error instanceof AxiosError) {
-                    setError(error.response?.data.message);
-                }
-                console.log('Error:', error);
-            }
-        },
+    const [formData, setFormData] = useState({
+        mail: '',
+        password: '',
     });
-
+    const onSubmit = event => {
+        event.preventDefault();
+        axios.post('https://technovice-app-196e28ed15ce.herokuapp.com/login', formData).then(res => {
+            if (res.status === 200) {
+                if (
+                    signIn({
+                        auth: {
+                            token: res.data.token,
+                            type: 'Bearer',
+                        },
+                        refresh: res.data.refreshToken,
+                        userState: {
+                            name: 'React User',
+                            uid: 123456,
+                        },
+                    })
+                ) {
+                    return redirect('/');
+                } else {
+                    throw new Error('Failed to sign in');
+                }
+            }
+        });
+    };
     return (
         <div className="w-screen min-h-screen flex items-center justify-center bg-teal-400 bg-opacity-50 px-4 sm:px-6 lg:px-8">
-            <form
-                action="post"
-                className="relative py-3 sm:max-w-xs sm:mx-auto"
-                onSubmit={formik.handleSubmit}>
+            <form action="post" className="relative py-3 sm:max-w-xs sm:mx-auto" onSubmit={onSubmit}>
                 <div className="flex flex-col justify-center items-center h-full select-none p-6 bg-indigo-600 rounded-t-xl">
                     <img className="max-w-20" src="img/logo-small.png" alt="" />
                 </div>
@@ -67,8 +57,7 @@ function Login() {
                             id="email"
                             type="email"
                             name="email"
-                            onChange={formik.handleChange}
-                            value={formik.values.mail}
+                            onChange={event => setFormData({ ...formData, mail: event.target.value })}
                         />
                     </div>
                     <div className="w-full flex flex-col gap-2">
@@ -79,8 +68,7 @@ function Login() {
                             name="password"
                             className="border rounded-lg px-3 py-2 mb-5 text-sm w-full"
                             placeholder="••••••••"
-                            onChange={formik.handleChange}
-                            value={formik.values.password}
+                            onChange={event => setFormData({ ...formData, password: event.target.value })}
                         />
                     </div>
                     <div className="mt-5">
@@ -101,6 +89,6 @@ function Login() {
             </form>
         </div>
     );
-}
+};
 
-export default Login;
+export default SignInComponent;

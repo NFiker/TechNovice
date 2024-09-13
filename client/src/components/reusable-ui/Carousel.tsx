@@ -1,14 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
+import CourseList from '../pages/lists/CourseList';
+import type { CourseType } from './cards/CourseCard';
 
-interface CarouselProps {
-    cards: React.ReactNode[];
-}
-
-const Carousel: React.FC<CarouselProps> = ({ cards }) => {
+const Carousel: React.FC = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    const [courses, setCourses] = useState<CourseType[]>([]);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const response = await fetch(`https://technovice-app-196e28ed15ce.herokuapp.com/api/courses`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch courses');
+                }
+                const data: CourseType[] = await response.json();
+                setCourses(data); // Stocker tous les cours récupérés
+            } catch (error) {
+                if (error instanceof Error) {
+                    setError(error.message);
+                }
+            } finally {
+                setLoading(false); // Mettre à jour l'état de chargement
+            }
+        };
+        fetchCourses();
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
     const nextSlide = () => {
-        if (currentIndex + 1 < cards.length) {
+        if (currentIndex + 1 < courses.length) {
             setCurrentIndex(currentIndex + 1);
         } else {
             setCurrentIndex(0); // Retour à la première carte
@@ -19,40 +50,29 @@ const Carousel: React.FC<CarouselProps> = ({ cards }) => {
         if (currentIndex - 1 >= 0) {
             setCurrentIndex(currentIndex - 1);
         } else {
-            setCurrentIndex(cards.length - 1); // Retour à la dernière carte
+            setCurrentIndex(courses.length - 1); // Retour à la dernière carte
         }
     };
 
     return (
-        <div className="relative w-full">
-            {/* Arrow Left */}
-            <button
-                onClick={prevSlide}
-                className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-indigo-600 text-white p-2 rounded-full shadow-lg hover:bg-indigo-900">
-                &lt;
+        <div className="relative w-full flex items-center justify-center">
+            {/* Left arrow */}
+            <button className="absolute left-0 p-4" onClick={prevSlide}>
+                <FaArrowLeft className="h-8 w-8 text-indigo-600 hover:text-indigo-900" />
             </button>
 
-            {/* Carousel Container */}
-            <div className="overflow-hidden">
-                <div
-                    className="flex transition-transform duration-300 ease-in-out"
-                    style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-                    {cards.map((card, index) => (
-                        <div
-                            key={index}
-                            className="w-full md:w-1/3 flex-shrink-0 p-4" // w-full for mobile, md:w-1/3 for desktop
-                        >
-                            {card}
-                        </div>
-                    ))}
-                </div>
+            {/* Carousel container */}
+            <div className="w-5/6 overflow-hidden">
+                <CourseList
+                    style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                    className="flex transition-transform duration-500 md:gap-4"
+                    carouselClassName="min-w-full md:min-w-[32%]"
+                />
             </div>
 
-            {/* Arrow Right */}
-            <button
-                onClick={nextSlide}
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-indigo-600 text-white p-2 rounded-full shadow-lg hover:bg-indigo-900">
-                &gt;
+            {/* Right arrow */}
+            <button className="absolute right-0 p-4" onClick={nextSlide}>
+                <FaArrowRight className="h-8 w-8 text-indigo-600 hover:text-indigo-900" />
             </button>
         </div>
     );

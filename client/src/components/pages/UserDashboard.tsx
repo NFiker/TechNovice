@@ -82,6 +82,12 @@ const UserDashboard: React.FC = () => {
                                             onButtonClick={() => {
                                                 /* Ajoutez ici la logique pour continuer le cours */
                                             }}
+                                            dangerButtonLabel="Arrêter de suivre"
+                                            onDangerButtonClick={() => {
+                                                /* Ajoutez ici la logique pour arrêter de suivre le cours */
+                                                console.log(`Arrêter de suivre le cours ${course.course_id}`);
+                                            }}
+                                            dangerButtonClassName="ml-6"
                                         />
                                     ) : null;
                                 })}

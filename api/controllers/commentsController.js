@@ -6,19 +6,19 @@ const commentsController = {
     // Controller pour créer un message
     async createComment(req, res) {
         const { topic_id } = req.params;
-        const { com_content, author_user_id } = req.body;
+        const { com_content, user_id } = req.body;
 
         // Vérifier si le contenu du message est renseigné correctement
         if (!com_content) {
             return res.status(400).json({ error: 'Contenu du message obligatoire' });
         }
-        if (!author_user_id) {
+        if (!user_id) {
             return res.status(400).json({ error: 'Auteur du message obligatoire' });
         }
         // verifier si utilisateur existe
         try {
             const user = await prisma.users.findUnique({
-                where: { user_id: parseInt(author_user_id) },
+                where: { user_id: parseInt(user_id) },
             });
 
             if (!user) {
@@ -38,10 +38,10 @@ const commentsController = {
                 data: {
                     com_content,
                     topic_id: parseInt(topic_id),
-                    author_user_id: parseInt(author_user_id),
+                    author_user_id: parseInt(user_id),
                 },
             });
-            res.status(200).json(comment);
+            res.status(201).json(comment);
         } catch (error) {
             res.status(500).json({ message: 'Erreur lors de la création du message', error });
         } finally {

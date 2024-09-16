@@ -17,9 +17,6 @@ const userschema = Joi.object({
         .required(),
 
     // Une chaine facultative, doit satisfaire le modèle d'expression régulière personnalisé et doit être accompagné repeat_password et égal à celui-ci
-    //^[a-zA-Z0-9]{8,30}$ : ^ et $ délimitent le début et la fin de la chaîne.
-    //[a-zA-Z0-9] correspond à toute lettre majuscule/minuscule et à tout chiffre.
-    //{8,30} signifie que la longueur doit être comprise entre 8 et 30 caractères.
     password: Joi.string()
         .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$'))
         .required(),

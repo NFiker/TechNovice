@@ -25,7 +25,7 @@ describe('PATCH /api/topics/:topic_id', () => {
         "author_user_id": 1
     }
 
-    it('should succeed if topic is found', async function ()  {
+    it('should succeed if topic is changed', async function ()  {
         const response = await request(this.app)
             .patch('/api/topics/' + topicId)
             .send(payload)

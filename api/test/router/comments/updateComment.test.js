@@ -5,7 +5,7 @@ import { createTestComment } from '../../fixtures.js';
 
 const prisma = new PrismaClient();
 
-describe('PATCH /api/topics/:topic_id(\\d+)/message/:com_id(\\d+)', () => {
+describe.only('PATCH /api/topics/:topic_id(\\d+)/message/:com_id(\\d+)', () => {
     
 let topicId = null;
 
@@ -13,6 +13,7 @@ let topicId = null;
         await prisma.topics.deleteMany(); // Nettoyer la base de données de test
         const topic = await createTestComment(); // Insérer des données de test
         topicId = topic.topic_id;
+        comId = topic.com_id;
     });
 
     const payload = {
@@ -23,9 +24,9 @@ let topicId = null;
         }
     }
 
-    it('should succeed if comment is found', async function ()  {
+    it('should succeed if comment is changed', async function ()  {
         const response = await request(this.app)
-            .patch('/api/topics/:topic_id(\\d+)/message/:com_id(\\d+)' + topicId)
+            .patch(`/api/topics/${topicId}/message/${comId}`)
             .send(payload)
             .expect(200);
             

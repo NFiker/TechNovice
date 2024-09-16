@@ -1,3 +1,4 @@
+// src/components/reusable-ui/CourseCard.tsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,10 +33,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, className }) => {
                     alt={course.course_title}
                 />
                 <div className="absolute top-2 left-2 flex">
-                    {course.course_tags.map((tag, index) => (
-                        <div key={index} className="bg-blue-600 text-white text-xs px-2 py-1 mr-2 rounded">
-                            {tag}
-                        </div>
+                    {course.course_tags.map(tag => (
+                        <div className="bg-blue-600 text-white text-xs px-2 py-1 mr-2 rounded">{tag}</div>
                     ))}
                 </div>
             </div>

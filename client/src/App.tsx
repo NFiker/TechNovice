@@ -25,6 +25,8 @@ import { useEffect } from 'react';
 import api from './api';
 import { useUser } from './context/UserContext';
 
+import UserDashboard from './components/pages/UserDashboard';
+
 function App() {
     const { setUser } = useUser();
 
@@ -60,6 +62,17 @@ function App() {
                 {/* Route pour CourseDetail */}
                 <Route path="/enseignant/:id" element={<TeacherDetail />} /> {/* Route pour TeacherDetail */}
                 {/* Route pour TeacherDetail */}
+
+                <Route
+                    path="/tableau/:user_id"
+                    element={
+                        <>
+                            {console.log('Rendering UserDashboard')}
+                            <UserDashboard />
+                        </>
+                    }
+                />
+              
                 {/* Connexion */}
                 <Route path="/connexion" element={<Login />} />
                 {/* Inscription */}
@@ -73,16 +86,14 @@ function App() {
                         </ProtectedRoute>
                     }
                 />
-                {/* Tableau de bord */}
-                <Route path="/tableau" element={<Dashboard />} />
                 {/* A-propos */}
                 <Route path="/a-propos" element={<About />} />
                 {/* Conditions générales */}
                 <Route path="/conditions" element={<Conditions />} />
                 {/* Informations légales */}
                 <Route path="/informations" element={<Legal />} />
-                {/* Erreurs */}
-                <Route path="/erreur" element={<Error404 />} />
+                <Route path="*" element={<div>404 - Not Found</div>} />
+
             </Routes>
         </Router>
     );

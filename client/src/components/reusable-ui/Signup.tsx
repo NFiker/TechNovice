@@ -160,7 +160,7 @@ const SignInComponent = () => {
                                         />
                                         <FontAwesomeIcon
                                             icon={faTimes}
-                                            className={validUser || !user ? 'hide' : 'invalid'}
+                                            className={validUser ? 'hide' : 'invalid'}
                                         />
                                     </label>
                                     <input
@@ -376,6 +376,11 @@ const SignInComponent = () => {
                                         className="font-semibold text-sm text-center text-indigo-600 hover:underline hover:underline-offset-2"
                                         to="/connexion">
                                         Déjà un compte ? Connectez-vous ici !
+                                    </Link>
+                                    <Link
+                                        className="font-semibold text-sm text-center text-indigo-600 hover:underline hover:underline-offset-2"
+                                        to="/">
+                                        Retour à l'accueil
                                     </Link>
                                 </div>
                             </div>

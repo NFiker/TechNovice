@@ -35,3 +35,8 @@ a {
     position: relative;
     bottom: 10px;
 }
+
+.valid,
+.invalid {
+    margin-left: 10px;
+}

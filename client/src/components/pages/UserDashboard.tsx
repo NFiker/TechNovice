@@ -96,9 +96,10 @@ const UserDashboard: React.FC = () => {
                                     <TopicCard
                                         key={topic.topic_id}
                                         topic={topic}
-                                        buttonLabel="Voir le topic"
-                                        onButtonClick={() => {
+                                        variant="dashboard"
+                                        onViewTopic={() => {
                                             /* Ajoutez ici la logique pour voir le topic */
+                                            console.log(`Voir le topic ${topic.topic_id}`);
                                         }}
                                     />
                                 ))}

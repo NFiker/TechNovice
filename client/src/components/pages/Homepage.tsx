@@ -4,8 +4,9 @@ import CourseList from '@/components/pages/lists/CourseList';
 import TeacherList from '@/components/pages/lists/TeacherList';
 import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
-import { mockCourseData, mockTeacherData } from '@/fakeData';
+import { mockCourseData } from '@/fakeData';
 import { Link } from 'react-router-dom';
+import Carousel from '../reusable-ui/Carousel';
 import Searchbar from '../reusable-ui/Searchbar';
 
 const Homepage: React.FC = () => {
@@ -35,7 +36,7 @@ const Homepage: React.FC = () => {
                                 </h1>
                             </div>
                         </div>
-                        <div className="md:container md:bg-[url('img/homepage_graphic.png')] max-md:bg-[url('img/homepage_graphic_semi.png')] bg-contain bg-no-repeat max-md:bg-[position:170%_0%] bg-[position:100%_0%]">
+                        <div className="h-full md:container bg-[url('../img/homepage_graphic_semi.png')] bg-contain bg-no-repeat max-md:bg-[position:170%_0%] bg-[position:100%_0%]">
                             <p className="font-bold text-4xl md:w-3/4 m-4 drop-shadow-md">
                                 Libérez votre potentiel et apprenez plus vite que jamais grâce
                                 <span className="text-sky-500"> aux cours TechnO'vice</span>
@@ -65,12 +66,10 @@ const Homepage: React.FC = () => {
                         <h2 className="text-3xl font-semibold">Nos cours du moment</h2>
                         <p className="mb-8">Découvrez nos cours les plus populaires</p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <CourseList />
-                        </div>
+                        <CourseList className="grid grid-cols-1 md:grid-cols-2 gap-6" />
 
                         <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
-                            Découvrez le catalogue
+                            <Link to="catalogue-des-cours">Découvrez le catalogue</Link>
                         </button>
                     </div>
 
@@ -79,11 +78,11 @@ const Homepage: React.FC = () => {
                         <p className="mb-8">Discutez avec eux</p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <TeacherList teachers={mockTeacherData.slice(0, 4)} />
+                            <TeacherList />
                         </div>
 
                         <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
-                            Découvrez le forum
+                            <Link to="catalogue-des-sujets">Découvrez le forum</Link>
                         </button>
                     </div>
                 </div>
@@ -92,7 +91,18 @@ const Homepage: React.FC = () => {
                         <h2 className="text-3xl font-semibold">Nos catégories les plus populaires</h2>
                         <p className="mb-8">Découvrez notre séléction de cours par catégorie</p>
 
-                        <div className="container mx-auto py-10"></div>
+                        <div className="container">
+                            <h2 className="text-2xl mb-4">Excel</h2>
+                            <Carousel />
+                        </div>
+                        <div className="container">
+                            <h2 className="text-2xl mb-4">Word</h2>
+                            <Carousel />
+                        </div>
+                        <div className="container">
+                            <h2 className="text-2xl mb-4">Achats en ligne</h2>
+                            <Carousel />
+                        </div>
                     </div>
                 </div>
             </main>

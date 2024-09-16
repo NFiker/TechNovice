@@ -14,9 +14,7 @@ const Header: React.FC = () => {
     };
 
     return (
-        <header
-            className={`flex fixed border-b top-0 left-0 w-full z-50 transition-transform duration-500 bg-white shadow-md
-            }`}>
+        <header className="flex fixed border-b top-0 left-0 w-full z-50 bg-white shadow-md">
             <div className="max-md:hidden container w-1/4">
                 <Link to="/">
                     <img src="img/logo.png" alt="Logo de TechnO'vice" />
@@ -41,22 +39,22 @@ const Header: React.FC = () => {
 
                     <div className="invisible absolute z-50 flex w-full flex-col bg-gray-100 py-1 px-4 text-gray-800 shadow-xl group-hover:visible rounded-lg">
                         <Link
-                            to="/"
+                            to="/catalogue-des-sujets"
                             className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
                             Forum
                         </Link>
                         <Link
-                            to="/"
+                            to="/catalogue-des-cours"
                             className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
                             Catalogue
                         </Link>
                         <Link
-                            to="/"
+                            to="/connexion"
                             className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
                             Connexion
                         </Link>
                         <Link
-                            to="/"
+                            to="/inscription"
                             className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
                             Inscription
                         </Link>
@@ -67,7 +65,7 @@ const Header: React.FC = () => {
                     <Searchbar
                         data={mockCourseData}
                         searchType="course"
-                        searchKeys={['title', 'category', 'description']}
+                        searchKeys={['course_title', 'course_tags', 'course_desc']}
                         onSearch={handleSearch}
                         onSelect={handleSelect}
                     />
@@ -78,12 +76,16 @@ const Header: React.FC = () => {
                 <nav className="font-semibold">
                     <ul className="flex justify-around items-center">
                         <li>
-                            <Link to="/" className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
+                            <Link
+                                to="/connexion"
+                                className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
                                 Se connecter
                             </Link>
                         </li>
                         <li>
-                            <Link to="/" className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
+                            <Link
+                                to="/inscription"
+                                className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
                                 S'inscrire
                             </Link>
                         </li>

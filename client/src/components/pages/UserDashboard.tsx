@@ -6,6 +6,7 @@ import type { TopicType } from '../reusable-ui/cards/TopicCard';
 import TopicCard from '../reusable-ui/cards/TopicCard';
 import Footer from '../reusable-ui/Footer';
 import Header from '../reusable-ui/Header';
+import CourseList from './lists/CourseList';
 
 interface User {
     user_id: number;
@@ -72,25 +73,7 @@ const UserDashboard: React.FC = () => {
                             <div className="space-y-6">
                                 {' '}
                                 {/* Ajout de cette div avec espace vertical */}
-                                {user.watches.map(watch => {
-                                    const course = user.courses.find(c => c.course_id === watch.course_id);
-                                    return course ? (
-                                        <CourseCard
-                                            key={course.course_id}
-                                            course={course}
-                                            buttonLabel="Continuer le cours"
-                                            onButtonClick={() => {
-                                                /* Ajoutez ici la logique pour continuer le cours */
-                                            }}
-                                            dangerButtonLabel="Arrêter de suivre"
-                                            onDangerButtonClick={() => {
-                                                /* Ajoutez ici la logique pour arrêter de suivre le cours */
-                                                console.log(`Arrêter de suivre le cours ${course.course_id}`);
-                                            }}
-                                            dangerButtonClassName="ml-6"
-                                        />
-                                    ) : null;
-                                })}
+                                <CourseList >
                             </div>
                         </div>
                         <div className="lg:w-1/2 border-teal-200 rounded-3xl p-8 border-2">

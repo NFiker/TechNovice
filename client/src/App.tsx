@@ -9,7 +9,6 @@ import TeacherDetail from './components/pages/details/TeacherDetail';
 import TopicDetail from './components/pages/details/TopicDetail';
 
 import ProtectedRoute from './auth/ProtectedRoute';
-import Dashboard from './components/pages/Dashboard';
 import Profile from './components/pages/Profile';
 import About from './components/pages/annexes/About';
 import Conditions from './components/pages/annexes/Conditions';
@@ -62,7 +61,6 @@ function App() {
                 {/* Route pour CourseDetail */}
                 <Route path="/enseignant/:id" element={<TeacherDetail />} /> {/* Route pour TeacherDetail */}
                 {/* Route pour TeacherDetail */}
-
                 <Route
                     path="/tableau/:user_id"
                     element={
@@ -72,7 +70,6 @@ function App() {
                         </>
                     }
                 />
-              
                 {/* Connexion */}
                 <Route path="/connexion" element={<Login />} />
                 {/* Inscription */}
@@ -92,8 +89,7 @@ function App() {
                 <Route path="/conditions" element={<Conditions />} />
                 {/* Informations légales */}
                 <Route path="/informations" element={<Legal />} />
-                <Route path="*" element={<div>404 - Not Found</div>} />
-
+                <Route path="*" element={<Error404 />} />
             </Routes>
         </Router>
     );

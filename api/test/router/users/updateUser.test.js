@@ -13,6 +13,7 @@ describe('PATCH /api/users/:user_id', () => {
         const user = await createTestUser(); // Insérer des données de test
         userId = user.user_id;
     });
+    
     const payload = {
         "nickname": "Camille9",
         "mail": "camille9@gmail.com",
@@ -20,7 +21,7 @@ describe('PATCH /api/users/:user_id', () => {
         "first_name": "Camille",
         "last_name": "Deluxe",
         "role_name": "administrateur", 
-    }
+    };
 
     it('should succeed if user is found', async function ()  {
         const response = await request(this.app)

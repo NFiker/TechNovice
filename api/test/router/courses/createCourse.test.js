@@ -20,7 +20,8 @@ describe('POST /api/courses/', () => {
         ],
         "course_content": "Windows vous permet d’accèder en un clic à l’aide d’un raccourci sur le bureau à un logiciel utilisé fréquemment.",
         "author_user_id": 1
-    }
+    };
+    
     it('should succeed if course is found', async function ()  {
         const response = await request(this.app)
             .post('/api/courses/')
@@ -46,6 +47,6 @@ describe('POST /api/courses/', () => {
             expect(response.body.course_tags).to.be.a("array").lengthOf(2);
             expect(response.body.course_content).to.be.a("string");
             expect(response.body.author_user_id).to.be.a("number");
-        });
     });
+});
 

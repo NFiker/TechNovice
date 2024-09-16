@@ -39,8 +39,7 @@ describe('GET /api/topics/:topic_id', () => {
                 "author_user_id",
                 "topic_date",
                 "comments",
-                   
-                ]);
+            ]);
             expect(response.body.topic_id).to.eq(topicId);
             expect(response.body.topic_title).to.be.a("string");
             expect(response.body.topic_tag).to.be.a("array").lengthOf(2);

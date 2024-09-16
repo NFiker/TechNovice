@@ -9,7 +9,7 @@ describe('GET /api/courses/', () => {
     before(async () => {
         await prisma.courses.deleteMany(); // Nettoyer la base de données de test
         await createTestCourse(); // Insérer des données de test
-    })
+    });
 
     it('should succeed if courses is found', async function () {
         const response = await request(this.app)

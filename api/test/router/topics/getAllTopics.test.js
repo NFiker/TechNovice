@@ -9,7 +9,7 @@ describe('GET /api/topics/', () => {
     before(async () => {
         await prisma.topics.deleteMany(); // Nettoyer la base de données de test
         await createTestTopic(); // Insérer des données de test
-    })
+    });
 
     it('should succeed if topics is found', async function () {
         const response = await request(this.app)
@@ -31,9 +31,6 @@ describe('GET /api/topics/', () => {
                 "topic_content",
                 "author_user_id",
                 "topic_date",
-              
-                
-
                 ]);
             expect(topic.topic_id).not.to.be.null;
             expect(topic.topic_title).to.be.a('string');

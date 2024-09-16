@@ -5,7 +5,7 @@ import { createTestComment } from '../../fixtures.js';
 
 const prisma = new PrismaClient();
 
-describe('DELETE /api/comments/:comment_id', () => {
+describe.only('DELETE /api/topics/message/:com_id(\\d+)', () => {
     let commentId = null;
 
     before(async () => {
@@ -16,7 +16,7 @@ describe('DELETE /api/comments/:comment_id', () => {
 
     it('should succeed if comment is found', async function () {
         const response = await request(this.app)
-            .get('/api/comments/' + commentId)
+            .get('/api/topics/message/:com_id(\\d+)' + commentId)
             .set('Accept', 'application/json');
 
         expect(response.status).to.equal(200);

@@ -12,16 +12,19 @@ export interface CourseType {
 
 interface CourseCardProps {
     course: CourseType;
+    className?: string;
 }
 
-const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
+const CourseCard: React.FC<CourseCardProps> = ({ course, className }) => {
     const navigate = useNavigate(); // Utilisation du hook de navigation
 
     const handleClick = () => {
         navigate(`cours/${course.course_id}`); // Redirection vers la page de détails du cours
     };
+    
     return (
-        <div className="bg-white border-2 border-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+        <div
+            className={`bg-white border-2 border-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ${className || ''}`}>
             <div className="relative">
                 <img
                     className="rounded-t-lg object-cover h-40 w-full"

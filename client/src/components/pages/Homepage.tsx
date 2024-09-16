@@ -66,7 +66,7 @@ const Homepage: React.FC = () => {
                         <h2 className="text-3xl font-semibold">Nos cours du moment</h2>
                         <p className="mb-8">Découvrez nos cours les plus populaires</p>
 
-                        <CourseList className="grid grid-cols-1 md:grid-cols-2 gap-6" />
+                        <CourseList className="grid grid-cols-1 md:grid-cols-2 gap-6" slicer={4} />
 
                         <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
                             <Link to="catalogue-des-cours">Découvrez le catalogue</Link>

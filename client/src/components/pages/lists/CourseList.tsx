@@ -6,9 +6,10 @@ export interface CourseListProps {
     className?: string;
     carouselClassName?: string;
     style?: React.CSSProperties;
+    slicer?: number;
 }
 
-const CourseList: React.FC<CourseListProps> = ({ className, carouselClassName, style }) => {
+const CourseList: React.FC<CourseListProps> = ({ className, carouselClassName, style, slicer }) => {
     const [courses, setCourses] = useState<CourseType[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -20,7 +21,10 @@ const CourseList: React.FC<CourseListProps> = ({ className, carouselClassName, s
                 if (!response.ok) {
                     throw new Error('Failed to fetch courses');
                 }
-                const data: CourseType[] = await response.json();
+                let data: CourseType[] = await response.json();
+                if (slicer) {
+                    data = data.slice(0, slicer);
+                }
                 setCourses(data); // Stocker tous les cours récupérés
             } catch (error) {
                 if (error instanceof Error) {

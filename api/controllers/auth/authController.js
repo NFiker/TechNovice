@@ -4,10 +4,6 @@ import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
 
-const createToken = id => {
-    return jwt.sign({ id }, 'secret', { expiresIn: '1h' });
-};
-
 const authController = {
     async login(req, res) {
         const { mail, password } = req.body;
@@ -27,10 +23,31 @@ const authController = {
                 return res.status(400).json({ message: 'Mot de passe incorrect' });
             }
 
-            res.cookie('jwt', createToken(user.user_id));
-            res.status(200).json({
+            const accessJWToken = jwt.sign(
+                { id: user.user_id, email: user.mail, role: user.role_name },
+                process.env.ACCESS_TOKEN_SECRET,
+                {
+                    expiresIn: '15min',
+                },
+            );
+
+            const refreshJWToken = jwt.sign(
+                { id: user.user_id, name: user.nickname, role: user.role_name },
+                process.env.REFRESH_TOKEN_SECRET,
+                {
+                    expiresIn: '1d',
+                },
+            );
+
+            res.cookie('jwt', refreshJWToken, {
+                secure: true,
+                sameSite: 'none',
+                maxAge: 24 * 60 * 60 * 1000,
+            });
+
+            res.json({
                 message: `Bienvenue ${user.first_name}`,
-                cookie: createToken(user.user_id),
+                accessJWToken,
             });
         } catch (error) {
             return res.status(500).json({ message: 'Erreur lors de la connexion', error });

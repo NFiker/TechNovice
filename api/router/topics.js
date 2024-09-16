@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { topicController } from '../controllers/topicsController.js';
+import validators from '../middlewares/validator.js';
 
 const topicRouter = Router();
 
@@ -12,7 +13,7 @@ topicRouter.get('/api/topics', topicController.getAllTopics);
 topicRouter.get('/api/topics/:topic_id(\\d+)', topicController.getOneTopicById);
 
 // Créer un sujet
-topicRouter.post('/api/topics', topicController.createTopic);
+topicRouter.post('/api/topics',validators('topics'), topicController.createTopic);
 
 // Mettre à jour un sujet
 topicRouter.patch('/api/topics/:topic_id(\\d+)', topicController.updateTopic);

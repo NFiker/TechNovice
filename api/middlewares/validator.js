@@ -2,30 +2,32 @@
 
 import createHttpError from 'http-errors';
 
-//* Include joi to check error type
-// import Joi from 'joi'
+//* Importe tous les validadors 
+import validators from '../validator/index.js'
 
-//* Include all validators
-import Validators from '../validator/index.js';
-
-export default function (validator) {
-    //! If validator is not exist, throw err
-    if (!Object.prototype.hasOwnProperty.call(Validators, validator)) {
-        throw new Error(`${validator}' validator is not exist'`);
+// utilisattion de validator pour verifiér les données
+export default  function(validator) {
+    //Cette méthode vérifie si l'objet validators possède une propriété spécifique appelée validator. 
+    //Si ce n'est pas le cas, une erreur est levée.
+    if (!Object.prototype.hasOwnProperty.call(validators, validator)) {
+        throw new Error(`'${validator}' validator is not exist`)
     }
 
     return async function (req, res, next) {
         try {
-            const validated = await Validators[validator].validateAsync(req.body);
-            req.body = validated;
-            next();
+            //on utilise un validateur spécifique (validator) pour valider les données contenues dans req.body
+            // validateAsync : C'est une méthode asynchrone qui vérifie les données de manière non bloquante 
+            const validated = await validators[validator].validateAsync(req.body)
+            req.body = validated
+            next()
         } catch (err) {
-            //* Pass err to next
-            //! If validation error occurs call next with HTTP 422. Otherwise HTTP 500
+            //Si l'erreur vient de Joi, cela signifie que les données envoyées par le client ne sont pas conformes (erreur HTTP 422 )
+            //Cette ligne vérifie si l'erreur provient de la validation (via la bibliothèque Joi).
             if (err.isJoi) {
                 return next(createHttpError(422, { message: err.message }));
             }
-            next(createHttpError(500));
-        }
-    };
+            // Si l'erreur n'est pas liée à la validation,  cette ligne crée une erreur HTTP 500
+            next(createHttpError(500))
+        }        
+    }
 }

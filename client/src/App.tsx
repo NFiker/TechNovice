@@ -8,6 +8,7 @@ import CourseDetail from './components/pages/details/CourseDetail';
 import TeacherDetail from './components/pages/details/TeacherDetail';
 import TopicDetail from './components/pages/details/TopicDetail';
 
+import ProtectedRoute from './auth/ProtectedRoute';
 import Dashboard from './components/pages/Dashboard';
 import Profile from './components/pages/Profile';
 import About from './components/pages/annexes/About';
@@ -20,7 +21,27 @@ import SignInComponent from './components/reusable-ui/Login';
 import Signup from './components/reusable-ui/Signup';
 import { mockTopicData } from './fakeData';
 
+import { useEffect } from 'react';
+import api from './api';
+import { useUser } from './context/UserContext';
+
 function App() {
+    const { setUser } = useUser();
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            api.get('/users/me')
+                .then(response => {
+                    setUser({
+                        name: response.data.name,
+                        mail: response.data.email,
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    }, [setUser]);
     return (
         <Router>
             <Routes>
@@ -44,7 +65,14 @@ function App() {
                 {/* Inscription */}
                 <Route path="/inscription" element={<SignInComponent />} />
                 {/* Profil */}
-                <Route path="/profil" element={<Profile />} />
+                <Route
+                    path="/profil"
+                    element={
+                        <ProtectedRoute>
+                            <Profile />
+                        </ProtectedRoute>
+                    }
+                />
                 {/* Tableau de bord */}
                 <Route path="/tableau" element={<Dashboard />} />
                 {/* A-propos */}

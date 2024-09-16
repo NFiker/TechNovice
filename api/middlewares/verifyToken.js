@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
 
 const verifyToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
+    const authHeader = req.headers.authorization;
+
     if (!authHeader) {
         return res.status(401).json({ message: "Vous n'êtes pas autorisé à accéder à cette ressource" });
     }

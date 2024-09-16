@@ -28,7 +28,7 @@ const watchesController = {
         try {
             const watch = await prisma.watches.findUnique({
                 where: {
-                    course_id_author_user_id: {
+                    course_id_author_author_user_id: {
                         course_id: parseInt(course_id),
                         author_user_id: parseInt(author_user_id),
                     },

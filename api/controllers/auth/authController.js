@@ -23,11 +23,11 @@ const authController = {
                 return res.status(400).json({ message: 'Mot de passe incorrect' });
             }
 
-            const jwToken = jwt.sign({ id: user.user_id, email: user.mail }, 'secret', { expiresIn: '1h' });
+            const jwToken = jwt.sign({ id: user.user_id }, 'secret', { expiresIn: '1h' });
 
-            res.json({
+            return res.json({
                 message: `Bienvenue ${user.first_name}`,
-                token: jwToken,
+                jwToken,
             });
         } catch (error) {
             return res.status(500).json({ message: 'Erreur lors de la connexion', error });

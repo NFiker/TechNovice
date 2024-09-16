@@ -21,10 +21,9 @@ const Button: React.FC<ButtonProps> = ({
         'inline-flex items-center justify-center px-4 py-2 font-semibold rounded-lg transition-all duration-200 ease-out';
 
     const versionStyles = {
-        primary:
-            'bg-yellow-500 text-white hover:bg-yellow-600 border border-yellow-500 hover:border-yellow-600',
-        success: 'bg-green-500 text-white hover:bg-green-600 border border-green-500 hover:border-green-600',
-        danger: 'bg-red-500 text-white hover:bg-red-600 border border-red-500 hover:border-red-600',
+        primary: 'bg-indigo-600 text-white hover:bg-blue-600 border border-blue-500 hover:border-blue-600',
+        secondary: 'bg-teal-600 text-white hover:bg-green-600 border border-green-500 hover:border-green-600',
+        danger: ' text-red-500 hover:bg-red-600 border border-red-500 hover:border-red-600',
     };
 
     return (

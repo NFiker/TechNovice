@@ -98,7 +98,7 @@ const commentsController = {
             if (!comment) {
                 return res.status(404).json({ message: 'Watch not found' });
             }
-
+            console.log(`[{comment}]:`, comment);
             res.status(200).json(comment);
         } catch (error) {
             res.status(500).json({ message: 'Erreur lors de suppresion du message', error });

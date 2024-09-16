@@ -1,4 +1,3 @@
-// src/components/reusable-ui/CourseCard.tsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,16 +12,19 @@ export interface CourseType {
 
 interface CourseCardProps {
     course: CourseType;
+    className?: string;
 }
 
-const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
+const CourseCard: React.FC<CourseCardProps> = ({ course, className }) => {
     const navigate = useNavigate(); // Utilisation du hook de navigation
 
     const handleClick = () => {
         navigate(`cours/${course.course_id}`); // Redirection vers la page de détails du cours
     };
+    
     return (
-        <div className="bg-white border-2 border-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+        <div
+            className={`bg-white border-2 border-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ${className || ''}`}>
             <div className="relative">
                 <img
                     className="rounded-t-lg object-cover h-40 w-full"
@@ -30,8 +32,10 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
                     alt={course.course_title}
                 />
                 <div className="absolute top-2 left-2 flex">
-                    {course.course_tags.map(tag => (
-                        <div className="bg-blue-600 text-white text-xs px-2 py-1 mr-2 rounded">{tag}</div>
+                    {course.course_tags.map((tag, index) => (
+                        <div key={index} className="bg-blue-600 text-white text-xs px-2 py-1 mr-2 rounded">
+                            {tag}
+                        </div>
                     ))}
                 </div>
             </div>

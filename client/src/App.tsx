@@ -25,6 +25,7 @@ import { useEffect } from 'react';
 import api from './api';
 import { useUser } from './context/UserContext';
 
+
 function App() {
     const { setUser } = useUser();
 
@@ -85,7 +86,5 @@ function App() {
                 <Route path="/erreur" element={<Error404 />} />
             </Routes>
         </Router>
-    );
-}
 
 export default App;

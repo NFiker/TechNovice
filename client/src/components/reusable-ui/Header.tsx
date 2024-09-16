@@ -14,8 +14,7 @@ const Header: React.FC = () => {
     };
 
     return (
-        <header
-            className={`flex fixed border-b top-0 left-0 w-full z-50 transition-transform duration-500 bg-white shadow-md fixed`}>
+        <header className="flex fixed border-b top-0 left-0 w-full z-50 bg-white shadow-md">
             <div className="max-md:hidden container w-1/4">
                 <Link to="/">
                     <img src="img/logo.png" alt="Logo de TechnO'vice" />

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 import CourseList from '../pages/lists/CourseList';
 import type { CourseType } from './cards/CourseCard';
 
@@ -10,7 +11,7 @@ interface CarouselProps {
 const Carousel: React.FC<CarouselProps> = ({ tagName }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const [courses, setCourses] = useState<CourseType[]>([]);
+    const [, setCourses] = useState<CourseType[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -59,7 +60,7 @@ const Carousel: React.FC<CarouselProps> = ({ tagName }) => {
             <h2 className="text-3xl mb-4 pb-2 text-center border-b-2 border-sky-300 text-sky-500 font-semibold">
                 {tagName}
             </h2>
-            <div className="relative w-full flex items-center justify-center">
+            <div className="relative w-full flex items-center justify-center mb-2">
                 {/* Left arrow */}
                 <button className="absolute left-0 p-4" onClick={prevSlide}>
                     <FaArrowLeft className="h-8 w-8 text-indigo-600 hover:text-indigo-900" />
@@ -72,6 +73,7 @@ const Carousel: React.FC<CarouselProps> = ({ tagName }) => {
                         className="flex transition-transform duration-500 md:gap-4"
                         carouselClassName="min-w-full md:min-w-[32%]"
                         slicer={6}
+                        tagFilter={tagName}
                     />
                 </div>
 
@@ -80,7 +82,11 @@ const Carousel: React.FC<CarouselProps> = ({ tagName }) => {
                     <FaArrowRight className="h-8 w-8 text-indigo-600 hover:text-indigo-900" />
                 </button>
             </div>
-            
+            <Link
+                className="w-full font-semibold text-sm text-center text-indigo-600 hover:underline hover:underline-offset-2"
+                to={`/catalogue-des-cours/${tagName}`}>
+                Voir dans le catalogue...
+            </Link>
         </div>
     );
 };

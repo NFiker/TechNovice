@@ -7,9 +7,16 @@ export interface CourseListProps {
     carouselClassName?: string;
     style?: React.CSSProperties;
     slicer?: number;
+    tagFilter?: string;
 }
 
-const CourseList: React.FC<CourseListProps> = ({ className, carouselClassName, style, slicer }) => {
+const CourseList: React.FC<CourseListProps> = ({
+    className,
+    carouselClassName,
+    style,
+    slicer,
+    tagFilter,
+}) => {
     const [courses, setCourses] = useState<CourseType[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -25,6 +32,9 @@ const CourseList: React.FC<CourseListProps> = ({ className, carouselClassName, s
                 if (slicer) {
                     data = data.slice(0, slicer);
                 }
+                if (tagFilter) {
+                    data = data.filter(course => course.course_tags.includes(tagFilter));
+                }
                 setCourses(data); // Stocker tous les cours récupérés
             } catch (error) {
                 if (error instanceof Error) {
@@ -35,7 +45,7 @@ const CourseList: React.FC<CourseListProps> = ({ className, carouselClassName, s
             }
         };
         fetchCourses();
-    }, [slicer]);
+    }, []);
 
     if (loading) {
         return <div>Loading...</div>;

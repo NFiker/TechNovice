@@ -39,18 +39,14 @@ const Carousel: React.FC = () => {
     }
 
     const nextSlide = () => {
-        if (currentIndex + 1 < courses.length) {
+        if (currentIndex < 1) {
             setCurrentIndex(currentIndex + 1);
-        } else {
-            setCurrentIndex(0); // Retour à la première carte
         }
     };
 
     const prevSlide = () => {
-        if (currentIndex - 1 >= 0) {
+        if (currentIndex > 0) {
             setCurrentIndex(currentIndex - 1);
-        } else {
-            setCurrentIndex(courses.length - 1); // Retour à la dernière carte
         }
     };
 
@@ -67,6 +63,7 @@ const Carousel: React.FC = () => {
                     style={{ transform: `translateX(-${currentIndex * 100}%)` }}
                     className="flex transition-transform duration-500 md:gap-4"
                     carouselClassName="min-w-full md:min-w-[32%]"
+                    slicer={6}
                 />
             </div>
 

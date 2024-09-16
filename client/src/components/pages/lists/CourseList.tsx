@@ -35,7 +35,7 @@ const CourseList: React.FC<CourseListProps> = ({ className, carouselClassName, s
             }
         };
         fetchCourses();
-    }, []);
+    }, [slicer]);
 
     if (loading) {
         return <div>Loading...</div>;

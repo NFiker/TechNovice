@@ -3,7 +3,11 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
 import CourseList from '../pages/lists/CourseList';
 import type { CourseType } from './cards/CourseCard';
 
-const Carousel: React.FC = () => {
+interface CarouselProps {
+    tagName: string;
+}
+
+const Carousel: React.FC<CarouselProps> = ({ tagName }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const [courses, setCourses] = useState<CourseType[]>([]);
@@ -51,26 +55,32 @@ const Carousel: React.FC = () => {
     };
 
     return (
-        <div className="relative w-full flex items-center justify-center">
-            {/* Left arrow */}
-            <button className="absolute left-0 p-4" onClick={prevSlide}>
-                <FaArrowLeft className="h-8 w-8 text-indigo-600 hover:text-indigo-900" />
-            </button>
+        <div className="container">
+            <h2 className="text-3xl mb-4 pb-2 text-center border-b-2 border-sky-300 text-sky-500 font-semibold">
+                {tagName}
+            </h2>
+            <div className="relative w-full flex items-center justify-center">
+                {/* Left arrow */}
+                <button className="absolute left-0 p-4" onClick={prevSlide}>
+                    <FaArrowLeft className="h-8 w-8 text-indigo-600 hover:text-indigo-900" />
+                </button>
 
-            {/* Carousel container */}
-            <div className="w-5/6 overflow-hidden">
-                <CourseList
-                    style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-                    className="flex transition-transform duration-500 md:gap-4"
-                    carouselClassName="min-w-full md:min-w-[32%]"
-                    slicer={6}
-                />
+                {/* Carousel container */}
+                <div className="w-5/6 overflow-hidden">
+                    <CourseList
+                        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                        className="flex transition-transform duration-500 md:gap-4"
+                        carouselClassName="min-w-full md:min-w-[32%]"
+                        slicer={6}
+                    />
+                </div>
+
+                {/* Right arrow */}
+                <button className="absolute right-0 p-4" onClick={nextSlide}>
+                    <FaArrowRight className="h-8 w-8 text-indigo-600 hover:text-indigo-900" />
+                </button>
             </div>
-
-            {/* Right arrow */}
-            <button className="absolute right-0 p-4" onClick={nextSlide}>
-                <FaArrowRight className="h-8 w-8 text-indigo-600 hover:text-indigo-900" />
-            </button>
+            
         </div>
     );
 };

@@ -23,6 +23,7 @@ import { mockTopicData } from './fakeData';
 
 import { useEffect } from 'react';
 import api from './api';
+import CourseList from './components/pages/lists/CourseList';
 import { useUser } from './context/UserContext';
 
 function App() {
@@ -48,7 +49,7 @@ function App() {
                 {/* Page d'accueil */}
                 <Route path="/" element={<Homepage />} />
                 {/* Catalogues */}
-                {/* <Route path="/catalogue-des-cours" element={<CourseList courses={mockCourseData} />} /> */}
+                <Route path="/catalogue-des-cours" element={<CourseList />} />
                 <Route path="/catalogue-des-sujets" element={<TopicList topics={mockTopicData} />} />
                 <Route path="/catalogue-des-enseignants" element={<TeacherList />} />
                 {/* Connexion */}
@@ -82,7 +83,7 @@ function App() {
                 {/* Informations légales */}
                 <Route path="/informations" element={<Legal />} />
                 {/* Erreurs */}
-                <Route path="/erreur" element={<Error404 />} />
+                <Route path="*" element={<Error404 />} />
             </Routes>
         </Router>
     );

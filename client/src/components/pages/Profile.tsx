@@ -177,7 +177,7 @@ const Profile: React.FC = () => {
                                 name="password"
                                 className="border rounded-lg px-3 py-2 mb-5 text-sm w-full"
                                 placeholder="••••••••"
-                                value={password}
+                                value={userData.password}
                                 onChange={e => setPassword(e.target.value)}
                             />
                             <button

@@ -5,7 +5,7 @@ import { createTestTopic } from '../../fixtures.js';
 
 const prisma = new PrismaClient();
 
-describe.only('DELETE /api/topics/:topic_id', () => {
+describe('DELETE /api/topics/:topic_id', () => {
     let topicId = null;
 
     before(async () => {

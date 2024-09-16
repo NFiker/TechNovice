@@ -39,7 +39,7 @@ export async function createTestTopic () {
             "word", "numérotés"
       ],
       topic_content: "Bonjour, j'ai besoin que ce soit automatique. Merci de me dire si cela est possible ou faut-il le faire manuellement chaque fois ?",
-      author_user_id: 1
+      author_user_id: 1,
     }
   });
 }

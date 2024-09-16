@@ -49,9 +49,17 @@
 //             console.log('POST response:', response.body);
 
 //             expect(response.status).to.equal(200);
-//             expect(response.body).to.be.an('object').with.all.keys(["com_id","topic_id","com_content","com_date","author_user_id"]);
+//             expect(response.body)
+//             .to.be.an('object')
+//             .with.all.keys([
+    //             "com_id",
+    //             "topic_id",
+    //             "com_content",
+    //             "com_date",
+    //             "author_user_id"]);
+
 //             expect(response.body.com_id).to.not.be.null;
-//              expect(response.body.topic_id).to.eq(topicId);
+//             expect(response.body.topic_id).to.eq(topicId);
 //             expect(response.body.com_content).to.be.a("string");
 //             expect(response.body.author_user_id).to.be.a("number");
 //             console.log('[---> [3] <---]:', true);

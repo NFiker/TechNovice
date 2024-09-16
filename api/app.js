@@ -1,9 +1,8 @@
 import cors from 'cors';
 import express from 'express';
-import { router } from './router/index.js';
-
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { router } from './router/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -17,6 +16,7 @@ app.use(
             'http://localhost:3000',
             'https://technovice-app-196e28ed15ce.herokuapp.com',
         ],
+        credentials: true,
     }),
 );
 

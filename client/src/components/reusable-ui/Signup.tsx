@@ -75,7 +75,7 @@ const SignInComponent = () => {
         setErrMsg('');
     }, [user, firstname, lastname, pwd, matchPwd, role]);
 
-    const handleSubmit = async event => {
+    const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         if (!validUser || !validMail || !validFirstName || !validLastName || !validPwd || !validMatch) {
             setErrMsg('Veuillez remplir correctement tous les champs');

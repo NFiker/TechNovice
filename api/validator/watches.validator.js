@@ -5,4 +5,4 @@ const watchSchema = Joi.object({
     course_id: Joi.number().required(),
 });
 
-export default watchSchema ;
+export default watchSchema;

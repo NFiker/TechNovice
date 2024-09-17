@@ -4,9 +4,8 @@ import CourseList from '@/components/pages/lists/CourseList';
 import TeacherList from '@/components/pages/lists/TeacherList';
 import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
-import { mockCourseData } from '@/fakeData';
 import { Link } from 'react-router-dom';
-import Searchbar from '../reusable-ui/Searchbar';
+import Carousel from '../reusable-ui/Carousel';
 
 const Homepage: React.FC = () => {
     const handleSearch = (results: any[]) => {
@@ -35,7 +34,7 @@ const Homepage: React.FC = () => {
                                 </h1>
                             </div>
                         </div>
-                        <div className="md:container md:bg-[url('img/homepage_graphic.png')] max-md:bg-[url('img/homepage_graphic_semi.png')] bg-contain bg-no-repeat max-md:bg-[position:170%_0%] bg-[position:100%_0%]">
+                        <div className="h-full md:container bg-[url('../img/homepage_graphic_semi.png')] bg-contain bg-no-repeat max-md:bg-[position:170%_0%] bg-[position:100%_0%]">
                             <p className="font-bold text-4xl md:w-3/4 m-4 drop-shadow-md">
                                 Libérez votre potentiel et apprenez plus vite que jamais grâce
                                 <span className="text-sky-500"> aux cours TechnO'vice</span>
@@ -51,23 +50,11 @@ const Homepage: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="container md:hidden flex place-content-center">
-                        <Searchbar
-                            data={mockCourseData}
-                            searchType="course"
-                            searchKeys={['course_title', 'course_tags', 'course_desc']}
-                            onSearch={handleSearch}
-                            onSelect={handleSelect}
-                        />
-                    </div>
-
                     <div className="container md:col-span-3 md:row-span-6 md:col-start-4 flex flex-col">
                         <h2 className="text-3xl font-semibold">Nos cours du moment</h2>
                         <p className="mb-8">Découvrez nos cours les plus populaires</p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <CourseList />
-                        </div>
+                        <CourseList className="grid grid-cols-1 md:grid-cols-2 gap-6" slicer={4} />
 
                         <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
                             <Link to="catalogue-des-cours">Découvrez le catalogue</Link>
@@ -92,7 +79,11 @@ const Homepage: React.FC = () => {
                         <h2 className="text-3xl font-semibold">Nos catégories les plus populaires</h2>
                         <p className="mb-8">Découvrez notre séléction de cours par catégorie</p>
 
-                        <div className="container mx-auto py-10"></div>
+                        <Carousel tagName="HTML" />
+
+                        <Carousel tagName="CSS" />
+
+                        <Carousel tagName="Word" />
                     </div>
                 </div>
             </main>

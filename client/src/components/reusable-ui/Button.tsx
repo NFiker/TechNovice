@@ -4,7 +4,7 @@ interface ButtonProps {
     label: string;
     Icon?: React.ReactNode;
     className?: string;
-    version?: 'primary' | 'success' | 'danger';
+    version?: 'primary' | 'secondary' | 'danger' | 'tertiary';
     onClick?: () => void;
     disabled?: boolean;
 }
@@ -22,9 +22,10 @@ const Button: React.FC<ButtonProps> = ({
 
     const versionStyles = {
         primary:
-            'bg-yellow-500 text-white hover:bg-yellow-600 border border-yellow-500 hover:border-yellow-600',
-        success: 'bg-green-500 text-white hover:bg-green-600 border border-green-500 hover:border-green-600',
-        danger: 'bg-red-500 text-white hover:bg-red-600 border border-red-500 hover:border-red-600',
+            'bg-indigo-600 text-white hover:bg-indigo-700 border border-indigo-500 hover:border-indigo-800',
+        secondary: 'bg-teal-600 text-white hover:bg-teal-700 border border-teal-500 hover:border-teal-600',
+        tertiary: 'bg-sky-500 text-white hover:bg-sky-600 border border-sky-600 hover:border-sky-700',
+        danger: ' text-red-500 hover:bg-red-600 border border-red-500 hover:border-red-600',
     };
 
     return (

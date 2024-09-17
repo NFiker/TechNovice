@@ -21,7 +21,7 @@ const Profile: React.FC = () => {
     const [userData, setUserData] = useState<UserData | null>(null); // Stocker les données utilisateur
     const [loading, setLoading] = useState<boolean>(true); // État de chargement
     const [showPassword, setShowPassword] = useState<boolean>(false); // État pour afficher/masquer le mot de passe
-    const [password, setPassword] = useState<string>(''); // Gérer l'affichage du mot de passe
+    const [, setPassword] = useState<string>(''); // Gérer l'affichage du mot de passe
 
     // Fonction pour afficher l'alerte de confirmation avant suppression
     const showDeleteConfirmation = (): boolean => {

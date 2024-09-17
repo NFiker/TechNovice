@@ -3,15 +3,14 @@ import React from 'react';
 
 interface TopicCardProps {
     topic: TopicTypes;
-    onViewTopic: () => void;
+    variant: 'dashboard' | 'forum';
 }
 
-const TopicCard: React.FC<TopicCardProps> = ({ topic, variant, onViewTopic }) => {
+const TopicCard: React.FC<TopicCardProps> = ({ topic, variant }) => {
     const isDashboard = variant === 'dashboard';
 
     return (
         <div
-            onClick={onViewTopic}
             className={`rounded-lg p-4 ${
                 isDashboard
                     ? 'bg-gray-200 border-2 rounded-2xl border-indigo-500 flex items-center justify-between '

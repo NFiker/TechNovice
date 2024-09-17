@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Footer from '../reusable-ui/Footer';
 import Header from '../reusable-ui/Header';
-import CourseList from './lists/CourseList';
 import type UserTypes from '../types/UserTypes';
+import CourseList from './lists/CourseList';
+import TopicList from './lists/TopicList';
 
 interface UserDashboardProps {
     user: UserTypes;
@@ -13,7 +14,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ user }) => {
     console.log('UserDashboard component is rendering');
     const { user_id } = useParams<{ user_id: string }>();
     console.log('user_id', user_id);
-    const [user, setUser] = useState<UserTypes | null>(null);
+    const [, setUser] = useState<UserTypes | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -64,7 +65,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ user }) => {
                             <div className="space-y-6">
                                 {' '}
                                 {/* Ajout de cette div avec espace vertical */}
-                                
+                                <TopicList variant="dashboard" />
                             </div>
                         </div>
                     </div>

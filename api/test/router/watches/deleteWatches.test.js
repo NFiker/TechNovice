@@ -1,22 +1,24 @@
 import { PrismaClient } from '@prisma/client';
 import { expect } from 'chai';
 import request from 'supertest';
-import { createTestWatches } from '../../fixtures.js';
+import { createTestWatche } from '../../fixtures.js';
 
 const prisma = new PrismaClient();
 
-describe('DELETE /api/watches/courses/:course_id(\\d+)/users/:author_user_id(\\d+)', () => {
+describe('DELETE /api/watches/courses/:course_id/users/user_id', () => {
     let courseId = null;
+    let userId = null;
+
 
     before(async () => {
         await prisma.courses.deleteMany(); // Nettoyer la base de données de test
-        const course = await createTestWatches(); // Insérer des données de test
+        const course = await createTestWatche(); // Insérer des données de test
         courseId = course.course_id;
     });
 
-    it('should succeed if course is found', async function () {
+    it('should succeed if course is deleted', async function () {
         const response = await request(this.app)
-            .get('/api/watches/courses/:course_id(\\d+)/users/:author_user_id(\\d+)' + courseId)
+            .get(`/api/watches/courses/${courseId}/users/${userId}`)
             .set('Accept', 'application/json');
 
         expect(response.status).to.equal(200);
@@ -24,11 +26,11 @@ describe('DELETE /api/watches/courses/:course_id(\\d+)/users/:author_user_id(\\d
             .to.be.an('object')
             .with.all.keys([
                 "course_id",
-                "author_user_id"
+                "users"
             ]);
 
         expect(response.body.course_id).to.eq(courseId);
-        expect(response.body.author_user_id).to.be.a("number");
+        expect(response.body.users).to.be.a(userId);
     });
 });
 

@@ -14,13 +14,27 @@ describe('DELETE /api/users/:user_id', () => {
         userId = user.user_id;
     });
 
-    it('should succeed if user is found', async function () {
+    it('should succeed if user is deleted', async function () {
         const response = await request(this.app)
             .get('/api/users/' + userId)
             .set('Accept', 'application/json');
 
             expect(response.status).to.equal(200);
-            expect(response.body).to.be.an('object').with.all.keys(["user_id","nickname","mail","password","first_name","last_name","role_name","comments","courses","watches","topics"]);
+            expect(response.body)
+            .to.be.an('object')
+            .with.all.keys([
+                "user_id",
+                "nickname",
+                "mail",
+                "password",
+                "first_name",
+                "last_name",
+                "role_name",
+                "comments",
+                "courses",
+                "watches",
+                "topics"
+            ]);
             expect(response.body.user_id).to.eq(userId);
             expect(response.body.nickname).to.be.a("string");
             expect(response.body.mail).to.be.a("string");

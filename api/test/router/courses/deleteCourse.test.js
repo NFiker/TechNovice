@@ -14,7 +14,7 @@ describe('DELETE /api/courses/:course_id', () => {
         courseId = course.course_id;
     });
 
-    it('should succeed if course is found', async function () {
+    it('should succeed if course is deleted', async function () {
         const response = await request(this.app)
             .get('/api/courses/' + courseId)
             .set('Accept', 'application/json');

@@ -1,7 +1,7 @@
 // src/components/reusable-ui/CourseCard.tsx
+import type CourseTypes from '@/components/types/CourseTypes';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import type CourseTypes from '@/components/types/CourseTypes';
 
 interface CourseCardProps {
     course: CourseTypes;
@@ -14,11 +14,11 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, className }) => {
     const handleClick = () => {
         navigate(`cours/${course.course_id}`); // Redirection vers la page de détails du cours
     };
-    
+
     return (
         <div
             className={`bg-white border-2 border-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ${className || ''}`}>
-            <div className="relative">
+            <div className="relative z-10">
                 <img
                     className="rounded-t-lg object-cover h-40 w-full"
                     src="https://placehold.co/600x400"

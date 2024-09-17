@@ -1,25 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Pour la redirection
-
-interface Course {
-    course_id: number;
-    course_title: string;
-    course_desc: string;
-    course_tags: string[];
-    course_content: string;
-    creation_date: string;
-    update_date: string;
-    author_user_id: number | null;
-}
+import type CourseTypes from '../types/CourseTypes';
 
 interface SearchbarProps {
-    data: Course[]; // Tableau de cours
     searchKeys: string[]; // Clés de recherche comme course_title, course_tags
-    onSearch: (results: Course[]) => void; // Callback pour les résultats de recherche
-    onSelect: (selectedItem: Course) => void; // Callback pour la sélection d'un élément
+    mobile: boolean;
 }
 
-const Searchbar: React.FC<SearchbarProps> = ({ data, searchKeys, onSearch, onSelect }) => {
+const Searchbar: React.FC<SearchbarProps> = ({ searchKeys, mobile }) => {
+    const [courses, setCourses] = useState<CourseTypes[]>([]);
+
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const response = await fetch('https://technovice-app-196e28ed15ce.herokuapp.com/api/courses');
+                const data = await response.json();
+                setCourses(data);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des cours:', error);
+            }
+        };
+
+        fetchCourses();
+    }, []);
+
     const [query, setQuery] = useState<string>('');
     const navigate = useNavigate(); // Hook pour la redirection
 
@@ -29,43 +33,39 @@ const Searchbar: React.FC<SearchbarProps> = ({ data, searchKeys, onSearch, onSel
 
         // Filtrer les résultats uniquement si la requête a au moins 2 caractères
         if (searchQuery.length >= 2) {
-            const filteredResults = data.filter(course =>
+            courses.filter(course =>
                 searchKeys.some(key => {
-                    const value = course[key as keyof Course];
+                    const value = course[key as keyof CourseTypes];
                     if (Array.isArray(value)) {
                         return value.some(item => item.toString().toLowerCase().includes(searchQuery));
                     }
                     return value?.toString().toLowerCase().includes(searchQuery);
                 }),
             );
-            onSearch(filteredResults);
-        } else {
-            onSearch([]); // Si la requête est inférieure à 2 caractères, ne pas afficher de résultats
         }
     };
 
-    const handleSelect = (course: Course) => {
-        onSelect(course); // Callback pour informer de la sélection
-        navigate(`/course/${course.course_id}`); // Redirection vers la page du cours
+    const handleSelect = (course: CourseTypes) => {
+        navigate(`/cours/${course.course_id}`); // Redirection vers la page du cours
     };
 
     return (
-        <div className="relative">
+        <div className={`relative ${mobile ? 'md:hidden' : 'max-md:hidden'}`}>
             <input
                 type="text"
-                className="w-full border rounded-lg p-2"
+                className="w-full border border-teal-400 rounded-lg p-2"
                 placeholder="Rechercher un cours..."
                 value={query}
                 onChange={handleSearch}
             />
             {query.length >= 2 && (
-                <div className="absolute left-0 w-full mt-2 bg-white shadow-lg">
-                    {data
+                <div className="absolute left-0 w-full mt-2 bg-white shadow-lg z-50">
+                    {courses
                         .filter(course => course.course_title.toLowerCase().includes(query))
                         .map(course => (
                             <div
                                 key={course.course_id}
-                                className="p-2 flex justify-between items-center cursor-pointer hover:bg-gray-100"
+                                className="p-2 flex justify-between items-center cursor-pointer hover:bg-gray-100 relative z-50"
                                 onClick={() => handleSelect(course)} // Appel de la fonction de redirection
                             >
                                 <span>{course.course_title}</span>

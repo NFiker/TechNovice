@@ -6,18 +6,9 @@ import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
 import { Link } from 'react-router-dom';
 import Carousel from '../reusable-ui/Carousel';
+import Searchbar from '../reusable-ui/Searchbar';
 
 const Homepage: React.FC = () => {
-    const handleSearch = (results: any[]) => {
-        // Logique pour gérer les résultats de recherche
-        console.log('Results:', results);
-    };
-
-    const handleSelect = (selectedItem: any) => {
-        // Logique pour gérer la sélection d'un élément
-        console.log('Selected item:', selectedItem);
-    };
-
     return (
         <>
             <Header />
@@ -49,6 +40,8 @@ const Homepage: React.FC = () => {
                             </p>
                         </div>
                     </div>
+
+                    <Searchbar searchKeys={['course_title', 'course_tags']} mobile={true} />
 
                     <div className="container md:col-span-3 md:row-span-6 md:col-start-4 flex flex-col">
                         <h2 className="text-3xl font-semibold">Nos cours du moment</h2>

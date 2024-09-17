@@ -39,6 +39,8 @@ const Header: React.FC = () => {
         console.log('Selected item:', selectedItem);
     };
 
+    const { user } = useUser();
+
     return (
         <header className="flex fixed border-b top-0 left-0 w-full z-50 bg-white shadow-md">
             <div className="max-md:hidden container w-1/4">
@@ -102,17 +104,26 @@ const Header: React.FC = () => {
                     <ul className="flex justify-around items-center">
                         <li>
                             <Link
-                                to="/connexion"
-                                className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
-                                Se connecter
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
                                 to="/inscription"
                                 className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
                                 S'inscrire
                             </Link>
+                        </li>
+                        <li>
+                            {' '}
+                            {user ? (
+                                <Link
+                                    to="/déconnexion"
+                                    className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
+                                    Se déconnecter
+                                </Link>
+                            ) : (
+                                <Link
+                                    to="/connexion"
+                                    className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
+                                    Se connecter
+                                </Link>
+                            )}
                         </li>
                     </ul>
                 </nav>

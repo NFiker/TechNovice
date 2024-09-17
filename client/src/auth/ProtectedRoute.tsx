@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
 
     // If the user is not authenticated, they will be redirected to the login page.
     if (!user) {
-        return <Navigate to="/" state={{ from: location }} />;
+        return <Navigate to="/connexion" state={{ from: location }} />;
     }
 
     // Else, the children will be rendered normally.

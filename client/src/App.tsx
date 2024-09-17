@@ -31,11 +31,10 @@ function App() {
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            api.get('/users/me')
+            api.get('/api/users/:user_id')
                 .then(response => {
                     setUser({
-                        name: response.data.name,
-                        mail: response.data.email,
+                        user_id: response.data.user_id,
                     });
                 })
                 .catch(error => {

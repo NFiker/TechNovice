@@ -1,6 +1,7 @@
 // Homepage.tsx
 import api from '@/api';
 import { useUser } from '@/context/UserContext';
+import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -26,9 +27,10 @@ const SignInComponent = () => {
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            api.post('/login', { mail: mail, password: pwd });
+            const response = await api.post('/login', { mail: mail, password: pwd });
+
             if (response.status === 200) {
-                localStorage.setItem('token', response.data.accessToken);
+                localStorage.setItem('token', response.data.jwToken);
 
                 const userResponse = await api.get('/api/users/:user_id');
 
@@ -40,10 +42,13 @@ const SignInComponent = () => {
         } catch (error) {
             if (!error?.response) {
                 setErrMsg('Erreur de connexion au serveur');
+                console.log(error);
             } else if (error?.response?.status === 400) {
                 setErrMsg('Email ou mot de passe incorrect');
             } else if (error?.response?.status === 401) {
                 setErrMsg('Accès non autorisé');
+            } else if (axios.isAxiosError(error)) {
+                alert(error?.response?.data.message);
             } else {
                 setErrMsg('Echec de la connexion');
             }

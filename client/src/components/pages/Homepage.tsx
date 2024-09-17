@@ -4,10 +4,8 @@ import CourseList from '@/components/pages/lists/CourseList';
 import TeacherList from '@/components/pages/lists/TeacherList';
 import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
-import { mockCourseData } from '@/fakeData';
 import { Link } from 'react-router-dom';
 import Carousel from '../reusable-ui/Carousel';
-import Searchbar from '../reusable-ui/Searchbar';
 
 const Homepage: React.FC = () => {
     const handleSearch = (results: any[]) => {
@@ -52,21 +50,11 @@ const Homepage: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="container md:hidden flex place-content-center">
-                        <Searchbar
-                            data={mockCourseData}
-                            searchType="course"
-                            searchKeys={['course_title', 'course_tags', 'course_desc']}
-                            onSearch={handleSearch}
-                            onSelect={handleSelect}
-                        />
-                    </div>
-
                     <div className="container md:col-span-3 md:row-span-6 md:col-start-4 flex flex-col">
                         <h2 className="text-3xl font-semibold">Nos cours du moment</h2>
                         <p className="mb-8">Découvrez nos cours les plus populaires</p>
 
-                        <CourseList className="grid grid-cols-1 md:grid-cols-2 gap-6" />
+                        <CourseList className="grid grid-cols-1 md:grid-cols-2 gap-6" slicer={4} />
 
                         <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
                             <Link to="catalogue-des-cours">Découvrez le catalogue</Link>
@@ -91,18 +79,11 @@ const Homepage: React.FC = () => {
                         <h2 className="text-3xl font-semibold">Nos catégories les plus populaires</h2>
                         <p className="mb-8">Découvrez notre séléction de cours par catégorie</p>
 
-                        <div className="container">
-                            <h2 className="text-2xl mb-4">Excel</h2>
-                            <Carousel />
-                        </div>
-                        <div className="container">
-                            <h2 className="text-2xl mb-4">Word</h2>
-                            <Carousel />
-                        </div>
-                        <div className="container">
-                            <h2 className="text-2xl mb-4">Achats en ligne</h2>
-                            <Carousel />
-                        </div>
+                        <Carousel tagName="HTML" />
+
+                        <Carousel tagName="CSS" />
+
+                        <Carousel tagName="Word" />
                     </div>
                 </div>
             </main>

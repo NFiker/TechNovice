@@ -1,10 +1,10 @@
 // src/components/pages/TeacherList.tsx
 import React, { useEffect, useState } from 'react';
-import type { TeacherType } from '../../reusable-ui/cards/TeacherCard';
 import TeacherCard from '../../reusable-ui/cards/TeacherCard';
+import type UserTypes from '@/components/types/UserTypes';
 
 const TeacherList: React.FC = () => {
-    const [teachers, setTeachers] = useState<TeacherType[]>([]);
+    const [teachers, setTeachers] = useState<UserTypes[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -17,7 +17,7 @@ const TeacherList: React.FC = () => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch teachers');
                 }
-                const data: TeacherType[] = await response.json();
+                const data: UserTypes[] = await response.json();
 
                 setTeachers(data); // Stocker tous les enseignants récupérés
             } catch (error) {

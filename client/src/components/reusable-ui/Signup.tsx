@@ -1,9 +1,9 @@
 // Homepage.tsx
 import { faCheck, faInfoCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import api from '../../api';
 
 const USERNAME_REGEX = /^[a-zA-Z0-9]{3,23}$/;
 const FIRSTNAME_REGEX = /^[a-zA-Z]{3,23}$/;
@@ -43,36 +43,26 @@ const SignInComponent = () => {
 
     useEffect(() => {
         const result = USERNAME_REGEX.test(user);
-        console.log(result);
-        console.log(user);
         setValidUser(result);
     }, [user]);
 
     useEffect(() => {
         const result = FIRSTNAME_REGEX.test(firstname);
-        console.log(result);
-        console.log(firstname);
         setValidFirstName(result);
     }, [firstname]);
 
     useEffect(() => {
         const result = LASTNAME_REGEX.test(lastname);
-        console.log(result);
-        console.log(lastname);
         setValidLastName(result);
     }, [lastname]);
 
     useEffect(() => {
         const result = MAIL_REGEX.test(mail);
-        console.log(result);
-        console.log(mail);
         setValidMail(result);
     }, [mail]);
 
     useEffect(() => {
         const result = PWD_REGEX.test(pwd);
-        console.log(result);
-        console.log(pwd);
         setValidPwd(result);
     }, [pwd]);
 
@@ -85,7 +75,7 @@ const SignInComponent = () => {
         setErrMsg('');
     }, [user, firstname, lastname, pwd, matchPwd, role]);
 
-    const handleSubmit = async event => {
+    const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         if (!validUser || !validMail || !validFirstName || !validLastName || !validPwd || !validMatch) {
             setErrMsg('Veuillez remplir correctement tous les champs');
@@ -99,8 +89,8 @@ const SignInComponent = () => {
         console.log('Role:', role);
 
         try {
-            const response = await axios.post(
-                'https://technovice-app-196e28ed15ce.herokuapp.com/api/users',
+            const response = await api.post(
+                '/api/users',
                 JSON.stringify({
                     nickname: user,
                     mail: mail,

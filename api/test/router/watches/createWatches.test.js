@@ -5,7 +5,7 @@ import { createTestWatche } from '../../fixtures.js';
 
 const prisma = new PrismaClient();
 
-describe.only('POST /api/topics/:topic_id/message', () => {
+describe('POST /api/topics/:topic_id/message', () => {
     let topicId = null;
 
     before(async () => {
@@ -16,7 +16,7 @@ describe.only('POST /api/topics/:topic_id/message', () => {
 
     it('should throw a 404 if user is not found', async function () {
         const response = await request(this.app)
-            .get('/api/users/999')
+            .get('/api/topics/:topic_id/message')
             .set('Accept', 'application/json')
 
         expect(response.status).to.equal(404);

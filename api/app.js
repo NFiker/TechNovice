@@ -31,6 +31,15 @@ app.get('/api', (req, res) => {
 
 app.use(router);
 
+// Middleware de geestion d'erreur
+app.use((err, req, res, next) => {
+    if (err) {
+        const { status, message } = err;
+        return res.status(status).json({ message });
+    }
+    next();
+});
+
 // Serve static files from the React frontend app
 app.use(express.static(path.join(__dirname, '../client/dist')));
 

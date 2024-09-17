@@ -45,21 +45,33 @@ export async function createTestTopic () {
 }
 
 export async function createTestComment() {
-  return await prisma.comments.create({
-    data:{
-      topic_id: 1,
-      com_id: 1,
-      com_content: "Super sujet merci beaucoup",
-      author_user_id: 1
-    }
+  // Créer un topic avant de créer un commentaire
+  const topic = await prisma.topics.create({
+      data: {
+        topic_id: 1,
+        topic_title: "Comment faire pour que les pages soient pré-numérotés à l'ouverture d'un document vierge ?",
+        topic_content: "This is a test topic"
+      }
   });
+
+  // Créer un commentaire associé au topic créé
+  const comment = await prisma.comments.create({
+      data: {
+          topic_id: topic.topic_id, // Associer le commentaire au topic créé
+          com_content: "Super sujet merci beaucoup",
+          author_user_id: 1 // S'assurer que cet utilisateur existe dans la base de données
+      }
+  });
+
+  // Retourner les IDs du topic et du commentaire créés
+  return { topic_id: topic.topic_id, com_id: comment.com_id };
 }
 
 export async function createTestWatche() {
   return await prisma.watches.create({
     data: {
       course_id: 1,
-      author_user_id: 1,
+      user_id: 1,
   },
   });
 }

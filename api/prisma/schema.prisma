@@ -56,11 +56,11 @@ model users {
 }
 
 model watches {
-  course_id      Int
-  author_user_id Int
-  start_date     DateTime @default(now()) @db.Timestamp(6)
-  users          users    @relation(fields: [author_user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction)
-  courses        courses  @relation(fields: [course_id], references: [course_id], onDelete: Cascade, onUpdate: NoAction)
+  course_id Int
+  user_id   Int
+  start_date DateTime @default(now()) @db.Timestamp(6)
+  users     users    @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction)
+  courses   courses  @relation(fields: [course_id], references: [course_id], onDelete: Cascade, onUpdate: NoAction)
 
-  @@id([course_id, author_user_id])
+  @@id([course_id, user_id])
 }

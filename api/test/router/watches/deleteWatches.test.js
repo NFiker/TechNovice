@@ -5,7 +5,7 @@ import { createTestWatche } from '../../fixtures.js';
 
 const prisma = new PrismaClient();
 
-describe.only('DELETE /api/watches/courses/:course_id/users/:author_user_id', () => {
+describe('DELETE /api/watches/courses/:course_id/users/user_id', () => {
     let courseId = null;
     let userId = null;
 
@@ -26,11 +26,11 @@ describe.only('DELETE /api/watches/courses/:course_id/users/:author_user_id', ()
             .to.be.an('object')
             .with.all.keys([
                 "course_id",
-                "user_id"
+                "users"
             ]);
 
         expect(response.body.course_id).to.eq(courseId);
-        expect(response.body.user_id).to.be.a(userId);
+        expect(response.body.users).to.be.a(userId);
     });
 });
 

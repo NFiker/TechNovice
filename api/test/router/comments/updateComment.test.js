@@ -5,7 +5,7 @@ import { createTestComment } from '../../fixtures.js';
 
 const prisma = new PrismaClient();
 
-describe.only('PATCH /api/topics/:topic_id(\\d+)/message/:com_id(\\d+)', () => {
+describe('PATCH /api/topics/:topic_id(\\d+)/message/:com_id(\\d+)', () => {
     
 let topicId = null;
 

@@ -66,13 +66,13 @@ const userController = {
             const foundNickname = await prisma.users.findUnique({ where: { nickname } });
             const foundMail = await prisma.users.findUnique({ where: { mail } });
 
-            // #1 ECHEC: si un utilisateur est créé avec un email déjà existant en bdd
+            // #1 ECHEC: si un utilisateur est créé avec un pseudo déjà existant en bdd
             if (foundNickname) {
-                return res.status(409).json({ message: 'NICKNAME_NOT_AVAILABLE' });
+                return res.status(409).json({ message: "NICKNAME_ALREADY_USED" });
             }
-            // #2 ECHEC: si un utilisateur est créé avec un nickname déjà existant en bdd
+            // #2 ECHEC: si un utilisateur est créé avec un mail déjà existant en bdd
             if (foundMail) {
-                return res.status(409).json({ message: 'MAIL_ALREADY_EXIST' });
+                return res.status(409).json({ message: "MAIL_ALREADY_USED" });
             }
 
             const user = await prisma.users.create({
@@ -85,7 +85,7 @@ const userController = {
                     role_name,
                 },
             });
-            console.log("User created successfully:", user);
+            // console.log("User created successfully:", user);
 
             res.status(201).json(user);
         } catch (error) {
@@ -104,11 +104,11 @@ const userController = {
             const foundNickname = await prisma.users.findUnique({ where: { nickname } });
             const foundMail = await prisma.users.findUnique({ where: { mail } });
 
-            // #1 ECHEC: si un utilisateur est créé avec un email déjà existant en bdd
+            // #1 ECHEC: si un utilisateur est créé avec un speudo déjà existant en bdd
             if (foundNickname) {
                 return res.status(409).json({ message: 'NICKNAME_NOT_AVAILABLE' });
             }
-            // #2 ECHEC: si un utilisateur est créé avec un nickname déjà existant en bdd
+            // #2 ECHEC: si un utilisateur est créé avec un mail déjà existant en bdd
             if (foundMail) {
                 return res.status(409).json({ message: 'MAIL_ALREADY_EXIST' });
             }

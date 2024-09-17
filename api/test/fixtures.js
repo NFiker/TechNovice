@@ -20,8 +20,8 @@ export async function createTestUser () {
   return await prisma.users.create({
     data: {
       user_id: 1,
-      nickname: "",
-      mail: "",
+      nickname: "Camille9",
+      mail: "camille9@gmail.com",
       password: "Camille23.02.99",
       first_name: "Camille",
       last_name: "Dupont",

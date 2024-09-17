@@ -5,8 +5,9 @@ import { createTestWatche } from '../../fixtures.js';
 
 const prisma = new PrismaClient();
 
-describe('POST /api/topics/:topic_id/message', () => {
-    let topicId = null;
+describe('POST /api/watches/courses/:course_id/users/:user_id', () => {
+    let userId = null;
+    let courseId = null;
 
     before(async () => {
         await prisma.topics.deleteMany(); // Nettoyer la base de données de test
@@ -16,7 +17,7 @@ describe('POST /api/topics/:topic_id/message', () => {
 
     it('should throw a 404 if user is not found', async function () {
         const response = await request(this.app)
-            .get('/api/topics/:topic_id/message')
+            .get('/api/users/999')
             .set('Accept', 'application/json')
 
         expect(response.status).to.equal(404);
@@ -31,9 +32,9 @@ describe('POST /api/topics/:topic_id/message', () => {
         }
     }
     
-    it('should succeed if comment is created', async function ()  {
+    it('should succeed if watche is created', async function ()  {
         const response = await request(this.app)
-            .post(`/api/topics/${topicId}/message`)
+            .post(`/api/watches/courses/${courseId}/users/${userId}`)
             .send(payload)
             .expect(201);
 
@@ -41,18 +42,12 @@ describe('POST /api/topics/:topic_id/message', () => {
             expect(response.body)
             .to.be.an('object')
             .with.all.keys([
-                "com_id",
-                "topic_id",
-                "com_content",
-                "com_date",
+                "course_id",
                 "user_id"
             ]);
 
             expect(response.body.com_id).to.not.be.null;
             expect(response.body.topic_id).to.eq(topicId);
-            expect(response.body.com_content).to.be.a("string");
-            expect(response.body.user_id).to.be.a("number");
-            
         });
 });
 

@@ -36,7 +36,7 @@ const TeacherList: React.FC<TeacherListProps> = ({ slicer }) => {
         };
 
         fetchTeachers();
-    }, []);
+    }, [slicer]);
 
     if (loading) {
         return <div>Loading...</div>;

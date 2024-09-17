@@ -1,7 +1,7 @@
 // src/components/reusable-ui/CourseCard.tsx
+import type CourseTypes from '@/components/types/CourseTypes';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import type CourseTypes from '@/components/types/CourseTypes';
 
 interface CourseCardProps {
     course: CourseTypes;
@@ -12,9 +12,9 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, className }) => {
     const navigate = useNavigate(); // Utilisation du hook de navigation
 
     const handleClick = () => {
-        navigate(`cours/${course.course_id}`); // Redirection vers la page de détails du cours
+        navigate(`/cours/${course.course_id}`); // Redirection vers la page de détails du cours
     };
-    
+
     return (
         <div
             className={`bg-white border-2 border-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ${className || ''}`}>

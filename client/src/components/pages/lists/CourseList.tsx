@@ -29,19 +29,19 @@ const CourseList: React.FC<CourseListProps> = ({
                     throw new Error('Failed to fetch courses');
                 }
                 let data: CourseTypes[] = await response.json();
-                if (slicer) {
-                    data = data.slice(0, slicer);
-                }
                 if (tagFilter) {
                     data = data.filter(course => course.course_tags.includes(tagFilter));
                 }
-                setCourses(data); // Stocker tous les cours récupérés
+                if (slicer) {
+                    data = data.slice(0, slicer); // Limiter les cours selon le slicer
+                }
+                setCourses(data);
             } catch (error) {
                 if (error instanceof Error) {
                     setError(error.message);
                 }
             } finally {
-                setLoading(false); // Mettre à jour l'état de chargement
+                setLoading(false);
             }
         };
         fetchCourses();

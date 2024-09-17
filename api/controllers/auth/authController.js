@@ -23,7 +23,9 @@ const authController = {
                 return res.status(400).json({ message: 'Mot de passe incorrect' });
             }
 
-            const jwToken = jwt.sign({ id: user.user_id }, 'secret', { expiresIn: '1h' });
+            const jwToken = jwt.sign({ id: user.user_id }, process.env.ACCESS_TOKEN_SECRET, {
+                expiresIn: '1h',
+            });
 
             return res.json({
                 message: `Bienvenue ${user.first_name}`,

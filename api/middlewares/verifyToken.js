@@ -1,19 +1,41 @@
+// Middleware to know if user is logged in by checking the token
 import jwt from 'jsonwebtoken';
+import { User } from '../prisma/schema.prisma'; // Adjust the import based on your project structure
 
-const verifyToken = (req, res, next) => {
-    const authHeader = req.headers.authorization;
+const isLoggedIn = async (req, res, next) => {
+    // Get the token from the request headers
+    const token = req.headers.authorization;
 
-    if (!authHeader) {
-        return res.status(401).json({ message: "Vous n'êtes pas autorisé à accéder à cette ressource" });
+    // Remove the Bearer prefix from the token
+    // If the token is not prefixed with Bearer, we set it to null
+    const tokenWithoutBearer = token ? token.slice(7) : null;
+
+    console.log(token);
+
+    // If no token is found, we respond with a 401 status code
+    if (!token) {
+        return res.status(401).json({ message: 'Unauthorized' });
     }
-    const token = authHeader.split(' ')[1];
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, decoded) => {
-        if (error) {
-            return res.status(403).json({ message: 'Votre session a expiré, veuillez vous reconnecter' });
+
+    try {
+        // Verify the token
+        const decoded = jwt.verify(tokenWithoutBearer, process.env.ACCESS_TOKEN_SECRET);
+
+        // Find the user by the id from the token
+        const user = await User.findByPk(decoded.id);
+
+        // If no user is found, we respond with a 401 status code
+        if (!user) {
+            return res.status(401).json({ message: 'Unauthorized' });
         }
-        req.user = decoded.nickname;
+
+        // Attach the user to the request object
+        req.user = user;
         next();
-    });
+    } catch (error) {
+        // If an error occurs, we respond with a 500 status code
+        return res.status(500).json({ message: error.message });
+    }
 };
 
-module.exports = verifyToken;
+export default isLoggedIn;

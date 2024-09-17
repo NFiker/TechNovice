@@ -4,24 +4,15 @@ import React, { useEffect, useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'; // Icônes pour afficher/masquer le mot de passe
 import { FaChalkboardTeacher, FaUser, FaUserShield } from 'react-icons/fa'; // Icônes pour les rôles
 import { useNavigate, useParams } from 'react-router-dom'; // useNavigate pour la redirection
-
-interface UserData {
-    id: string;
-    first_name: string;
-    last_name: string;
-    nickname: string;
-    mail: string;
-    role_name: string;
-    password?: string;
-}
+import type UserTypes from '../types/UserTypes';
 
 const Profile: React.FC = () => {
     const { id } = useParams<{ id: string }>(); // Récupérer l'ID du profil
     const navigate = useNavigate(); // Utilisé pour rediriger après soumission
-    const [userData, setUserData] = useState<UserData | null>(null); // Stocker les données utilisateur
+    const [userData, setUserData] = useState<UserTypes | null>(null); // Stocker les données utilisateur
     const [loading, setLoading] = useState<boolean>(true); // État de chargement
     const [showPassword, setShowPassword] = useState<boolean>(false); // État pour afficher/masquer le mot de passe
-    const [password, setPassword] = useState<string>(''); // Gérer l'affichage du mot de passe
+    const [, setPassword] = useState<string>(''); // Gérer l'affichage du mot de passe
 
     // Fonction pour afficher l'alerte de confirmation avant suppression
     const showDeleteConfirmation = (): boolean => {

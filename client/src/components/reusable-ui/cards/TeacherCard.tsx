@@ -2,7 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export interface TeacherType {
+export interface TeacherTypes {
     user_id: number;
     nickname: string;
     first_name: string;
@@ -11,7 +11,7 @@ export interface TeacherType {
 }
 
 interface TeacherCardProps {
-    teacher: TeacherType;
+    teacher: TeacherTypes;
 }
 
 const TeacherCard: React.FC<TeacherCardProps> = ({ teacher }) => {

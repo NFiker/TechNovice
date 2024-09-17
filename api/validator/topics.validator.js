@@ -1,4 +1,4 @@
-import  Joi  from 'joi';
+import Joi from 'joi';
 
 const topicSchema = Joi.object({
     topic_title: Joi.string().min(3).max(255).required(),
@@ -7,5 +7,4 @@ const topicSchema = Joi.object({
     author_user_id: Joi.number().required(),
 });
 
-export default topicSchema ;
-
+export default topicSchema;

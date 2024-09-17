@@ -9,16 +9,14 @@ const userschema = Joi.object({
 
     // une chaîne d'adresse e-mail valide doit avoir deux parties de domaine, par exemple@example.com et le TLD doit être .com ou .net ou .fr
     mail: Joi.string()
-        .pattern(
-            new RegExp('^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'),
-        ) /* nouveau : ajout d'une regex stricte */
+        .pattern(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/) /* nouveau : ajout d'une regex stricte */
         .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'fr'] } })
         .lowercase()
         .required(),
 
     // Une chaine facultative, doit satisfaire le modèle d'expression régulière personnalisé et doit être accompagné repeat_password et égal à celui-ci
     password: Joi.string()
-        .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$'))
+        .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/)
         .required(),
 });
 

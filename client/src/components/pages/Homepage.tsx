@@ -4,10 +4,8 @@ import CourseList from '@/components/pages/lists/CourseList';
 import TeacherList from '@/components/pages/lists/TeacherList';
 import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
-import { mockCourseData } from '@/fakeData';
 import { Link } from 'react-router-dom';
 import Carousel from '../reusable-ui/Carousel';
-import Searchbar from '../reusable-ui/Searchbar';
 
 const Homepage: React.FC = () => {
     const handleSearch = (results: any[]) => {
@@ -50,16 +48,6 @@ const Homepage: React.FC = () => {
                                 voluptatum dolore non quod, quas, quidem, quos quae quibusdam. Quisquam, quod.
                             </p>
                         </div>
-                    </div>
-
-                    <div className="container md:hidden flex place-content-center">
-                        <Searchbar
-                            data={mockCourseData}
-                            searchType="course"
-                            searchKeys={['course_title', 'course_tags', 'course_desc']}
-                            onSearch={handleSearch}
-                            onSelect={handleSelect}
-                        />
                     </div>
 
                     <div className="container md:col-span-3 md:row-span-6 md:col-start-4 flex flex-col">

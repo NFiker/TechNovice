@@ -58,8 +58,7 @@ function App() {
                 {/* Pages de détail */}
                 <Route path="/inscription" element={<Signup />} />
                 <Route path="/sujet/:id" element={<TopicDetail />} /> {/* Route pour TopicDetail */}
-                <Route path="/courses/:course_id" element={<CourseDetail />} />{' '}
-                {/* Route pour CourseDetail */}
+                <Route path="/cours/:course_id" element={<CourseDetail />} /> {/* Route pour CourseDetail */}
                 <Route path="/enseignant/:id" element={<TeacherDetail />} /> {/* Route pour TeacherDetail */}
                 {/* Route pour TeacherDetail */}
 

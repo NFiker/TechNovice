@@ -5,11 +5,10 @@ import Homepage from './components/pages/Homepage';
 import Login from './components/reusable-ui/Login';
 
 import CourseDetail from './components/pages/details/CourseDetail';
-import TeacherDetail from './components/pages/details/TeacherDetail';
+// import TeacherDetail from './components/pages/details/TeacherDetail';
 import TopicDetail from './components/pages/details/TopicDetail';
 
 import ProtectedRoute from './auth/ProtectedRoute';
-import Dashboard from './components/pages/Dashboard';
 import Profile from './components/pages/Profile';
 import About from './components/pages/annexes/About';
 import Conditions from './components/pages/annexes/Conditions';
@@ -51,17 +50,22 @@ function App() {
                 <Route path="/" element={<Homepage />} />
                 {/* Catalogues */}
                 {/* <Route path="/catalogue-des-cours" element={<CourseList courses={mockCourseData} />} /> */}
-                <Route path="/catalogue-des-sujets" element={<TopicList topics={mockTopicData} />} />
+                <Route
+                    path="/catalogue-des-sujets"
+                    element={<TopicList topics={mockTopicData} variant="forum" />}
+                />
                 <Route path="/catalogue-des-enseignants" element={<TeacherList />} />
                 {/* Connexion */}
                 <Route path="/connexion" element={<Login />} />
                 {/* Pages de détail */}
                 <Route path="/inscription" element={<Signup />} />
                 <Route path="/sujet/:id" element={<TopicDetail />} /> {/* Route pour TopicDetail */}
-                <Route path="/cours/:course_id" element={<CourseDetail />} /> {/* Route pour CourseDetail */}
-                <Route path="/enseignant/:id" element={<TeacherDetail />} /> {/* Route pour TeacherDetail */}
-                {/* Route pour TeacherDetail */}
 
+                <Route path="/courses/:course_id" element={<CourseDetail />} />{' '}
+                {/* Route pour CourseDetail */}
+                {/* <Route path="/enseignant/:id" element={<TeacherDetail />} /> */}
+
+                {/* Route pour TeacherDetail */}
                 <Route
                     path="/tableau/:user_id"
                     element={
@@ -71,7 +75,6 @@ function App() {
                         </>
                     }
                 />
-              
                 {/* Connexion */}
                 <Route path="/connexion" element={<Login />} />
                 {/* Inscription */}
@@ -91,8 +94,7 @@ function App() {
                 <Route path="/conditions" element={<Conditions />} />
                 {/* Informations légales */}
                 <Route path="/informations" element={<Legal />} />
-                <Route path="*" element={<div>404 - Not Found</div>} />
-
+                <Route path="*" element={<Error404 />} />
             </Routes>
         </Router>
     );

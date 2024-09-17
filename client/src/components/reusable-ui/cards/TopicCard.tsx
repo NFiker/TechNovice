@@ -1,28 +1,16 @@
+import type TopicTypes from '@/components/types/TopicTypes';
 import React from 'react';
 
-export interface TopicType {
-    topic_id: number;
-    topic_title: string;
-    topic_tag: string[];
-    topic_content: string;
-    topic_date: string;
-    author_user_id: number;
-    author_name: string;
-    comments_count: number;
-}
-
 interface TopicCardProps {
-    topic: TopicType;
+    topic: TopicTypes;
     variant: 'dashboard' | 'forum';
-    onViewTopic: () => void;
 }
 
-const TopicCard: React.FC<TopicCardProps> = ({ topic, variant, onViewTopic }) => {
+const TopicCard: React.FC<TopicCardProps> = ({ topic, variant }) => {
     const isDashboard = variant === 'dashboard';
 
     return (
         <div
-            onClick={onViewTopic}
             className={`rounded-lg p-4 ${
                 isDashboard
                     ? 'bg-gray-200 border-2 rounded-2xl border-indigo-500 flex items-center justify-between '
@@ -45,7 +33,11 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic, variant, onViewTopic }) =>
                     <div className="flex justify-between items-center text-sm text-gray-500">
                         <span>{topic.comments_count} commentaires</span>
                         <span>{topic.author_name}</span>
-                        <span>{new Date(topic.topic_date).toLocaleDateString()}</span>
+                        <span>
+                            {topic.topic_date
+                                ? new Date(topic.topic_date).toLocaleDateString()
+                                : 'Date not available'}
+                        </span>
                     </div>
                 )}
             </div>

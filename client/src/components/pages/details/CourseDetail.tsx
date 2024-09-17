@@ -1,5 +1,5 @@
 // src/components/pages/CourseDetail.tsx
-import type { CourseType } from '@/components/reusable-ui/cards/CourseCard';
+import type CourseTypes from '@/components/types/CourseTypes';
 import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
 import React, { useEffect, useState } from 'react';
@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 
 const CourseDetail: React.FC = () => {
     const { course_id } = useParams<{ course_id: string }>();
-    const [oneCourse, setCourse] = useState<CourseType>();
+    const [oneCourse, setCourse] = useState<CourseTypes>();
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -20,7 +20,7 @@ const CourseDetail: React.FC = () => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch course');
                 }
-                const data: CourseType = await response.json();
+                const data: CourseTypes = await response.json();
                 setCourse(data);
             } catch (error) {
                 if (error instanceof Error) {

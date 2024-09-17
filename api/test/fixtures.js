@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
 
 export async function createTestCourse() {
@@ -68,13 +69,43 @@ export async function createTestComment() {
 }
 
 export async function createTestWatche() {
-  return await prisma.watches.create({
-    data: {
-      course_id: 1,
-      user_id: 1,
-  },
+  // Créez un utilisateur
+  const user = await prisma.users.create({
+      data: {
+          user_id: 1,
+          nickname: "Camille9",
+          mail: "camille9@gmail.com",
+          password: "Camille23.02.99",
+          first_name: "Camille",
+          last_name: "Dupont",
+          role_name: "apprenant",
+      }
   });
+
+  // Créez un cours
+  const course = await prisma.courses.create({
+      data: {
+          course_id: 1,
+          course_title: "Les fonctions de base Word",
+          course_desc: "Comment écrire et mettre en forme un texte, comment mettre en forme les paragraphes ou imprimer, comprendre les icônes du ruban Accueil.",
+          course_tags: ["Word", "Bureautique"],
+          course_content: "Windows vous permet d’accéder en un clic à l’aide d’un raccourci sur le bureau à un logiciel utilisé fréquemment.",
+          author_user_id: user.id, // Associe l'utilisateur créé au cours
+      }
+  });
+
+  // Créez une entrée dans la table `watches`
+  const watche = await prisma.watches.create({
+      data: {
+          course_id: course.id,
+          user_id: user.id,
+      }
+  });
+
+  return watche;
 }
+
+
 
 export async function createTestTeacher() {
   return await prisma.users.create({

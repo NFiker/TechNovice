@@ -5,7 +5,7 @@ import { createTestComment } from '../../fixtures.js';
 
 const prisma = new PrismaClient();
 
-describe.only('POST /api/topics/:topic_id/message', () => {
+describe('POST /api/topics/:topic_id/message', () => {
     let topicId = null;
     let authorUserId = null;
 
@@ -64,6 +64,17 @@ describe.only('POST /api/topics/:topic_id/message', () => {
         expect(response.body).to.deep.equal({ error: 'Auteur non trouvé.' });
     });
 
+    it('should fail if topic_id is not found', async function () {
+        const badPayload = { ...payload };
+        badPayload.topic_id = 9; 
+
+        const response = await request(this.app)
+            .post(`/api/topics/${badPayload.topic_id}/message`)
+            .send(badPayload);
+
+        expect(response.status).to.equal(404);
+        expect(response.body).to.deep.equal({ error: 'Sujet non trouvé.' });
+    });
 
 
     it('should succeed if comment is created', async function ()  {

@@ -8,14 +8,14 @@ const commentsController = {
         try {
             const { topic_id } = req.params;
             const { com_content, author_user_id } = req.body;
-console.log('[---> [HERE] <---]:', true);
+
             // verifier si utilisateur existe
             const user = await prisma.users.findUnique({
                 where: { user_id: parseInt(author_user_id) },
             });
 
             if (!user) {
-                console.log(`[{user}]:`, user);
+        
                 return res.status(404).json({ error: 'Auteur non trouvé.' });
             }
 

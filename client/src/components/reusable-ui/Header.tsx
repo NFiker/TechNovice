@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import Searchbar from './Searchbar';
 
 const Header: React.FC = () => {
-    const handleSearch = (results: string[]) => {
+    const handleSearch = (results: any[]) => {
         console.log('Results:', results);
     };
 
-    const handleSelect = (selectedItem: string) => {
+    const handleSelect = (selectedItem: any) => {
         console.log('Selected item:', selectedItem);
     };
 
@@ -65,7 +65,7 @@ const Header: React.FC = () => {
                     <Searchbar
                         data={mockCourseData}
                         searchType="course"
-                        searchKeys={['match']} // PLACEHOLDER, MATCH NE FAIS REFERENCE A RIEN POUR L'INSTANT
+                        searchKeys={['course_title', 'course_tags', 'course_desc']}
                         onSearch={handleSearch}
                         onSelect={handleSelect}
                     />

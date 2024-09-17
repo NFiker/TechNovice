@@ -33,7 +33,11 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic, variant }) => {
                     <div className="flex justify-between items-center text-sm text-gray-500">
                         <span>{topic.comments_count} commentaires</span>
                         <span>{topic.author_name}</span>
-                        <span>{new Date(topic.topic_date).toLocaleDateString()}</span>
+                        <span>
+                            {topic.topic_date
+                                ? new Date(topic.topic_date).toLocaleDateString()
+                                : 'Date not available'}
+                        </span>
                     </div>
                 )}
             </div>

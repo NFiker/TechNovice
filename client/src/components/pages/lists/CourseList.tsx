@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import type CourseTypes from '@/components/types/CourseTypes';
+import React, { useEffect, useState } from 'react';
 import CourseCard from '../../reusable-ui/cards/CourseCard';
 
 export interface CourseListProps {
@@ -45,7 +45,7 @@ const CourseList: React.FC<CourseListProps> = ({
             }
         };
         fetchCourses();
-    });
+    }, [slicer, tagFilter]);
 
     if (loading) {
         return <div>Loading...</div>;

@@ -1,34 +1,29 @@
-import { CourseType } from './components/reusable-ui/cards/CourseCard';
-import { TeacherType } from './components/reusable-ui/TeacherCard';
-import { TopicType } from './components/reusable-ui/cards/TopicCard';
+import type CourseTypes from './components/types/CourseTypes';
+import type TopicTypes from './components/types/TopicTypes';
+// import type TeacherTypes from './components/reusable-ui/cards/TeacherCard';
 
 // Données factices pour 12 cours
-export const mockCourseData: CourseType[] = Array.from({ length: 12 }, (_, i) => ({
-    id: `${i + 1}`,
-    category: 'Développement Web',
-    teacher: `Enseignant ${i + 1}`,
-    title: `Cours ${i + 1}: Introduction à React`,
-    description:
+export const mockCourseData: CourseTypes[] = Array.from({ length: 12 }, (_, i) => ({
+    course_id: i + 1,
+    course_tags: ['Développement Web'],
+    course_title: `Cours ${i + 1}: Introduction à React`,
+    course_desc:
         'Apprenez les bases de React, la bibliothèque JavaScript pour construire des interfaces utilisateur.',
-    duration: `${Math.floor(Math.random() * 10) + 1}h ${Math.floor(Math.random() * 59) + 1}m`,
-    imageUrl: 'https://via.placeholder.com/150',
 }));
 
 // Données factices pour 12 topics
-export const mockTopicData: TopicType[] = Array.from({ length: 12 }, (_, i) => ({
-    id: `${i + 1}`,
-    category: 'Productivité',
-    title: `Topic ${i + 1}: Convertir un fichier PDF en WORD`,
-    description: 'Utilisez I Love PDF pour convertir des fichiers en toute simplicité.',
-    duration: `${Math.floor(Math.random() * 10) + 1}h ${Math.floor(Math.random() * 59) + 1}m`,
-    imageUrl: 'https://via.placeholder.com/150',
+export const mockTopicData: TopicTypes[] = Array.from({ length: 12 }, (_, i) => ({
+    topic_id: i + 1,
+    topic_tag: ['Productivité'],
+    topic_title: `Topic ${i + 1}: Convertir un fichier PDF en WORD`,
+    topic_content: 'Utilisez I Love PDF pour convertir des fichiers en toute simplicité.',
 }));
 
 // Données factices pour 12 enseignants
-export const mockTeacherData: TeacherType[] = Array.from({ length: 12 }, (_, i) => ({
-    id: `${i + 1}`,
-    name: `Enseignant ${i + 1}`,
-    subject: 'Développement Web',
-    bio: "Passionné par le développement web et l'enseignement.",
-    imageUrl: 'https://via.placeholder.com/150',
-}));
+// export const mockTeacherData: TeacherTypes[] = Array.from({ length: 12 }, (_, i) => ({
+//     id: `${i + 1}`,
+//     name: `Enseignant ${i + 1}`,
+//     subject: 'Développement Web',
+//     bio: "Passionné par le développement web et l'enseignement.",
+//     imageUrl: 'https://via.placeholder.com/150',
+// }));

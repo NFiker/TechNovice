@@ -6,15 +6,11 @@ import type UserTypes from '../types/UserTypes';
 import CourseList from './lists/CourseList';
 import TopicList from './lists/TopicList';
 
-interface UserDashboardProps {
-    user: UserTypes;
-}
-
-const UserDashboard: React.FC<UserDashboardProps> = ({ user }) => {
+const UserDashboard: React.FC = () => {
     console.log('UserDashboard component is rendering');
     const { user_id } = useParams<{ user_id: string }>();
     console.log('user_id', user_id);
-    const [, setUser] = useState<UserTypes | null>(null);
+    const [user, setUser] = useState<UserTypes | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {

@@ -72,11 +72,11 @@ const Homepage: React.FC = () => {
                         <h2 className="text-3xl font-semibold">Nos catégories les plus populaires</h2>
                         <p className="mb-8">Découvrez notre séléction de cours par catégorie</p>
 
-                        <Carousel tagName="HTML" />
-
-                        <Carousel tagName="CSS" />
-
                         <Carousel tagName="Word" />
+
+                        <Carousel tagName="PC" />
+
+                        <Carousel tagName="E-commerce" />
                     </div>
                 </div>
             </main>

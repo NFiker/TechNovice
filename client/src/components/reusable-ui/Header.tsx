@@ -1,3 +1,4 @@
+import { useUser } from '@/context/UserContext';
 import { mockCourseData } from '@/fakeData';
 import React from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
@@ -12,6 +13,8 @@ const Header: React.FC = () => {
     const handleSelect = (selectedItem: any) => {
         console.log('Selected item:', selectedItem);
     };
+
+    const { user } = useUser();
 
     return (
         <header
@@ -78,17 +81,26 @@ const Header: React.FC = () => {
                     <ul className="flex justify-around items-center">
                         <li>
                             <Link
-                                to="/connexion"
-                                className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
-                                Se connecter
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
                                 to="/inscription"
                                 className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
                                 S'inscrire
                             </Link>
+                        </li>
+                        <li>
+                            {' '}
+                            {user ? (
+                                <Link
+                                    to="/déconnexion"
+                                    className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
+                                    Se déconnecter
+                                </Link>
+                            ) : (
+                                <Link
+                                    to="/connexion"
+                                    className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
+                                    Se connecter
+                                </Link>
+                            )}
                         </li>
                     </ul>
                 </nav>

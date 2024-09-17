@@ -9,9 +9,7 @@ const userschema = Joi.object({
 
     // une chaîne d'adresse e-mail valide doit avoir deux parties de domaine, par exemple@example.com et le TLD doit être .com ou .net ou .fr
     mail: Joi.string()
-        .pattern(
-            new RegExp('^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'),
-        ) /* nouveau : ajout d'une regex stricte */
+        .pattern(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/) /* nouveau : ajout d'une regex stricte */
         .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'fr'] } })
         .lowercase()
         .required(),
@@ -21,7 +19,7 @@ const userschema = Joi.object({
     //[a-zA-Z0-9] correspond à toute lettre majuscule/minuscule et à tout chiffre.
     //{8,30} signifie que la longueur doit être comprise entre 8 et 30 caractères.
     password: Joi.string()
-        .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$'))
+        .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/)
         .required(),
 });
 

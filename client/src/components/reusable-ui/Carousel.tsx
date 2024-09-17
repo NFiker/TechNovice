@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import CourseList from '../pages/lists/CourseList';
-import type { CourseType } from './cards/CourseCard';
+import type CourseTypes from '../types/CourseTypes';
 
 interface CarouselProps {
     tagName: string;
@@ -11,7 +11,7 @@ interface CarouselProps {
 const Carousel: React.FC<CarouselProps> = ({ tagName }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const [, setCourses] = useState<CourseType[]>([]);
+    const [, setCourses] = useState<CourseTypes[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -22,7 +22,7 @@ const Carousel: React.FC<CarouselProps> = ({ tagName }) => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch courses');
                 }
-                const data: CourseType[] = await response.json();
+                const data: CourseTypes[] = await response.json();
                 setCourses(data); // Stocker tous les cours récupérés
             } catch (error) {
                 if (error instanceof Error) {

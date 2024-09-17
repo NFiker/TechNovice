@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import type { CourseType } from '../../reusable-ui/cards/CourseCard';
+import type CourseTypes from '@/components/types/CourseTypes';
 import CourseCard from '../../reusable-ui/cards/CourseCard';
 
 export interface CourseListProps {
@@ -17,7 +17,7 @@ const CourseList: React.FC<CourseListProps> = ({
     slicer,
     tagFilter,
 }) => {
-    const [courses, setCourses] = useState<CourseType[]>([]);
+    const [courses, setCourses] = useState<CourseTypes[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -28,7 +28,7 @@ const CourseList: React.FC<CourseListProps> = ({
                 if (!response.ok) {
                     throw new Error('Failed to fetch courses');
                 }
-                let data: CourseType[] = await response.json();
+                let data: CourseTypes[] = await response.json();
                 if (slicer) {
                     data = data.slice(0, slicer);
                 }
@@ -45,7 +45,7 @@ const CourseList: React.FC<CourseListProps> = ({
             }
         };
         fetchCourses();
-    }, []);
+    });
 
     if (loading) {
         return <div>Loading...</div>;

@@ -1,19 +1,8 @@
+import type TopicTypes from '@/components/types/TopicTypes';
 import React from 'react';
 
-export interface TopicType {
-    topic_id: number;
-    topic_title: string;
-    topic_tag: string[];
-    topic_content: string;
-    topic_date: string;
-    author_user_id: number;
-    author_name: string;
-    comments_count: number;
-}
-
 interface TopicCardProps {
-    topic: TopicType;
-    variant: 'dashboard' | 'forum';
+    topic: TopicTypes;
     onViewTopic: () => void;
 }
 

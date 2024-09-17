@@ -1,18 +1,10 @@
 // src/components/reusable-ui/CourseCard.tsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
-export interface CourseType {
-    course_id: number;
-    course_title: string;
-    course_desc: string;
-    course_tags: string[];
-    course_content: string;
-    author_user_id: number;
-}
+import type CourseTypes from '@/components/types/CourseTypes';
 
 interface CourseCardProps {
-    course: CourseType;
+    course: CourseTypes;
     className?: string;
 }
 

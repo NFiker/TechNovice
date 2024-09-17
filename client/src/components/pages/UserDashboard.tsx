@@ -1,36 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import type { CourseType } from '../reusable-ui/cards/CourseCard';
-import CourseCard from '../reusable-ui/cards/CourseCard';
-import type { TopicType } from '../reusable-ui/cards/TopicCard';
-import TopicCard from '../reusable-ui/cards/TopicCard';
 import Footer from '../reusable-ui/Footer';
 import Header from '../reusable-ui/Header';
 import CourseList from './lists/CourseList';
+import type UserTypes from '../types/UserTypes';
 
-interface User {
-    user_id: number;
-    nickname: string;
-    mail: string;
-    password: string;
-    first_name: string;
-    last_name: string;
-    role_name: string;
-    comments: any[];
-    topics: TopicType[];
-    courses: CourseType[];
-    watches: {
-        course_id: number;
-        author_user_id: number;
-        start_date: string;
-    }[];
+interface UserDashboardProps {
+    user: UserTypes;
 }
 
-const UserDashboard: React.FC = () => {
+const UserDashboard: React.FC<UserDashboardProps> = ({ user }) => {
     console.log('UserDashboard component is rendering');
     const { user_id } = useParams<{ user_id: string }>();
     console.log('user_id', user_id);
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<UserTypes | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -43,7 +26,7 @@ const UserDashboard: React.FC = () => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch user data');
                 }
-                const userData: User = await response.json();
+                const userData: UserTypes = await response.json();
                 setUser(userData);
             } catch (error) {
                 setError(error instanceof Error ? error.message : 'An error occurred');
@@ -73,7 +56,7 @@ const UserDashboard: React.FC = () => {
                             <div className="space-y-6">
                                 {' '}
                                 {/* Ajout de cette div avec espace vertical */}
-                                <CourseList >
+                                <CourseList />
                             </div>
                         </div>
                         <div className="lg:w-1/2 border-teal-200 rounded-3xl p-8 border-2">
@@ -81,17 +64,7 @@ const UserDashboard: React.FC = () => {
                             <div className="space-y-6">
                                 {' '}
                                 {/* Ajout de cette div avec espace vertical */}
-                                {user.topics.map(topic => (
-                                    <TopicCard
-                                        key={topic.topic_id}
-                                        topic={topic}
-                                        variant="dashboard"
-                                        onViewTopic={() => {
-                                            /* Ajoutez ici la logique pour voir le topic */
-                                            console.log(`Voir le topic ${topic.topic_id}`);
-                                        }}
-                                    />
-                                ))}
+                                
                             </div>
                         </div>
                     </div>

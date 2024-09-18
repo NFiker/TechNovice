@@ -5,20 +5,36 @@ import { createTestWatche } from '../../fixtures.js';
 
 const prisma = new PrismaClient();
 
-describe('DELETE /api/watches/courses/:course_id/users/user_id', () => {
+describe.only('DELETE /api/watches/courses/:course_id/users/:user_id', () => {
     let courseId = null;
-    let userId = null;
-
+    let userId =null;
 
     before(async () => {
-        await prisma.courses.deleteMany(); // Nettoyer la base de données de test
-        const course = await createTestWatche(); // Insérer des données de test
-        courseId = course.course_id;
+        await prisma.watches.deleteMany();
+        await prisma.courses.deleteMany();
+        await prisma.users.deleteMany(); 
+        const watche = await createTestWatche();
+        courseId = watche.course_id;
+        userId = watche.user_id;
+        
     });
 
-    it('should succeed if course is deleted', async function () {
+    it('should fail if watch is not found', async function () {
+        const missingCourseId = 999999;
+        const missingUserId = 9999;  // Un ID qui n'existe pas
+
         const response = await request(this.app)
-            .get(`/api/watches/courses/${courseId}/users/${userId}`)
+            .delete(`/api/watches/courses/${missingCourseId}/users/${missingUserId}`)
+            // .set('Accept', 'application/json');
+
+        expect(response.status).to.equal(404);
+        expect(response.body).to.deep.equal({ message: 'Vue non trouvé' });
+    });
+
+
+    it('should succeed if comment is deleted', async function () {
+        const response = await request(this.app)
+            .delete(`/api/watches/courses/${courseId}/users/${userId}`)
             .set('Accept', 'application/json');
 
         expect(response.status).to.equal(200);
@@ -26,12 +42,11 @@ describe('DELETE /api/watches/courses/:course_id/users/user_id', () => {
             .to.be.an('object')
             .with.all.keys([
                 "course_id",
-                "users"
+                "user_id",
+                "start_date"
             ]);
 
         expect(response.body.course_id).to.eq(courseId);
-        expect(response.body.users).to.be.a(userId);
+        expect(response.body.user_id).to.eq(userId);
     });
 });
-
-   

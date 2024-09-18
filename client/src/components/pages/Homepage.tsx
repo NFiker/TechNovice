@@ -57,7 +57,7 @@ const Homepage: React.FC = () => {
                         <CourseList className="grid grid-cols-1 md:grid-cols-2 gap-6" slicer={4} />
 
                         <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
-                            <Link to="catalogue-des-cours">Découvrez le catalogue</Link>
+                            <Link to="/catalogue-des-cours">Découvrez le catalogue</Link>
                         </button>
                     </div>
 

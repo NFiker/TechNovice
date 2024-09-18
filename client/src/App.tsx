@@ -31,10 +31,14 @@ function App() {
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            api.get('/api/users/:user_id')
+            api.get('/my-infos')
                 .then(response => {
                     setUser({
                         user_id: response.data.user_id,
+                        nickname: response.data.nickname,
+                        mail: response.data.mail,
+                        first_name: response.data.first_name,
+                        last_name: response.data.last_name,
                     });
                 })
                 .catch(error => {
@@ -59,11 +63,9 @@ function App() {
                 {/* Pages de détail */}
                 <Route path="/inscription" element={<Signup />} />
                 <Route path="/sujet/:id" element={<TopicDetail />} /> {/* Route pour TopicDetail */}
-
                 <Route path="/courses/:course_id" element={<CourseDetail />} />{' '}
                 {/* Route pour CourseDetail */}
                 {/* <Route path="/enseignant/:id" element={<TeacherDetail />} /> */}
-
                 {/* Route pour TeacherDetail */}
                 <Route
                     path="/tableau/:user_id"

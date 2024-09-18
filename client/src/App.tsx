@@ -18,7 +18,6 @@ import TeacherList from './components/pages/lists/TeacherList';
 import TopicList from './components/pages/lists/TopicList';
 import SignInComponent from './components/reusable-ui/Login';
 import Signup from './components/reusable-ui/Signup';
-import { mockTopicData } from './fakeData';
 
 import { useEffect } from 'react';
 import api from './api';
@@ -54,10 +53,7 @@ function App() {
                 <Route path="/" element={<Homepage />} />
                 {/* Catalogues */}
                 <Route path="/catalogue-des-cours" element={<CoursesCatalog />} />
-                <Route
-                    path="/catalogue-des-sujets"
-                    element={<TopicList topics={mockTopicData} variant="forum" />}
-                />
+                <Route path="/forums" element={<TopicList variant="public" />} />
                 <Route path="/catalogue-des-enseignants" element={<TeacherList />} />
                 {/* Connexion */}
                 <Route path="/connexion" element={<Login />} />
@@ -65,7 +61,6 @@ function App() {
                 <Route path="/inscription" element={<Signup />} />
                 <Route path="/sujet/:id" element={<TopicDetail />} /> {/* Route pour TopicDetail */}
                 <Route path="/cours/:course_id" element={<CourseDetail />} /> {/* Route pour CourseDetail */}
-              
                 {/* <Route path="/enseignant/:id" element={<TeacherDetail />} /> */}
                 {/* Route pour TeacherDetail */}
                 <Route

@@ -1,68 +1,71 @@
-// src/components/pages/TopicList.tsx
 import TopicCard from '@/components/reusable-ui/cards/TopicCard';
 import type TopicTypes from '@/components/types/TopicTypes';
 import React, { useEffect, useState } from 'react';
 
-interface TopicListProps {
-    topics?: TopicTypes[];
-    variant: 'dashboard' | 'forum';
-    slicer?: number;
-    tagFilter?: string;
-}
-
-const TopicList: React.FC<TopicListProps> = ({ variant, slicer, tagFilter }) => {
+const TopicList: React.FC = () => {
     const [topics, setTopics] = useState<TopicTypes[]>([]);
-    const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [displayedTopics, setDisplayedTopics] = useState<TopicTypes[]>([]);
+    const [topicsToShow, setTopicsToShow] = useState<number>(6);
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
     useEffect(() => {
         const fetchTopics = async () => {
             try {
-                const response = await fetch(`https://technovice-app-196e28ed15ce.herokuapp.com/api/topics`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch topics');
-                }
-                let data: TopicTypes[] = await response.json();
-                if (slicer) {
-                    data = data.slice(0, slicer);
-                }
-                if (tagFilter) {
-                    data = data.filter(topic => topic.topic_tag.includes(tagFilter));
-                }
-                setTopics(data); // Stocker tous les cours récupérés
+                const response = await fetch('https://technovice-app-196e28ed15ce.herokuapp.com/api/topics');
+                const data = await response.json();
+                setTopics(data);
+                setDisplayedTopics(data.slice(0, topicsToShow));
             } catch (error) {
-                if (error instanceof Error) {
-                    setError(error.message);
-                }
-            } finally {
-                setLoading(false); // Mettre à jour l'état de chargement
+                console.error('Error fetching topics:', error);
             }
         };
+
         fetchTopics();
-    }, [slicer, tagFilter]);
+    }, [topicsToShow]);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    const handleShowMore = () => {
+        setTopicsToShow(prev => prev + 6);
+    };
 
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
+    const handleTagClick = (tag: string) => {
+        const updatedTags = selectedTags.includes(tag)
+            ? selectedTags.filter(t => t !== tag)
+            : [...selectedTags, tag];
+
+        setSelectedTags(updatedTags);
+
+        if (updatedTags.length === 0) {
+            setDisplayedTopics(topics.slice(0, topicsToShow));
+        } else {
+            const filteredTopics = topics.filter(topic =>
+                updatedTags.every(selectedTag => topic.topic_tag.includes(selectedTag)),
+            );
+            setDisplayedTopics(filteredTopics.slice(0, topicsToShow));
+        }
+    };
 
     return (
-        <>
-            <div className="bg-gradient-to-r from-sky-600 via-sky-700 to-sky-800 w-full rounded-lg shadow-md">
-                <div className="max-w-screen-xl mx-auto px-4 py-8">
-                    <h1 className="text-xl font-semibold text-white mb-4">Catalogue des sujets</h1>
-                    <h2 className="text-lg text-white mb-4">{topics.length} sujets</h2>
-                    <div className="flex flex-col gap-6">
-                        {topics.map(topic => (
-                            <TopicCard key={topic.topic_id} topic={topic} variant={variant} />
-                        ))}
-                    </div>
-                </div>
+        <div>
+            <div className="tag-filter">
+                {/* Remplace par tes tags réels */}
+                {['JavaScript', 'React', 'Node.js'].map(tag => (
+                    <button
+                        key={tag}
+                        className={selectedTags.includes(tag) ? 'selected' : ''}
+                        onClick={() => handleTagClick(tag)}>
+                        {tag}
+                    </button>
+                ))}
             </div>
-        </>
+            <div className="topic-list">
+                {displayedTopics.map(topic => (
+                    <TopicCard key={topic.topic_id} topic={topic} />
+                ))}
+            </div>
+            {displayedTopics.length < topics.length && (
+                <button onClick={handleShowMore}>Voir plus de topics</button>
+            )}
+        </div>
     );
 };
 

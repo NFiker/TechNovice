@@ -6,24 +6,15 @@ import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
 import { Link } from 'react-router-dom';
 import Carousel from '../reusable-ui/Carousel';
+import Searchbar from '../reusable-ui/Searchbar';
 
 const Homepage: React.FC = () => {
-    const handleSearch = (results: any[]) => {
-        // Logique pour gérer les résultats de recherche
-        console.log('Results:', results);
-    };
-
-    const handleSelect = (selectedItem: any) => {
-        // Logique pour gérer la sélection d'un élément
-        console.log('Selected item:', selectedItem);
-    };
-
     return (
         <>
             <Header />
             <main className="mt-32">
-                <div className="container md:grid md:grid-cols-6 md:grid-rows-6 md:gap-2">
-                    <div className="container md:col-span-3 md:row-span-2">
+                <div className="container md:grid md:grid-cols-2 md:grid-rows-2 md:gap-2">
+                    <div className="container">
                         <div className="md:container">
                             <div className="md:hidden container">
                                 <Link to="/">
@@ -50,7 +41,9 @@ const Homepage: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="container md:col-span-3 md:row-span-6 md:col-start-4 flex flex-col">
+                    <Searchbar searchKeys={['course_title', 'course_tags']} mobile={true} />
+
+                    <div className="container md:row-start-1 md:row-span-2 md:col-start-2 flex flex-col">
                         <h2 className="text-3xl font-semibold">Nos cours du moment</h2>
                         <p className="mb-8">Découvrez nos cours les plus populaires</p>
 
@@ -61,12 +54,12 @@ const Homepage: React.FC = () => {
                         </button>
                     </div>
 
-                    <div className="container md:col-span-3 md:row-span-4 md:row-start-3 bg-indigo-600 text-white rounded-2xl flex flex-col">
+                    <div className="container md:col-start-1 md:row-start-2 bg-indigo-600 text-white rounded-2xl flex flex-col">
                         <h2 className="text-3xl font-semibold">Nos enseignants</h2>
                         <p className="mb-8">Discutez avec eux</p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <TeacherList />
+                            <TeacherList slicer={4} />
                         </div>
 
                         <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
@@ -75,15 +68,15 @@ const Homepage: React.FC = () => {
                     </div>
                 </div>
                 <div className="container">
-                    <div className="container md:col-span-3 md:row-span-6 md:col-start-4 flex flex-col">
+                    <div className="container flex flex-col">
                         <h2 className="text-3xl font-semibold">Nos catégories les plus populaires</h2>
                         <p className="mb-8">Découvrez notre séléction de cours par catégorie</p>
 
-                        <Carousel tagName="HTML" />
-
-                        <Carousel tagName="CSS" />
-
                         <Carousel tagName="Word" />
+
+                        <Carousel tagName="PC" />
+
+                        <Carousel tagName="E-commerce" />
                     </div>
                 </div>
             </main>

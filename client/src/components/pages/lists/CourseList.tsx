@@ -30,12 +30,10 @@ const CourseList: React.FC<CourseListProps> = ({
                 }
                 let data: CourseTypes[] = await response.json();
 
-                // Appliquer le filtre par tags
                 if (tagFilter) {
                     const tagsArray = tagFilter.split(','); // Sépare les tags sélectionnés
                     data = data.filter(course => tagsArray.every(tag => course.course_tags.includes(tag)));
                 }
-
                 if (slicer) {
                     data = data.slice(0, slicer); // Limiter les cours selon le slicer
                 }

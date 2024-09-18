@@ -17,7 +17,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, className }) => {
     return (
         <div
             className={`bg-white border-2 border-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 max-w-xs h-full flex flex-col ${className || ''}`}>
-            <div className="relative">
+            <div className="relative z-10">
                 <img
                     className="rounded-t-lg object-cover h-40 w-full"
                     src="https://placehold.co/600x400"

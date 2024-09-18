@@ -4,5 +4,7 @@ export default interface CourseTypes {
     course_desc: string;
     course_tags: string[];
     course_content?: string;
-    author_user_id?: number;
+    creation_date: string;
+    update_date: string;
+    author_user_id?: number | null;
 }

@@ -1,15 +1,18 @@
 // src/components/pages/CourseDetail.tsx
-import type CourseTypes from '@/components/types/CourseTypes';
 import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
+import type CourseTypes from '@/components/types/CourseTypes';
+import type UserTypes from '@/components/types/UserTypes';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const CourseDetail: React.FC = () => {
     const { course_id } = useParams<{ course_id: string }>();
     const [oneCourse, setCourse] = useState<CourseTypes>();
+    const [oneUser, setUser] = useState<UserTypes>();
     const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loadingCourse, setLoadingCourse] = useState<boolean>(true);
+    const [loadingUser, setLoadingUser] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchOneCourse = async () => {
@@ -22,18 +25,32 @@ const CourseDetail: React.FC = () => {
                 }
                 const data: CourseTypes = await response.json();
                 setCourse(data);
+                setLoadingCourse(false);
+
+                if (data.author_user_id) {
+                    setLoadingUser(true);
+                    const userResponse = await fetch(
+                        `https://technovice-app-196e28ed15ce.herokuapp.com/api/users/${data.author_user_id}`,
+                    );
+                    if (!userResponse.ok) {
+                        throw new Error('Failed to fetch user');
+                    }
+                    const userData: UserTypes = await userResponse.json();
+                    setUser(userData);
+                }
             } catch (error) {
                 if (error instanceof Error) {
                     setError(error.message);
                 }
             } finally {
-                setLoading(false); // Mettre à jour l'état de chargement
+                setLoadingCourse(false);
+                setLoadingUser(false);
             }
         };
         fetchOneCourse();
     }, [course_id]);
 
-    if (loading) {
+    if (loadingCourse || loadingUser) {
         return <div>Loading...</div>;
     }
 
@@ -49,8 +66,8 @@ const CourseDetail: React.FC = () => {
         <>
             <Header />
 
-            <main className="mt-32">
-                <div className="p-8">
+            <main className="mt-32 flex justify-center">
+                <div className="p-8 flex-col md:max-w-[50%]">
                     <h1 className="text-3xl font-bold mb-4">{oneCourse.course_title}</h1>
                     <img
                         className="mb-4 max-w-full"
@@ -58,7 +75,10 @@ const CourseDetail: React.FC = () => {
                         alt={oneCourse.course_title}
                     />
                     <p className="text-lg">{oneCourse.course_desc}</p>
-                    <p className="text-sm text-gray-500">Enseignant: {oneCourse.author_user_id}</p>
+                    <p className="text-sm text-gray-500">
+                        Enseignant: {oneUser?.first_name} {oneUser?.last_name} ({oneUser?.nickname})
+                    </p>
+                    <p className="mt-4">{oneCourse.course_content}</p>
                 </div>
             </main>
 

@@ -5,24 +5,18 @@ const prisma = new PrismaClient();
 const commentsController = {
     // Controller pour créer un message
     async createComment(req, res) {
-        const { topic_id } = req.params;
-        const { com_content, author_user_id } = req.body;
-
-        // Vérifier si le contenu du message est renseigné correctement
-        if (!com_content) {
-            return res.status(400).json({ error: 'Contenu du message obligatoire' });
-        }
-        if (!author_user_id) {
-            return res.status(400).json({ error: 'Auteur du message obligatoire' });
-        }
-        // verifier si utilisateur existe
         try {
+            const { topic_id } = req.params;
+            const { com_content, author_user_id } = req.body;
+
+            // verifier si utilisateur existe
             const user = await prisma.users.findUnique({
                 where: { user_id: parseInt(author_user_id) },
             });
 
             if (!user) {
-                return res.status(404).json({ error: 'Utilisateur non trouvé.' });
+        
+                return res.status(404).json({ error: 'Auteur non trouvé.' });
             }
 
             // Vérifier si le sujet existe
@@ -41,7 +35,8 @@ const commentsController = {
                     author_user_id: parseInt(author_user_id),
                 },
             });
-            res.status(200).json(comment);
+
+            res.status(201).json(comment);
         } catch (error) {
             res.status(500).json({ message: 'Erreur lors de la création du message', error });
         } finally {
@@ -68,6 +63,7 @@ const commentsController = {
             });
 
             res.status(200).json(comment);
+           
         } catch (error) {
             res.status(500).json({ message: 'Erreur lors de la mise à jour du message', error });
         } finally {
@@ -80,25 +76,21 @@ const commentsController = {
 
         const comment = await prisma.comments.findUnique({
             where: {
-                com_id: parseInt(com_id), // Rechercher uniquement par com_id
+                com_id: parseInt(com_id), 
             },
         });
-
+        
         if (!comment) {
-            return res.status(404).json({ message: 'Comment not found' });
+            return res.status(404).json({ message: 'Commentaire non trouvé' });
         }
 
         try {
             await prisma.comments.delete({
                 where: {
-                    com_id: parseInt(com_id), // Supprimer uniquement par com_id
+                    com_id: parseInt(com_id), 
                 },
+               
             });
-
-            if (!comment) {
-                return res.status(404).json({ message: 'Watch not found' });
-            }
-            console.log(`[{comment}]:`, comment);
             res.status(200).json(comment);
         } catch (error) {
             res.status(500).json({ message: 'Erreur lors de suppresion du message', error });

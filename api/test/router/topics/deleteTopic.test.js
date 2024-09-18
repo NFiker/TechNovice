@@ -14,7 +14,7 @@ describe('DELETE /api/topics/:topic_id', () => {
         topicId = topic.topic_id;
     });
 
-    it('should succeed if topic is found', async function () {
+    it('should succeed if topic is deleted', async function () {
         const response = await request(this.app)
             .get('/api/topics/' + topicId)
             .set('Accept', 'application/json');

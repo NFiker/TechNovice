@@ -8,22 +8,37 @@ describe('PATCH /api/users/:user_id', () => {
     
     let userId = null;
 
-    before(async () => {
-        await prisma.users.deleteMany(); // Nettoyer la base de données de test
-        const user = await createTestUser(); // Insérer des données de test
-        userId = user.user_id;
-    });
-    
     const payload = {
         "nickname": "Camille9",
         "mail": "camille9@gmail.com",
-        "password": "camille230399",
+        "password": "Camille230399!",
         "first_name": "Camille",
         "last_name": "Deluxe",
         "role_name": "administrateur", 
     };
 
-    it('should succeed if user is found', async function ()  {
+    before(async () => {
+        await prisma.users.deleteMany();
+        const user = await createTestUser(); 
+        userId = user.user_id;
+    });
+
+    it('should fail if nickname is already in db', async function ()  {
+        const conflictPayload = {
+            ...payload,
+            nickname: 'Camille9'
+        }
+    });
+    
+    it('should fail if mail is already in db', async function ()  {
+        const conflictPayload = {
+            ...payload,
+            mail: 'camille9@gmail.com'
+        }
+    });
+
+
+    it('should succeed if user is changed', async function ()  {
         const response = await request(this.app)
             .patch('/api/users/' + userId)
             .send(payload)

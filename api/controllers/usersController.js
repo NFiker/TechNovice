@@ -63,6 +63,17 @@ const userController = {
         const { nickname, mail, password, first_name, last_name, role_name } = req.body;
         try {
             const hashedPassword = await bcrypt.hash(password, 10);
+            const foundNickname = await prisma.users.findUnique({ where: { nickname } });
+            const foundMail = await prisma.users.findUnique({ where: { mail } });
+
+            // #1 ECHEC: si un utilisateur est créé avec un pseudo déjà existant en bdd
+            if (foundNickname) {
+                return res.status(409).json({ message: "NICKNAME_ALREADY_USED" });
+            }
+            // #2 ECHEC: si un utilisateur est créé avec un mail déjà existant en bdd
+            if (foundMail) {
+                return res.status(409).json({ message: "MAIL_ALREADY_USED" });
+            }
 
             const user = await prisma.users.create({
                 data: {
@@ -74,13 +85,11 @@ const userController = {
                     role_name,
                 },
             });
+            // console.log("User created successfully:", user);
 
             res.status(201).json(user);
         } catch (error) {
-            if (error?.code === 'P2002' && error?.meta?.target?.[0] === 'nickname && mail') {
-                return res.status(409).json({ message: 'DUPLICATE_NICKNAME && DUPLICATE_MAIL' });
-            }
-            // On ne donne généralement pas de détail sur les erreurs 500
+            console.log("Error occurred:", error); 
             res.status(500).json({ message: 'INTERNAL_SERVER_ERROR' });
         } finally {
             prisma.$disconnect();
@@ -90,8 +99,19 @@ const userController = {
     async updateUser(req, res) {
         const id = parseInt(req.params.user_id);
         const { nickname, mail, password, first_name, last_name, role_name } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
         try {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const foundNickname = await prisma.users.findUnique({ where: { nickname } });
+            const foundMail = await prisma.users.findUnique({ where: { mail } });
+
+            // #1 ECHEC: si un utilisateur est créé avec un speudo déjà existant en bdd
+            if (foundNickname) {
+                return res.status(409).json({ message: 'NICKNAME_NOT_AVAILABLE' });
+            }
+            // #2 ECHEC: si un utilisateur est créé avec un mail déjà existant en bdd
+            if (foundMail) {
+                return res.status(409).json({ message: 'MAIL_ALREADY_EXIST' });
+            }
             const user = await prisma.users.update({
                 where: {
                     user_id: id,
@@ -109,10 +129,7 @@ const userController = {
 
             res.status(200).json(user);
         } catch (error) {
-            if (error?.code === 'P2002' && error?.meta?.target?.[0] === 'nickname & mail') {
-                return res.status(409).json({ message: 'DUPLICATE_NICKNAME && DUPLICATE_MAIL' });
-            }
-            // On ne donne généralement pas de détail sur les erreurs 500
+            console.log("Error occurred:", error); 
             res.status(500).json({ message: 'INTERNAL_SERVER_ERROR' });
         } finally {
             prisma.$disconnect();

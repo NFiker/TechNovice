@@ -25,7 +25,7 @@ describe('PATCH /api/courses/:course_id', () => {
         "author_user_id": 1
     }
 
-    it('should succeed if course is found', async function ()  {
+    it('should succeed if course is changed', async function ()  {
         const response = await request(this.app)
             .patch('/api/courses/' + courseId)
             .send(payload)

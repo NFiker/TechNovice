@@ -6,13 +6,13 @@ const watchesRouter = Router();
 
 // Ajouter un cours à la liste des cours commencés
 watchesRouter.post(
-    '/api/watches/courses/:course_id(\\d+)/users/:author_user_id(\\d+)', validators('watches'),
+    '/api/watches/courses/:course_id(\\d+)/users/:user_id(\\d+)', validators('watches'),
     watchesController.createWatch,
 );
 
 // Supprimer un cours commencé (parce qu'on l'a fini en fait tavu)
 watchesRouter.delete(
-    '/api/watches/courses/:course_id(\\d+)/users/:author_user_id(\\d+)',
+    '/api/watches/courses/:course_id(\\d+)/users/:user_id(\\d+)',
     watchesController.deleteWatch,
 );
 

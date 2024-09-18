@@ -7,6 +7,10 @@ import { createContext, useContext, useState } from 'react';
 // Typescript stuff, feel free to remove if you are not using Typescript
 interface User {
     user_id: number;
+    nickname: string;
+    mail: string;
+    first_name: string;
+    last_name: string;
 }
 
 // Typescript stuff, feel free to remove if you are not using Typescript

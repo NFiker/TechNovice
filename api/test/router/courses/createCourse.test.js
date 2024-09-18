@@ -22,13 +22,13 @@ describe('POST /api/courses/', () => {
         "author_user_id": 1
     };
     
-    it('should succeed if course is found', async function ()  {
+    it('should succeed if course is created', async function ()  {
         const response = await request(this.app)
             .post('/api/courses/')
             .send(payload)
-            .expect(200);
+            .expect(201);
 
-            expect(response.status).to.equal(200);
+            expect(response.status).to.equal(201);
             expect(response.body)
                 .to.be.an('object')
                 .with.all.keys([

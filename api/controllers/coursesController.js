@@ -42,7 +42,7 @@ const coursesController = {
                 data: { course_title, course_desc, course_tags, course_content, author_user_id },
             });
 
-            res.status(200).json(course);
+            res.status(201).json(course);
         } catch (error) {
             res.status(500).json({ message: 'Erreur lors de la création du cours', error });
         } finally {

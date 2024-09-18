@@ -5,7 +5,7 @@ import { createTestWatche } from '../../fixtures.js';
 
 const prisma = new PrismaClient();
 
-describe.only('DELETE /api/watches/courses/:course_id/users/:user_id', () => {
+describe('DELETE /api/watches/courses/:course_id/users/:user_id', () => {
     let courseId = null;
     let userId =null;
 

@@ -31,7 +31,7 @@ describe('POST /api/watches/courses/:course_id/users/:user_id',  () => {
             .post(`/api/watches/courses/${ badPayload.course_id}/users/${userId}`)
             .send(badPayload);
        
-            console.log(response.body)
+            
         expect(response.status).to.equal(404);
         expect(response.body).to.deep.equal({ error: 'Cours non trouvé.' });
 ;

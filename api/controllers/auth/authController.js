@@ -43,6 +43,28 @@ const authController = {
         res.clearCookie('jwt');
         res.status(200).json({ message: 'Vous êtes déconnecté' });
     },
+
+    async myInfos(req, res) {
+        const userId = req.user.user_id;
+
+        try {
+            const user = await prisma.users.findUnique({
+                where: { user_id: userId },
+            });
+
+            if (!user) {
+                return res.status(404).json({ message: 'Utilisateur non trouvé' });
+            }
+
+            return res.json(user);
+        } catch (error) {
+            return res
+                .status(500)
+                .json({ message: 'Erreur lors de la récupération des informations', error });
+        } finally {
+            prisma.$disconnect();
+        }
+    },
 };
 
 export { authController };

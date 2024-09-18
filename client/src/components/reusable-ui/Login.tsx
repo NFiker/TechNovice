@@ -35,7 +35,7 @@ const SignInComponent = () => {
             if (response.status === 200) {
                 localStorage.setItem('token', response.data.jwToken);
 
-                const userResponse = await api.get('/api/users/:user_id');
+                const userResponse = await api.get('/my-infos');
 
                 if (userResponse.status === 200) {
                     setUser(userResponse.data);

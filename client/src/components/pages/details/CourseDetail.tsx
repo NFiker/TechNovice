@@ -1,7 +1,7 @@
 // src/components/pages/CourseDetail.tsx
-import type CourseTypes from '@/components/types/CourseTypes';
 import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
+import type CourseTypes from '@/components/types/CourseTypes';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -49,8 +49,8 @@ const CourseDetail: React.FC = () => {
         <>
             <Header />
 
-            <main className="mt-32">
-                <div className="p-8">
+            <main className="mt-32 flex justify-center">
+                <div className="p-8 flex-col">
                     <h1 className="text-3xl font-bold mb-4">{oneCourse.course_title}</h1>
                     <img
                         className="mb-4 max-w-full"

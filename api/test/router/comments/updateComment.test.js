@@ -5,23 +5,22 @@ import { createTestComment } from '../../fixtures.js';
 
 const prisma = new PrismaClient();
 
-describe('PATCH /api/topics/:topic_id(\\d+)/message/:com_id(\\d+)', () => {
+describe('PATCH /api/topics/:topic_id/message/:com_id', () => {
     
-let topicId = null;
+let topicId = null; 
+let comId = null;
 
     before(async () => {
-        await prisma.topics.deleteMany(); // Nettoyer la base de données de test
-        const topic = await createTestComment(); // Insérer des données de test
+        await prisma.topics.deleteMany(); 
+        const topic = await createTestComment(); 
         topicId = topic.topic_id;
         comId = topic.com_id;
     });
 
     const payload = {
-         data:{
             "topic_id": 1,
-            "com_content": "Super sujet merci beaucoup",
+            "com_content": "Super sujet merci beaucoup pour votre aide",
             "author_user_id": 1
-        }
     }
 
     it('should succeed if comment is changed', async function ()  {
@@ -34,22 +33,19 @@ let topicId = null;
             expect(response.body)
             .to.be.an('object')
             .with.all.keys([
-                "comment_id",
-                "comment_title",
-                "comment_desc",
-                "comment_tags",
-                "comment_content",
-                "author_user_id",
-                "creation_date",
-                "update_date"
+                "com_id",
+                "topic_id",
+                "com_content",
+                "com_date",
+                "author_user_id"
             ]);
+               
 
-     expect(response.body.comment_id).to.eq(commentId);
-     expect(response.body.comment_title).to.be.a("string");
-     expect(response.body.comment_desc).to.be.a("string");
-     expect(response.body.comment_tags).to.be.a("array").lengthOf(2);
-     expect(response.body.comment_content).to.be.a("string");
-            
+            expect(response.body.com_id).to.not.be.null;
+            expect(response.body.topic_id).to.eq(topicId);
+            expect(response.body.com_content).to.be.a("string");
+            expect(response.body.author_user_id).to.be.a("number");
+        
     })
 });
 

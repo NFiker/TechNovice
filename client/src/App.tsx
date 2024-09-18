@@ -25,16 +25,21 @@ import api from './api';
 import { useUser } from './context/UserContext';
 
 import UserDashboard from './components/pages/UserDashboard';
+import CoursesCatalog from './components/pages/catalogs/CoursesCatalog';
 
 function App() {
     const { setUser } = useUser();
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            api.get('/api/users/:user_id')
+            api.get('/my-infos')
                 .then(response => {
                     setUser({
                         user_id: response.data.user_id,
+                        nickname: response.data.nickname,
+                        mail: response.data.mail,
+                        first_name: response.data.first_name,
+                        last_name: response.data.last_name,
                     });
                 })
                 .catch(error => {
@@ -48,7 +53,7 @@ function App() {
                 {/* Page d'accueil */}
                 <Route path="/" element={<Homepage />} />
                 {/* Catalogues */}
-                {/* <Route path="/catalogue-des-cours" element={<CourseList courses={mockCourseData} />} /> */}
+                <Route path="/catalogue-des-cours" element={<CoursesCatalog />} />
                 <Route
                     path="/catalogue-des-sujets"
                     element={<TopicList topics={mockTopicData} variant="forum" />}
@@ -59,8 +64,8 @@ function App() {
                 {/* Pages de détail */}
                 <Route path="/inscription" element={<Signup />} />
                 <Route path="/sujet/:id" element={<TopicDetail />} /> {/* Route pour TopicDetail */}
-                <Route path="/courses/:course_id" element={<CourseDetail />} />{' '}
-                {/* Route pour CourseDetail */}
+                <Route path="/cours/:course_id" element={<CourseDetail />} /> {/* Route pour CourseDetail */}
+              
                 {/* <Route path="/enseignant/:id" element={<TeacherDetail />} /> */}
                 {/* Route pour TeacherDetail */}
                 <Route

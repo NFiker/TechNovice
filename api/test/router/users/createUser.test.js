@@ -22,18 +22,28 @@ describe('POST /api/users/', () => {
     });
 
     it('should fail if nickname is already in db', async function ()  {
-        const conflictPayload = {
-            ...payload,
-            nickname: 'Camille9'
-        }
-    });
+        // Crée un utilisateur avec le pseudo
+        await prisma.users.create({ data: payload });
+        const response = await request(this.app)
+            .post('/api/users/')
+            .send(payload)  
+            .expect(409);  
+            expect(response.body).to.deep.equal({ message: 'NICKNAME_ALREADY_USED' });
+     });
     
-    it('should fail if mail is already in db', async function ()  {
-        const conflictPayload = {
-            ...payload,
-            mail: 'camille9@gmail.com'
-        }
+    
+     it('should fail if mail is already in db', async function ()  {
+        // Crée un utilisateur avec l'email
+        await prisma.users.create({ data: payload });
+
+        const response = await request(this.app)
+            .post('/api/users/')
+            .send({ ...payload, nickname: 'Charlotte9' })  
+            .expect(409);  
+            
+            expect(response.body).to.deep.equal({ message: 'MAIL_ALREADY_USED' });
     });
+
 
     it('should succeed if user is created', async function ()  {
         const response = await request(this.app)

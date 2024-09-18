@@ -75,7 +75,7 @@ const SignInComponent = () => {
         setErrMsg('');
     }, [user, firstname, lastname, pwd, matchPwd, role]);
 
-    const handleSubmit = async (event: { preventDefault: () => void; }) => {
+    const handleSubmit = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
         if (!validUser || !validMail || !validFirstName || !validLastName || !validPwd || !validMatch) {
             setErrMsg('Veuillez remplir correctement tous les champs');
@@ -99,30 +99,43 @@ const SignInComponent = () => {
                     last_name: lastname,
                     role_name: role,
                 }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true,
+                },
             );
-            console.log(response);
-
-            if (response.status === 200) {
-                setSuccess(true);
-            }
+            console.log(JSON.stringify(response?.data));
+            console.log(response.status);
+            console.log(JSON.stringify(response));
+            setSuccess(true);
         } catch (error) {
             setErrMsg(error.response.data.message);
         }
     };
     return (
         <>
-            {success ? (
-                <section>
-                    <h1>Success!</h1>
-                    <p>
-                        <Link to="/connexion">Connectez-vous !</Link>
-                    </p>
-                </section>
+            {success === true ? (
+                <div className="w-screen min-h-screen flex flex-col items-center justify-center bg-teal-400 bg-opacity-50 px-4 sm:px-6 lg:px-8 ">
+                    <div className="relative py-3 sm:max-w-xs sm:mx-auto">
+                        <div className="flex flex-col justify-center items-center h-full select-none p-6 bg-indigo-600 rounded-t-xl">
+                            <img className="max-w-20" src="img/logo-small.png" alt="" />
+                        </div>
+                        <div className="min-h-96 px-8 py-4 text-left bg-white rounded-b-xl shadow-lg">
+                            <div className="flex flex-col justify-center items-center h-full select-none">
+                                <div className="flex flex-col items-center justify-center gap-2 mb-4"></div>
+                                <section className="flex flex-col items-center">
+                                    <h1>Votre compte a été créé !</h1>
+                                    <p>
+                                        <Link to="/connexion">Connectez-vous !</Link>
+                                    </p>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             ) : (
                 <section>
-                    <p className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">
-                        {errMsg}
-                    </p>
+                    <p className={errMsg ? 'errmsg' : 'offscreen'}>{errMsg}</p>
                     <div className="w-screen min-h-screen flex items-center justify-center bg-teal-400 bg-opacity-50 px-4 sm:px-6 lg:px-8">
                         <form
                             action="post"

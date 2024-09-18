@@ -4,8 +4,8 @@ import isLoggedIn from '../middlewares/verifyToken.js';
 
 const authRouter = Router();
 
-authRouter.post('/login', isLoggedIn, authController.login);
+authRouter.post('/login', authController.login);
 authRouter.get('/logout', authController.logout);
-authRouter.get('/my-infos', authController.myInfos);
+authRouter.get('/my-infos', isLoggedIn, authController.myInfos);
 
 export { authRouter };

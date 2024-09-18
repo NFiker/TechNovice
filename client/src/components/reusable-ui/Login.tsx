@@ -1,10 +1,9 @@
 // Homepage.tsx
-import api from '@/api';
 import { useUser } from '@/context/UserContext';
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import api from '../../api';
 const SignInComponent = () => {
     const { setUser, user } = useUser();
     const errRef = useRef(null);
@@ -27,13 +26,16 @@ const SignInComponent = () => {
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            const response = await api.post('/login', { mail: mail, password: pwd });
+            const response = await api.post('/login', JSON.stringify({ mail: mail, password: pwd }), {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true,
+            });
             console.log(response);
 
             if (response.status === 200) {
                 localStorage.setItem('token', response.data.jwToken);
 
-                const userResponse = await api.get('/api/users/:user_id');
+                const userResponse = await api.get('/my-infos');
 
                 if (userResponse.status === 200) {
                     setUser(userResponse.data);
@@ -49,7 +51,7 @@ const SignInComponent = () => {
             } else if (error?.response?.status === 401) {
                 setErrMsg('Accès non autorisé');
             } else if (axios.isAxiosError(error)) {
-                alert(error?.response?.data.message);
+                console.log(error?.response?.data.message);
                 console.log(error);
             } else {
                 setErrMsg('Echec de la connexion');

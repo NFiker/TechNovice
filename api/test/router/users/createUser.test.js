@@ -2,7 +2,6 @@ import { PrismaClient } from '@prisma/client';
 import { expect } from 'chai';
 import request from 'supertest';
 
-
 const prisma = new PrismaClient();
 
 // #1 ECHEC: si un utilisateur est créé avec un email déjà existant en bdd
@@ -24,26 +23,25 @@ describe('POST /api/users/', () => {
 
     it('should fail if nickname is already in db', async function ()  {
         // Crée un utilisateur avec le pseudo
-        await prisma.users.create({ data: { ...payload } });
+        await prisma.users.create({ data: payload });
         const response = await request(this.app)
-        .post('/api/users/')
-        .send(payload)  // Utiliser le même payload avec le pseudo existant
-        .expect(409);   // Attendre un statut 409 pour conflit de pseudo
-
-        expect(response.body).to.deep.equal({ message: 'NICKNAME_ALREADY_USED' });
-    });
-});
+            .post('/api/users/')
+            .send(payload)  
+            .expect(409);  
+            expect(response.body).to.deep.equal({ message: 'NICKNAME_ALREADY_USED' });
+     });
     
-    it('should fail if mail is already in db', async function ()  {
+    
+     it('should fail if mail is already in db', async function ()  {
         // Crée un utilisateur avec l'email
-        await prisma.users.create({ data: { ...payload } });
+        await prisma.users.create({ data: payload });
 
         const response = await request(this.app)
             .post('/api/users/')
-            .send(payload)  // Utiliser le même payload avec l'email existant
-            .expect(409);   // Attendre un statut 409 pour conflit d'email
-
-        expect(response.body).to.deep.equal({ message: 'MAIL_ALREADY_USED' });
+            .send({ ...payload, nickname: 'Charlotte9' })  
+            .expect(409);  
+            
+            expect(response.body).to.deep.equal({ message: 'MAIL_ALREADY_USED' });
     });
 
 
@@ -74,3 +72,4 @@ describe('POST /api/users/', () => {
             expect(response.body.last_name).to.be.a("string");
             expect(response.body.role_name).to.be.a("string");
     });
+});

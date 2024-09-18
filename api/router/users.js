@@ -17,7 +17,11 @@ userRouter.get('/api/teachers', userController.getAllTeachers);
 userRouter.post('/api/users', validators('users'), userController.createUser);
 
 // Modifier les informations du profil
-userRouter.patch('/api/users/:user_id(\\d+)',validators('users'), userController.updateUser);
+userRouter.patch(
+    '/api/users/:user_id(\\d+)',
+    validators('users'), 
+    userController.updateUser
+);
 
 // Supprimer un profil
 userRouter.delete('/api/users/:user_id(\\d+)', userController.deleteUser);

@@ -16,7 +16,7 @@ const commentsController = {
 
             if (!user) {
         
-                return res.status(404).json({ error: 'Auteur non trouvé.' });
+                return res.status(404).json({ error: 'Author not found.' });
             }
 
             // Vérifier si le sujet existe
@@ -25,7 +25,7 @@ const commentsController = {
             });
 
             if (!topic) {
-                return res.status(404).json({ error: 'Sujet non trouvé.' });
+                return res.status(404).json({ error: 'Topic not found.' });
             }
 
             const comment = await prisma.comments.create({
@@ -38,7 +38,7 @@ const commentsController = {
 
             res.status(201).json(comment);
         } catch (error) {
-            res.status(500).json({ message: 'Erreur lors de la création du message', error });
+            res.status(500).json({ message: 'Error creating message', error });
         } finally {
             prisma.$disconnect();
         }
@@ -65,7 +65,7 @@ const commentsController = {
             res.status(200).json(comment);
            
         } catch (error) {
-            res.status(500).json({ message: 'Erreur lors de la mise à jour du message', error });
+            res.status(500).json({ message: 'Error updating message', error });
         } finally {
             prisma.$disconnect();
         }
@@ -81,7 +81,7 @@ const commentsController = {
         });
         
         if (!comment) {
-            return res.status(404).json({ message: 'Commentaire non trouvé' });
+            return res.status(404).json({ message: 'Comment not found' });
         }
 
         try {

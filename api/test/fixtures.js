@@ -46,7 +46,6 @@ export async function createTestTopic () {
 }
 
 export async function createTestComment() {
-  // Créer un topic avant de créer un commentaire
   const topic = await prisma.topics.create({
       data: {
         topic_id: 1,
@@ -55,21 +54,18 @@ export async function createTestComment() {
       }
   });
 
-  // Créer un commentaire associé au topic créé
   const comment = await prisma.comments.create({
       data: {
-          topic_id: topic.topic_id, // Associer le commentaire au topic créé
+          topic_id: topic.topic_id,
           com_content: "Super sujet merci beaucoup",
-          author_user_id: 1 // S'assurer que cet utilisateur existe dans la base de données
+          author_user_id: 1 
       }
   });
 
-  // Retourner les IDs du topic et du commentaire créés
   return { topic_id: topic.topic_id, com_id: comment.com_id };
 }
 
 export async function createTestWatche() {
-  // Créez un utilisateur
   const user = await prisma.users.create({
     data: {
       user_id: 1,
@@ -82,7 +78,6 @@ export async function createTestWatche() {
     }
   });
 
-  // Créez un cours
   const course = await prisma.courses.create({
     data: {
       course_id: 1,
@@ -90,22 +85,19 @@ export async function createTestWatche() {
       course_desc: "Comment écrire et mettre en forme un texte, comment mettre en forme les paragraphes ou imprimer, comprendre les icônes du ruban Accueil.",
       course_tags: ["Word", "Bureautique"],
       course_content: "Windows vous permet d’accéder en un clic à l’aide d’un raccourci sur le bureau à un logiciel utilisé fréquemment.",
-      author_user_id: user.user_id, // Associe l'utilisateur créé au cours
+      author_user_id: user.user_id, 
     }
   });
 
-  // Créez une entrée dans la table `watches`
   await prisma.watches.create({
     data: {
       course_id: course.course_id,
       user_id: user.user_id,
     }
   });
-
+  
   return { course_id: course.course_id, user_id: user.user_id };
 }
-
-
 
 export async function createTestTeacher() {
   return await prisma.users.create({

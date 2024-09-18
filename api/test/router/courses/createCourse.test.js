@@ -8,8 +8,8 @@ const prisma = new PrismaClient();
 describe('POST /api/courses/', () => {
    
     before(async () => {
-        await prisma.courses.deleteMany(); // Nettoyer la base de données de test
-        await createTestCourse(); // Insérer des données de test
+        await prisma.courses.deleteMany(); 
+        await createTestCourse(); 
        
     });
     const payload = {
@@ -41,6 +41,7 @@ describe('POST /api/courses/', () => {
                     "creation_date", 
                     "update_date"
                 ]);
+                
             expect(response.body.course_id).to.not.be.null;
             expect(response.body.course_title).to.be.a("string");
             expect(response.body.course_desc).to.be.a("string");

@@ -20,14 +20,13 @@ describe('DELETE /api/topics/:topic_id/message/:com_id', () => {
     });
 
     it('should fail if comment is not found', async function () {
-        const missingComId = 999999; // Un ID qui n'existe pas
+        const missingComId = 999999; 
 
         const response = await request(this.app)
             .delete(`/api/topics/message/${missingComId}`)
-            // .set('Accept', 'application/json');
-
+           
         expect(response.status).to.equal(404);
-        expect(response.body).to.deep.equal({ message: 'Commentaire non trouvé' });
+        expect(response.body).to.deep.equal({ message: 'Comment not found' });
     });
 
 
@@ -47,6 +46,7 @@ describe('DELETE /api/topics/:topic_id/message/:com_id', () => {
                 "author_user_id",
                 
             ]);
+            
         expect(response.body.com_id).to.eq(comId);
         expect(response.body.topic_id).to.not.be.null;
         expect(response.body.com_content).to.be.a("string");

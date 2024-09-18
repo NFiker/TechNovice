@@ -3,9 +3,9 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const watchesController = {
-    // Créer un nouveau watch
+    
+    // Créer uune nouvelle vue
     createWatch: async (req, res) => {
-       
         try {
             const { course_id, user_id } = req.params;
             // verifier si le cours existe
@@ -14,7 +14,7 @@ const watchesController = {
             });
 
             if (!course) {
-                return res.status(404).json({ error: 'Cours non trouvé.' });
+                return res.status(404).json({ error: 'Course not found.' });
             }
             
             // Vérifier si le user existe
@@ -23,7 +23,7 @@ const watchesController = {
             });
 
             if (!user) {
-                return res.status(404).json({ error: 'Utilisateur non trouvé.' });
+                return res.status(404).json({ error: 'User not found.' });
             }
 
             const newWatch = await prisma.watches.create({
@@ -35,16 +35,16 @@ const watchesController = {
             res.status(201).json(newWatch);
                 
             } catch (error) {
-                res.status(500).json({ message: 'Erreur interne du serveur', error});
+                res.status(500).json({ message: 'Internal Server Error', error });
                 if (error.code === 'P2002') {
-                    return res.status(400).json({ error: 'Vue non trouvé.' });
+                    return res.status(400).json({ message: 'view not created' });
                 }
             } finally {
                 prisma.$disconnect();
             }
         },
 
-    // Supprimer un watch
+    // Supprimer une vue
     deleteWatch: async (req, res) => {
         const { course_id, user_id } = req.params;
         try {
@@ -58,7 +58,7 @@ const watchesController = {
             });
 
             if (!watch) {
-                return res.status(404).json({ message: 'Vue non trouvé' });
+                return res.status(404).json({ message: 'view not found' });
             }
 
             await prisma.watches.delete({
@@ -72,7 +72,7 @@ const watchesController = {
 
             res.json(watch);
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            res.status(500).json({ message: 'view not delete', error });
         } finally {
             prisma.$disconnect();
         }

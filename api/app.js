@@ -31,7 +31,7 @@ app.get('/api', (req, res) => {
 
 app.use(router);
 
-// Middleware de geestion d'erreur
+//Error handling middleware
 app.use((err, req, res, next) => {
     if (err) {
         const { status, message } = err;

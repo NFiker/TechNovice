@@ -3,7 +3,8 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const coursesController = {
-    //controller pour récupérer tous les cours
+    
+    //controller to fetch all courses
     async getAllCourses(req, res) {
         try {
             const courses = await prisma.courses.findMany();
@@ -14,7 +15,7 @@ const coursesController = {
             prisma.$disconnect();
         }
     },
-    //controller pour récupérer un cours par son id
+    //controller to retrieve a course by id
     async getOneCourseById(req, res) {
         const id = parseInt(req.params.course_id);
         try {
@@ -34,7 +35,7 @@ const coursesController = {
         }
     },
 
-    // Controller pour créer un cours
+    // Controller to create a course
     async createCourse(req, res) {
         const { course_title, course_desc, course_tags, course_content, author_user_id } = req.body;
 
@@ -51,7 +52,7 @@ const coursesController = {
         }
     },
 
-    // Controller pour modifier un cours
+    // Controller to modify a course
     async updateCourse(req, res) {
         const id = parseInt(req.params.course_id);
         const { course_title, course_desc, course_tags, course_content } = req.body;
@@ -78,7 +79,7 @@ const coursesController = {
         }
     },
 
-    // Controller pour supprimer un cours
+   // Controller to delete a course
     async deleteCourse(req, res) {
         const courseId = parseInt(req.params.course_id);
 

@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 const userController = {
 
-    //Controller pour récupérer tous les utilisateurs
+    //Controller to get all the users
     async getAllUsers(req, res) {
         try {
             const users = await prisma.users.findMany();
@@ -17,7 +17,7 @@ const userController = {
         }
     },
 
-    //Controller pour récupérer un utilisateur par son id
+    //Controller to get a user by id
     async getOneUserById(req, res) {
         const id = parseInt(req.params.user_id);
         try {
@@ -43,7 +43,7 @@ const userController = {
         }
     },
     
-    //Controller pour récupérer tous les professeurs 
+    //Controller to get all teachers
     async getAllTeachers(req, res) {
         try {
             const teachers = await prisma.users.findMany({
@@ -63,7 +63,7 @@ const userController = {
         }
     },
 
-    //Controller pour créer un utilisateur
+    //Controller to create a user
     async createUser(req, res) {
         const { nickname, mail, password, first_name, last_name, role_name } = req.body;
         try {
@@ -101,7 +101,7 @@ const userController = {
         }
     },
 
-    //Controller pour modifier un utilisateur
+    //Controller to edit a user
     async updateUser(req, res) {
         const id = parseInt(req.params.user_id);
         const { nickname, mail, password, first_name, last_name, role_name } = req.body;
@@ -138,7 +138,7 @@ const userController = {
         }
     },
 
-    //Controller pour supprimer un utilisateur
+    //Controller to delete a user
     async deleteUser(req, res) {
         const userId = parseInt(req.params.user_id);
 

@@ -4,11 +4,11 @@ const prisma = new PrismaClient();
 
 const watchesController = {
     
-    // Créer uune nouvelle vue
+    // Create a new view
     createWatch: async (req, res) => {
         try {
             const { course_id, user_id } = req.params;
-            // verifier si le cours existe
+           // check if the course exists
             const course = await prisma.courses.findUnique({
                 where: { course_id: parseInt(course_id) },
             });
@@ -17,7 +17,7 @@ const watchesController = {
                 return res.status(404).json({ error: 'Course not found.' });
             }
             
-            // Vérifier si le user existe
+           // Check if the user exists
             const user = await prisma.users.findUnique({
                 where: { user_id: parseInt(user_id) },
             });
@@ -44,7 +44,7 @@ const watchesController = {
             }
         },
 
-    // Supprimer une vue
+    // Delete a view
     deleteWatch: async (req, res) => {
         const { course_id, user_id } = req.params;
         try {

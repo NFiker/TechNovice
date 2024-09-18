@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const topicController = {
-    //Controller pour récupérer tous les sujets de discussion
+    //Controller to get all the discussion topics
     async getAllTopics(req, res) {
         try {
             const topic = await prisma.topics.findMany({
@@ -16,7 +16,7 @@ const topicController = {
         }
     },
     
-    //Controller pour récupérer un sujet de discussion par son id
+    //Controller to get a discussion topic by id
     async getOneTopicById(req, res) {
         const id = parseInt(req.params.topic_id);
         try {
@@ -40,7 +40,7 @@ const topicController = {
         }
     },
 
-    //Controller pour créer un sujet de discussion
+    //Controller to create a discussion topic
     async createTopic(req, res) {
         const { topic_title, topic_tag, topic_content, author_user_id } = req.body;
         try {
@@ -58,7 +58,7 @@ const topicController = {
         }
     },
 
-    //Controller pour modifier un sujet de discussion
+  //Controller to edit a discussion topic
     async updateTopic(req, res) {
         const id = parseInt(req.params.topic_id);
         const { topic_title, topic_tags, topic_content, author_user_id } = req.body;
@@ -84,7 +84,7 @@ const topicController = {
         }
     },
 
-    //Controller pour supprimer un sujet de discussion
+    //Controller to delete a discussion topic
     async deleteTopic(req, res) {
         const topicId = parseInt(req.params.topic_id);
 

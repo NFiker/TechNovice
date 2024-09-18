@@ -5,7 +5,8 @@ import jwt from 'jsonwebtoken';
 const prisma = new PrismaClient();
 
 const authController = {
-    // controller pour se connecter
+    
+    // controller to connect
     async login(req, res) {
         const { mail, password } = req.body;
 
@@ -39,13 +40,14 @@ const authController = {
             prisma.$disconnect();
         }
     },
-// controller pour se décconecter
+
+    // controller to disconnect
     async logout(req, res) {
         res.clearCookie('jwt');
         res.status(200).json({ message: 'You are logged out' });
     },
-    
-// controller pour s'inscrire 
+
+    // controller to register
     async myInfos(req, res) {
         const userId = req.user.user_id;
 

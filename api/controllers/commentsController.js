@@ -3,13 +3,14 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const commentsController = {
-    // Controller pour créer un message
+    
+    // Controller to create a message
     async createComment(req, res) {
         try {
             const { topic_id } = req.params;
             const { com_content, author_user_id } = req.body;
 
-            // verifier si utilisateur existe
+            // check if user exists
             const user = await prisma.users.findUnique({
                 where: { user_id: parseInt(author_user_id) },
             });
@@ -19,7 +20,7 @@ const commentsController = {
                 return res.status(404).json({ error: 'Author not found.' });
             }
 
-            // Vérifier si le sujet existe
+            // check if topic exists
             const topic = await prisma.topics.findUnique({
                 where: { topic_id: parseInt(topic_id, 10) },
             });
@@ -43,7 +44,8 @@ const commentsController = {
             prisma.$disconnect();
         }
     },
-    // Controller pour modifier un message
+
+   // Controller to modify a message
     async updateComment(req, res) {
         const topicId = parseInt(req.params.topic_id);
         const commentId = parseInt(req.params.com_id);
@@ -70,7 +72,8 @@ const commentsController = {
             prisma.$disconnect();
         }
     },
-    // Controller pour supprimer un message
+
+    // Controller to delete a message
     async deleteComment(req, res) {
         const { com_id } = req.params;
 

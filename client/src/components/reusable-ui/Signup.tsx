@@ -39,7 +39,7 @@ const SignInComponent = () => {
     const [role, setRole] = useState('');
 
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(true);
+    const [success, setSuccess] = useState(false);
 
     useEffect(() => {
         const result = USERNAME_REGEX.test(user);

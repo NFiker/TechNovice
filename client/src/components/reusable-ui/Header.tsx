@@ -46,14 +46,14 @@ const Header: React.FC = () => {
         <header className="flex fixed border-b top-0 left-0 w-full z-50 bg-white shadow-md">
             <div className="max-md:hidden container w-1/4">
                 <Link to="/">
-                    <img src="img/logo.png" alt="Logo de TechnO'vice" />
+                    <img src="/img/logo.png" alt="Logo de TechnO'vice" />
                 </Link>
                 <h1 className="text-center text-lg text-sky-500 font-semibold">Ne restez plus un novice!</h1>
             </div>
 
             <div className="md:hidden container w-1/4">
                 <Link to="/">
-                    <img src="img/logo-small.png" alt="Logo de TechnO'vice" className="max-h-16" />
+                    <img src="/img/logo-small.png" alt="Logo de TechnO'vice" className="max-h-16" />
                 </Link>
             </div>
 

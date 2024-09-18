@@ -52,7 +52,6 @@ const SignInComponent = () => {
             } else {
                 setErrMsg('Echec de la connexion');
             }
-            errRef.current.focus();
         }
     };
 

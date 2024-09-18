@@ -2,6 +2,7 @@
 import { faCheck, faInfoCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import api from '../../api';
 
@@ -18,11 +19,11 @@ const SignInComponent = () => {
 
     const [firstname, setFirstName] = useState('');
     const [validFirstName, setValidFirstName] = useState(false);
-    const [firstNameFocus, setFirstNameFocus] = useState(false);
+    const [, setFirstNameFocus] = useState(false);
 
     const [lastname, setLastName] = useState('');
     const [validLastName, setValidLastName] = useState(false);
-    const [lastNameFocus, setLastNameFocus] = useState(false);
+    const [, setLastNameFocus] = useState(false);
 
     const [mail, setMail] = useState('');
     const [validMail, setValidMail] = useState(false);
@@ -40,6 +41,8 @@ const SignInComponent = () => {
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
+
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
     useEffect(() => {
         const result = USERNAME_REGEX.test(user);
@@ -109,7 +112,7 @@ const SignInComponent = () => {
             console.log(JSON.stringify(response));
             setSuccess(true);
         } catch (error) {
-            setErrMsg(error.response.data.message);
+            console.error(error);
         }
     };
     return (
@@ -276,16 +279,29 @@ const SignInComponent = () => {
                                             className={validPwd || !user ? 'hide' : 'invalid'}
                                         />
                                     </label>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        className="border rounded-lg px-3 py-2 mb-5 text-sm w-full"
-                                        placeholder="••••••••"
-                                        onChange={e => setPwd(e.target.value)}
-                                        onFocus={() => setPwdFocus(true)}
-                                        onBlur={() => setPwdFocus(false)}
-                                        required
-                                    />
+                                    <div className="flex flex-row">
+                                        <input
+                                            type={showPassword ? 'text' : 'password'}
+                                            name="password"
+                                            className="border rounded-lg px-3 py-2 mb-5 text-sm w-full"
+                                            placeholder="••••••••"
+                                            onChange={e => setPwd(e.target.value)}
+                                            onFocus={() => setPwdFocus(true)}
+                                            onBlur={() => setPwdFocus(false)}
+                                            required
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            className="flex">
+                                            {showPassword ? (
+                                                <AiFillEyeInvisible className="place-items-center w-8" />
+                                            ) : (
+                                                <AiFillEye className="place-items-center w-8" />
+                                            )}
+                                        </button>
+                                    </div>
+
                                     <p
                                         className={
                                             pwdFocus && pwd && !validPwd ? 'instructions' : 'offscreen'
@@ -313,7 +329,7 @@ const SignInComponent = () => {
                                         />
                                     </label>
                                     <input
-                                        type="password"
+                                        type={showPassword ? 'text' : 'password'}
                                         name="password-confirm"
                                         className="border rounded-lg px-3 py-2 mb-5 text-sm w-full"
                                         placeholder="••••••••"

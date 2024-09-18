@@ -2,21 +2,12 @@
 // It provides a UserProvider component that wraps the application and provides the user object
 // and a function to set the user object to the rest of the application.
 // The custom useUser hook is used to access the user object and the setUser function from the UserContext.
+import type UserTypes from '@/components/types/UserTypes';
 import { createContext, useContext, useState } from 'react';
 
-// Typescript stuff, feel free to remove if you are not using Typescript
-interface User {
-    user_id: number;
-    nickname: string;
-    mail: string;
-    first_name: string;
-    last_name: string;
-}
-
-// Typescript stuff, feel free to remove if you are not using Typescript
 interface UserContextType {
-    user: User | null;
-    setUser: (user: User | null) => void;
+    user: UserTypes | null;
+    setUser: (user: UserTypes | null) => void;
 }
 
 // The creation of the context with the default value
@@ -42,7 +33,7 @@ export const useUser = () => {
 // This UserProvider is need for main.tsx to wrap the entire application in it.
 // It allows the user object to be available in the entire application.
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<UserTypes | null>(null);
 
     return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
 };

@@ -1,4 +1,6 @@
 import CourseList from '@/components/pages/lists/CourseList';
+import Footer from '@/components/reusable-ui/Footer';
+import Header from '@/components/reusable-ui/Header';
 import CourseTypes from '@/components/types/CourseTypes'; // Import du type CourseTypes
 import React, { useEffect, useState } from 'react';
 
@@ -60,41 +62,45 @@ const CoursesCatalog: React.FC = () => {
     const isMoreCourses = visibleCourses < filteredCourses.length;
 
     return (
-        <div className="courses-catalog p-5">
-            <h1 className="text-center text-white text-3xl font-bold mb-4 bg-indigo-600 p-3 rounded-md">
-                Catalogue des cours
-            </h1>
+        <>
+            <Header />
+            <div className="courses-catalog p-5 pt-40">
+                <h1 className="text-center text-white text-3xl font-bold mb-4 bg-indigo-600 p-3 rounded-md">
+                    Catalogue des cours
+                </h1>
 
-            {/* Affichage des tags pour filtrer */}
-            <div className="flex flex-wrap justify-center mb-4">
-                {allTags.map(tag => (
-                    <button
-                        key={tag}
-                        onClick={() => handleTagClick(tag)}
-                        className={`px-3 py-1 m-1 rounded-lg border ${selectedTags.includes(tag) ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}>
-                        {tag}
-                    </button>
-                ))}
-            </div>
-
-            {/* Affichage des cours filtrés */}
-            <CourseList
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto"
-                slicer={visibleCourses}
-                tagFilter={selectedTags.length > 0 ? selectedTags.join(',') : undefined} // Filtre par tags sélectionnés
-            />
-
-            {/* Affiche le bouton "Voir les cours suivants" seulement s'il y a plus de cours à afficher */}
-            {isMoreCourses && (
-                <div className="mt-4 text-center">
-                    <button
-                        onClick={handleLoadMore}
-                        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                        Voir les cours suivants
-                    </button>
+                {/* Affichage des tags pour filtrer */}
+                <div className="flex flex-wrap justify-center mb-4">
+                    {allTags.map(tag => (
+                        <button
+                            key={tag}
+                            onClick={() => handleTagClick(tag)}
+                            className={`px-3 py-1 m-1 rounded-lg border ${selectedTags.includes(tag) ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}>
+                            {tag}
+                        </button>
+                    ))}
                 </div>
-            )}
-        </div>
+
+                {/* Affichage des cours filtrés */}
+                <CourseList
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto"
+                    slicer={visibleCourses}
+                    tagFilter={selectedTags.length > 0 ? selectedTags.join(',') : undefined} // Filtre par tags sélectionnés
+                />
+
+                {/* Affiche le bouton "Voir les cours suivants" seulement s'il y a plus de cours à afficher */}
+                {isMoreCourses && (
+                    <div className="mt-4 text-center">
+                        <button
+                            onClick={handleLoadMore}
+                            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                            Voir les cours suivants
+                        </button>
+                    </div>
+                )}
+            </div>
+            <Footer />
+        </>
     );
 };
 

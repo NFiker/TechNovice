@@ -28,6 +28,7 @@ const SignInComponent = () => {
         event.preventDefault();
         try {
             const response = await api.post('/login', { mail: mail, password: pwd });
+            console.log(response);
 
             if (response.status === 200) {
                 localStorage.setItem('token', response.data.jwToken);
@@ -49,6 +50,7 @@ const SignInComponent = () => {
                 setErrMsg('Accès non autorisé');
             } else if (axios.isAxiosError(error)) {
                 alert(error?.response?.data.message);
+                console.log(error);
             } else {
                 setErrMsg('Echec de la connexion');
             }

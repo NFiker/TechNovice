@@ -37,21 +37,18 @@ const Homepage: React.FC = () => {
                             </div>
                         </div>
                         <div className="h-full md:container bg-[url('../img/homepage_graphic_semi.png')] bg-contain bg-no-repeat max-md:bg-[position:170%_0%] bg-[position:100%_0%]">
-                            <p className="font-bold text-4xl m-4 drop-shadow-md">
-                                Libérez votre potentiel et apprenez plus vite que jamais grâce
-                                <span className="text-sky-500"> aux cours TechnO'vice</span>
+                            <p className="font-bold text-4xl m-4 drop-shadow-md w-3/4">
+                                Maîtrisez l’informatique en toute simplicité avec
+                                <span className="text-sky-500"> les cours TechnO'vice</span>
                             </p>
-                            <p className="m-4 drop-shadow-md">
-                                TechnO'vice est une plateforme de cours en ligne pour aider les internautes
-                                les plus novices dans ce domaine ! Nous proposons une gamme de cours centrée
-                                sur les outils du numérique les plus communs.
+                            <p className="m-4 drop-shadow-md w-3/4">
+                                TechnO’vice vous aide à acquérir les compétences nécessaires pour naviguer en
+                                toute confiance dans l’univers numérique.
                             </p>
-                            <p className="m-4 drop-shadow-md">
-                                Un souci avec votre téléphone Android ? Vous n'arrivez pas à connecter votre
-                                imprimante à votre ordinateur ? Vous avez un fichier PDF, mais vous voudriez
-                                pouvoir l'éditer ? Un thème sombre sur votre Iphone serait bien mieux pour vos
-                                yeux, non ? Alors consultez notre catalogue, ou discutez avec nos professeurs
-                                sur le forum et vous trouverez réponses à toutes vos questions !
+                            <p className="m-4 drop-shadow-md w-3/4">
+                                Que vous souhaitiez apprendre à utiliser Word, faire un achat en ligne, ou
+                                éviter les pièges des sites malveillants, nous avons les formations qu’il vous
+                                faut.
                             </p>
                         </div>
                     </div>

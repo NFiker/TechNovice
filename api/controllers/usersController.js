@@ -70,9 +70,11 @@ const userController = {
             if (foundNickname) {
                 return res.status(409).json({ message: "NICKNAME_ALREADY_USED" });
             }
+           
             // #2 ECHEC: si un utilisateur est créé avec un mail déjà existant en bdd
             if (foundMail) {
                 return res.status(409).json({ message: "MAIL_ALREADY_USED" });
+               
             }
 
             const user = await prisma.users.create({
@@ -101,17 +103,13 @@ const userController = {
         const { nickname, mail, password, first_name, last_name, role_name } = req.body;
         try {
             const hashedPassword = await bcrypt.hash(password, 10);
-            const foundNickname = await prisma.users.findUnique({ where: { nickname } });
-            const foundMail = await prisma.users.findUnique({ where: { mail } });
+            const foundUser = await prisma.users.findUnique({ where: { user_id: id } });
 
-            // #1 ECHEC: si un utilisateur est créé avec un speudo déjà existant en bdd
-            if (foundNickname) {
-                return res.status(409).json({ message: 'NICKNAME_NOT_AVAILABLE' });
+            // #1 ECHEC: si l'user n'existe pas
+            if (foundUser === null) {
+                return res.status(404).json({ message: 'User not found' });
             }
-            // #2 ECHEC: si un utilisateur est créé avec un mail déjà existant en bdd
-            if (foundMail) {
-                return res.status(409).json({ message: 'MAIL_ALREADY_EXIST' });
-            }
+            
             const user = await prisma.users.update({
                 where: {
                     user_id: id,
@@ -127,6 +125,7 @@ const userController = {
                 },
             });
 
+            delete user.password;
             res.status(200).json(user);
         } catch (error) {
             console.log("Error occurred:", error); 

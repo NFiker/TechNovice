@@ -16,7 +16,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, className }) => {
 
     return (
         <div
-            className={`bg-white border-2 border-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 max-w-xs h-full flex flex-col ${className || ''}`}>
+            className={`bg-white border-2 border-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col ${className || ''}`}>
             <div className="relative z-10">
                 <img
                     className="rounded-t-lg object-cover h-40 w-full"

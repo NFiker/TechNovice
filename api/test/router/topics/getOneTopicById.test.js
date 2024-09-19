@@ -9,8 +9,8 @@ describe('GET /api/topics/:topic_id', () => {
     let topicId = null;
 
     before(async () => {
-        await prisma.topics.deleteMany(); // Nettoyer la base de données de test
-        const topic = await createTestTopic(); // Insérer des données de test
+        await prisma.topics.deleteMany(); 
+        const topic = await createTestTopic(); 
         topicId = topic.topic_id;
     });
 
@@ -20,7 +20,7 @@ describe('GET /api/topics/:topic_id', () => {
             .set('Accept', 'application/json')
 
         expect(response.status).to.equal(404);
-        expect(response.body.message).to.equal('Sujet de discussion non trouvé');
+        expect(response.body.message).to.equal('Discussion topic not found');
     });
 
     it('should succeed if topic is found', async function () {
@@ -40,6 +40,7 @@ describe('GET /api/topics/:topic_id', () => {
                 "topic_date",
                 "comments",
             ]);
+            
             expect(response.body.topic_id).to.eq(topicId);
             expect(response.body.topic_title).to.be.a("string");
             expect(response.body.topic_tag).to.be.a("array").lengthOf(2);

@@ -17,7 +17,7 @@
 //             .set('Accept', 'application/json')
 
 //         expect(response.status).to.equal(404);
-//         expect(response.body.message).to.equal('Aucun enseignant trouvé');
+//         expect(response.body.message).to.equal('No teachers found');
 //     });
 
 //     it('should succeed teachers is found', async function () {

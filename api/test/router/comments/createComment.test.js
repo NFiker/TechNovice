@@ -61,7 +61,7 @@ describe('POST /api/topics/:topic_id/message', () => {
             .send(badPayload);
 
         expect(response.status).to.equal(404);
-        expect(response.body).to.deep.equal({ error: 'Auteur non trouvé.' });
+        expect(response.body).to.deep.equal({ error: 'Author not found.' });
     });
 
     it('should fail if topic_id is not found', async function () {
@@ -73,7 +73,7 @@ describe('POST /api/topics/:topic_id/message', () => {
             .send(badPayload);
 
         expect(response.status).to.equal(404);
-        expect(response.body).to.deep.equal({ error: 'Sujet non trouvé.' });
+        expect(response.body).to.deep.equal({ error: 'Topic not found.' });
     });
 
 
@@ -91,7 +91,8 @@ describe('POST /api/topics/:topic_id/message', () => {
                 "topic_id",
                 "com_content",
                 "com_date",
-                "author_user_id"]);
+                "author_user_id"
+            ]);
 
         expect(response.body.com_id).to.not.be.null;
         expect(response.body.topic_id).to.eq(topicId);

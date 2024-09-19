@@ -21,14 +21,14 @@ describe('DELETE /api/watches/courses/:course_id/users/:user_id', () => {
 
     it('should fail if watch is not found', async function () {
         const missingCourseId = 999999;
-        const missingUserId = 9999;  // Un ID qui n'existe pas
+        const missingUserId = 9999;  
 
         const response = await request(this.app)
             .delete(`/api/watches/courses/${missingCourseId}/users/${missingUserId}`)
-            // .set('Accept', 'application/json');
+            
 
         expect(response.status).to.equal(404);
-        expect(response.body).to.deep.equal({ message: 'Vue non trouvé' });
+        expect(response.body).to.deep.equal({ message: 'view not found' });
     });
 
 

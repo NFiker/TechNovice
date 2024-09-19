@@ -9,8 +9,8 @@ describe('DELETE /api/topics/:topic_id', () => {
     let topicId = null;
 
     before(async () => {
-        await prisma.topics.deleteMany(); // Nettoyer la base de données de test
-        const topic = await createTestTopic(); // Insérer des données de test
+        await prisma.topics.deleteMany(); 
+        const topic = await createTestTopic(); 
         topicId = topic.topic_id;
     });
 
@@ -30,8 +30,8 @@ describe('DELETE /api/topics/:topic_id', () => {
                 "author_user_id",
                 "topic_date",
                 "comments"
-                
             ]);
+
         expect(response.body.topic_id).to.eq(topicId);
         expect(response.body.topic_title).to.be.a("string");
         expect(response.body.topic_tag).to.be.a("array").lengthOf(2);

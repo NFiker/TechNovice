@@ -4,17 +4,20 @@ import bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 const userController = {
+
+    //Controller to get all the users
     async getAllUsers(req, res) {
         try {
             const users = await prisma.users.findMany();
             res.status(200).json(users);
         } catch (error) {
-            res.status(500).json({ message: 'Erreur lors de la récupération des utilisateurs', error });
+            res.status(500).json({ message: 'Error retrieving users', error });
         } finally {
             prisma.$disconnect();
         }
     },
 
+    //Controller to get a user by id
     async getOneUserById(req, res) {
         const id = parseInt(req.params.user_id);
         try {
@@ -30,16 +33,17 @@ const userController = {
                 },
             });
             if (!user) {
-                return res.status(404).json({ message: 'Utilisateur non trouvé' });
+                return res.status(404).json({ message: 'User not found' });
             }
             res.status(200).json(user);
         } catch (error) {
-            res.status(500).json({ message: "Erreur lors de la récupération de l'utilisateur", error });
+            res.status(500).json({ message: "Error retrieving user", error });
         } finally {
             prisma.$disconnect();
         }
     },
-
+    
+    //Controller to get all teachers
     async getAllTeachers(req, res) {
         try {
             const teachers = await prisma.users.findMany({
@@ -59,6 +63,7 @@ const userController = {
         }
     },
 
+    //Controller to create a user
     async createUser(req, res) {
         const { nickname, mail, password, first_name, last_name, role_name } = req.body;
         try {
@@ -66,14 +71,12 @@ const userController = {
             const foundNickname = await prisma.users.findUnique({ where: { nickname } });
             const foundMail = await prisma.users.findUnique({ where: { mail } });
 
-            // #1 ECHEC: si un utilisateur est créé avec un pseudo déjà existant en bdd
             if (foundNickname) {
-                return res.status(409).json({ message: "NICKNAME_ALREADY_USED" });
+                return res.status(409).json({ message: "nickname already used" });
             }
            
-            // #2 ECHEC: si un utilisateur est créé avec un mail déjà existant en bdd
             if (foundMail) {
-                return res.status(409).json({ message: "MAIL_ALREADY_USED" });
+                return res.status(409).json({ message: "mail already used" });
                
             }
 
@@ -87,17 +90,18 @@ const userController = {
                     role_name,
                 },
             });
-            // console.log("User created successfully:", user);
+    
 
             res.status(201).json(user);
         } catch (error) {
             console.log("Error occurred:", error); 
-            res.status(500).json({ message: 'INTERNAL_SERVER_ERROR' });
+            res.status(500).json({ message: 'user is not created', error });
         } finally {
             prisma.$disconnect();
         }
     },
 
+    //Controller to edit a user
     async updateUser(req, res) {
         const id = parseInt(req.params.user_id);
         const { nickname, mail, password, first_name, last_name, role_name } = req.body;
@@ -105,7 +109,6 @@ const userController = {
             const hashedPassword = await bcrypt.hash(password, 10);
             const foundUser = await prisma.users.findUnique({ where: { user_id: id } });
 
-            // #1 ECHEC: si l'user n'existe pas
             if (foundUser === null) {
                 return res.status(404).json({ message: 'User not found' });
             }
@@ -129,13 +132,13 @@ const userController = {
             res.status(200).json(user);
         } catch (error) {
             console.log("Error occurred:", error); 
-            res.status(500).json({ message: 'INTERNAL_SERVER_ERROR' });
+            res.status(500).json({ message: 'Error while editing user', error });
         } finally {
             prisma.$disconnect();
         }
     },
 
-    // Controller pour supprimer un profil
+    //Controller to delete a user
     async deleteUser(req, res) {
         const userId = parseInt(req.params.user_id);
 
@@ -148,7 +151,7 @@ const userController = {
 
             res.status(200).json(user);
         } catch (error) {
-            res.status(500).json({ message: "Erreur lors de la suppresion de l'utilisateur", error });
+            res.status(500).json({ message: "Error deleting user", error });
         } finally {
             prisma.$disconnect();
         }

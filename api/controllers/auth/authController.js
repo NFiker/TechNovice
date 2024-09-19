@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken';
 const prisma = new PrismaClient();
 
 const authController = {
+    
+    // controller to connect
     async login(req, res) {
         const { mail, password } = req.body;
 
@@ -14,13 +16,13 @@ const authController = {
             });
 
             if (!user) {
-                return res.status(400).json({ message: "Cet utilisateur n'existe pas" });
+                return res.status(400).json({ message: "This user does not exist" });
             }
 
             const match = await bcrypt.compare(password, user.password);
 
             if (!match) {
-                return res.status(400).json({ message: 'Mot de passe incorrect' });
+                return res.status(400).json({ message: 'Incorrect password' });
             }
 
             const jwToken = jwt.sign({ id: user.user_id }, process.env.ACCESS_TOKEN_SECRET, {
@@ -29,17 +31,19 @@ const authController = {
 
             return res.json({ jwToken });
         } catch (error) {
-            return res.status(500).json({ message: 'toto', error });
+            return res.status(500).json({ message: 'Error while connecting', error });
         } finally {
             prisma.$disconnect();
         }
     },
 
+    // controller to disconnect
     async logout(req, res) {
         res.clearCookie('jwt');
-        res.status(200).json({ message: 'Vous êtes déconnecté' });
+        res.status(200).json({ message: 'You are logged out' });
     },
 
+    // controller to register
     async myInfos(req, res) {
         const userId = req.user.user_id;
 
@@ -49,14 +53,14 @@ const authController = {
             });
 
             if (!user) {
-                return res.status(404).json({ message: 'Utilisateur non trouvé' });
+                return res.status(404).json({ message: 'User not found' });
             }
 
             return res.json(user);
         } catch (error) {
             return res
                 .status(500)
-                .json({ message: 'Erreur lors de la récupération des informations', error });
+                .json({ message: 'Error retrieving information', error });
         } finally {
             prisma.$disconnect();
         }

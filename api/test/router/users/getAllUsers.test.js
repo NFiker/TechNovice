@@ -7,8 +7,8 @@ const prisma = new PrismaClient();
 
 describe('GET /api/users/', () => {
     before(async () => {
-        await prisma.users.deleteMany(); // Nettoyer la base de données de test
-        await createTestUser(); // Insérer des données de test
+        await prisma.users.deleteMany(); 
+        await createTestUser(); 
     })
 
     it('should succeed if users is found', async function () {

@@ -39,7 +39,6 @@ let comId = null;
                 "com_date",
                 "author_user_id"
             ]);
-               
 
             expect(response.body.com_id).to.not.be.null;
             expect(response.body.topic_id).to.eq(topicId);

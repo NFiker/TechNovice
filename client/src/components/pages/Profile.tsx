@@ -119,7 +119,7 @@ const Profile: React.FC = () => {
     return (
         <>
             <Header />
-            <div className="w-screen min-h-screen flex items-center justify-center bg-teal-400 bg-opacity-50 px-4 sm:px-6 lg:px-8">
+            <div className="mt-32 w-screen min-h-screen flex items-center justify-center bg-teal-400 bg-opacity-50 px-4 sm:px-6 lg:px-8">
                 <form onSubmit={handleSubmit} className="relative py-3 sm:max-w-xs sm:mx-auto">
                     <div className="flex flex-col justify-center items-center h-full select-none p-6 bg-indigo-600 rounded-t-xl">
                         {/* Ajout des initiales dans le rond */}

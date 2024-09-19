@@ -1,53 +1,52 @@
 import type TopicTypes from '@/components/types/TopicTypes';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '../Button';
 
 interface TopicCardProps {
     topic: TopicTypes;
-    variant: 'dashboard' | 'forum';
+    variant?: 'public' | 'dashboard';
+    className?: string;
 }
 
-const TopicCard: React.FC<TopicCardProps> = ({ topic, variant }) => {
-    const isDashboard = variant === 'dashboard';
+const TopicCard: React.FC<TopicCardProps> = ({ topic, variant = 'public', className }) => {
+    const navigate = useNavigate();
+
+    const handleTopicClick = () => {
+        navigate(`/forum/${topic.topic_id}`);
+    };
 
     return (
         <div
-            className={`rounded-lg p-4 ${
-                isDashboard
-                    ? 'bg-gray-200 border-2 rounded-2xl border-indigo-500 flex sm:items-center flex-col sm:flex-row sm:justify-between '
-                    : 'bg-gray-100 cursor-pointer'
-            }`}>
-            <div className={isDashboard ? 'flex-grow' : ''}>
-                <div className="flex justify-between items-center mb-2">
-                    <h5 className="text-lg font-bold text-gray-800">{topic.topic_title}</h5>
-                    {!isDashboard && topic.topic_tag[0] && (
-                        <span className="text-xs bg-black text-white px-2 py-1 rounded">
-                            {topic.topic_tag[0]}
-                        </span>
-                    )}
+            className={`bg-white border-2 border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col ${
+                variant === 'dashboard' ? 'w-full lg:w-1/2' : 'w-full'
+            } ${className || ''}`}>
+            <div className="relative z-10">
+                <img
+                    className="rounded-t-lg object-cover h-40 w-full"
+                    src="https://placehold.co/600x400"
+                    alt={topic.topic_title}
+                />
+                <div className="absolute top-2 right-2 flex flex-wrap">
+                    {topic.topic_tag.map(tag => (
+                        <div key={tag} className="bg-indigo-600 text-white text-xs px-2 py-1 mr-2 rounded">
+                            {tag}
+                        </div>
+                    ))}
                 </div>
-                <p className="text-sm text-gray-600 mb-2">
-                    {topic.topic_content.slice(0, 70)}
-                    {topic.topic_content.length > 70 ? '...' : ''}
-                </p>
-                {!isDashboard && (
-                    <div className="flex justify-between items-center text-sm text-gray-500">
-                        <span>{topic.comments_count} commentaires</span>
-                        <span>{topic.author_name}</span>
-                        <span>
-                            {topic.topic_date
-                                ? new Date(topic.topic_date).toLocaleDateString()
-                                : 'Date not available'}
-                        </span>
-                    </div>
-                )}
             </div>
-            {isDashboard && (
-                <div className="flex flex-col items-end gap-2">
-                    <button className="bg-gray-900 w-full sm:w-auto text-white px-4 py-2 rounded-xl whitespace-nowrap">
-                        Voir le topic
-                    </button>
+            <div className="p-4 flex-grow">
+                <h5 className="text-lg font-bold mb-2">{topic.topic_title}</h5>
+                <p className="text-sm text-gray-600 mb-4">{topic.topic_content}</p>
+                {topic.topic_date && (
+                    <p className="text-xs text-gray-400 mb-4">
+                        {new Date(topic.topic_date).toLocaleDateString()}
+                    </p>
+                )}
+                <div className="flex justify-center">
+                    <Button label="Voir ce forum" version="primary" onClick={handleTopicClick} />
                 </div>
-            )}
+            </div>
         </div>
     );
 };

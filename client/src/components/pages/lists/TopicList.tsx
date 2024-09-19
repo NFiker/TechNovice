@@ -1,16 +1,14 @@
-// src/components/pages/TopicList.tsx
-import TopicCard from '@/components/reusable-ui/cards/TopicCard';
 import type TopicTypes from '@/components/types/TopicTypes';
 import React, { useEffect, useState } from 'react';
+import TopicCard from '../../reusable-ui/cards/TopicCard';
 
 interface TopicListProps {
-    topics?: TopicTypes[];
-    variant: 'dashboard' | 'forum';
     slicer?: number;
     tagFilter?: string;
+    variant?: 'public' | 'dashboard';
 }
 
-const TopicList: React.FC<TopicListProps> = ({ variant, slicer, tagFilter }) => {
+const TopicList: React.FC<TopicListProps> = ({ slicer, tagFilter, variant = 'public' }) => {
     const [topics, setTopics] = useState<TopicTypes[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -23,21 +21,22 @@ const TopicList: React.FC<TopicListProps> = ({ variant, slicer, tagFilter }) => 
                     throw new Error('Failed to fetch topics');
                 }
                 let data: TopicTypes[] = await response.json();
-                if (slicer) {
-                    data = data.slice(0, slicer);
-                }
+
                 if (tagFilter) {
-                    data = data.filter(topic => topic.topic_tag.includes(tagFilter));
+                    const tagsArray = tagFilter.split(',');
+                    data = data.filter(topic => tagsArray.every(tag => topic.topic_tag.includes(tag)));
                 }
-                setTopics(data); // Stocker tous les cours récupérés
+
+                setTopics(slicer ? data.slice(0, slicer) : data);
             } catch (error) {
                 if (error instanceof Error) {
                     setError(error.message);
                 }
             } finally {
-                setLoading(false); // Mettre à jour l'état de chargement
+                setLoading(false);
             }
         };
+
         fetchTopics();
     }, [slicer, tagFilter]);
 
@@ -50,19 +49,14 @@ const TopicList: React.FC<TopicListProps> = ({ variant, slicer, tagFilter }) => 
     }
 
     return (
-        <>
-            <div className="bg-gradient-to-r from-sky-600 via-sky-700 to-sky-800 w-full rounded-lg shadow-md">
-                <div className="max-w-screen-xl mx-auto px-4 py-8">
-                    <h1 className="text-xl font-semibold text-white mb-4">Catalogue des sujets</h1>
-                    <h2 className="text-lg text-white mb-4">{topics.length} sujets</h2>
-                    <div className="flex flex-col gap-6">
-                        {topics.map(topic => (
-                            <TopicCard key={topic.topic_id} topic={topic} variant={variant} />
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </>
+        <div
+            className={`${
+                variant === 'public' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-6' // Affichage en colonne pour le dashboard
+            }`}>
+            {topics.map(topic => (
+                <TopicCard key={topic.topic_id} topic={topic} variant={variant} />
+            ))}
+        </div>
     );
 };
 

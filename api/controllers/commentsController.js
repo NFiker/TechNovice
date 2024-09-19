@@ -3,29 +3,30 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const commentsController = {
-    // Controller pour créer un message
+    
+    // Controller to create a message
     async createComment(req, res) {
         try {
             const { topic_id } = req.params;
             const { com_content, author_user_id } = req.body;
 
-            // verifier si utilisateur existe
+            // check if user exists
             const user = await prisma.users.findUnique({
                 where: { user_id: parseInt(author_user_id) },
             });
 
             if (!user) {
         
-                return res.status(404).json({ error: 'Auteur non trouvé.' });
+                return res.status(404).json({ error: 'Author not found.' });
             }
 
-            // Vérifier si le sujet existe
+            // check if topic exists
             const topic = await prisma.topics.findUnique({
                 where: { topic_id: parseInt(topic_id, 10) },
             });
 
             if (!topic) {
-                return res.status(404).json({ error: 'Sujet non trouvé.' });
+                return res.status(404).json({ error: 'Topic not found.' });
             }
 
             const comment = await prisma.comments.create({
@@ -38,12 +39,13 @@ const commentsController = {
 
             res.status(201).json(comment);
         } catch (error) {
-            res.status(500).json({ message: 'Erreur lors de la création du message', error });
+            res.status(500).json({ message: 'Error creating message', error });
         } finally {
             prisma.$disconnect();
         }
     },
-    // Controller pour modifier un message
+
+   // Controller to modify a message
     async updateComment(req, res) {
         const topicId = parseInt(req.params.topic_id);
         const commentId = parseInt(req.params.com_id);
@@ -65,12 +67,13 @@ const commentsController = {
             res.status(200).json(comment);
            
         } catch (error) {
-            res.status(500).json({ message: 'Erreur lors de la mise à jour du message', error });
+            res.status(500).json({ message: 'Error updating message', error });
         } finally {
             prisma.$disconnect();
         }
     },
-    // Controller pour supprimer un message
+
+    // Controller to delete a message
     async deleteComment(req, res) {
         const { com_id } = req.params;
 
@@ -81,7 +84,7 @@ const commentsController = {
         });
         
         if (!comment) {
-            return res.status(404).json({ message: 'Commentaire non trouvé' });
+            return res.status(404).json({ message: 'Comment not found' });
         }
 
         try {

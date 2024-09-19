@@ -1,23 +1,38 @@
-# Projet TechnO'vice
+# TechnO'vice project
 
-Bienvenue sur notre projet !
+Bienvenue sur notre projet ! / Welcome to our project !
 
-## Présentation du projet
+## Introduction
+
+### EN
+
+TechnO'vice, an educational platform dedicated to computer learning. The content offered on the platform aims to develop basic skills in the most important software, OS and websites.
+It enables trainers to publish content on the platform so that they can share their knowledge.
+Here are just a few examples: the basics of Word, how to make a purchase on Amazon, how to spot a malicious site.
+
+### FR
 
 TechnO’vice, une plateforme éducative dédiée à l'apprentissage de l’informatique. Les contenus proposés sur la plateforme visent à développer des compétences de base sur les plus importants logiciels, OS, et sites web.
 Elle permet aux formateurs de publier du contenu sur la plateforme afin qu’ils puissent partager leurs connaissances.
 En quelques exemples : Les bases du logiciel Word, comment faire un achat sur Amazon, comment repérer un site malveillant.
 
-## Dépendances du projet
+## Dependencies
+
+Install all dependencies by running `npm run installation` in root project
 
 ### Front
 
 -   [x] React
 -   [x] React-dom
 -   [x] React-icons
+-   [x] React-auth-kit
+-   [x] React-router-dom
 -   [x] Vite
 -   [x] Vitest
 -   [x] Typescript
+-   [x] Axios
+-   [x] TailwindCSS
+-   [x] PostCSS / Autoprefixer
 
 ### Back
 
@@ -28,53 +43,25 @@ En quelques exemples : Les bases du logiciel Word, comment faire un achat sur Am
 -   [x] PG
 -   [x] cors
 -   [x] joi
+-   [x] mocha
+-   [x] supertest
+-   [x] bcrypt
+-   [x] http-errors
+-   [x] jsonwebtoken
 
-### Autres
+### Others
 
 -   [x] Prettier
 -   [x] Eslint
--   [ ] Docker
 
-## Github Branching
+## Environment configuration :
 
-### Format des issues
+```
+PORT=0000
 
-L'ajout de features / étapes se fera sous la forme :
+DATABASE_URL=postgresql://nom_admin:mot_de_passe@hostname:port/nom_bdd?schema=public
 
-`release/numéro_de_version/nom_de_l_issue_numero`
+ACCESS_TOKEN_SECRET = crypto.randomBytes(64).toString('hex')
+REFRESH_TOKEN_SECRET = crypto.randomBytes(64).toString('hex')
 
-Donc avec un exemple :
-
-`release/0.1/prisma_installation_9`
-
-### Branching
-
-Lorsque vous travaillez sur une nouvelle feature, il faut partir de main/master, et créer votre nouvelle branch depuis là.
-On vérifie d'abords qu'on est bien sur main/master avec la commande :
-
-`git branch` pour voir où on est
-`git checkout main` pour se placer sur la branche 'main'
-
-Sur main/master, on crée ensuite notre nouvelle branche avec la commande suivante :
-
-`git checkout -b nom_de_la_branche`
-Avec notre exemple ci-desssus:
-`git checkout -b release/0.1/prisma_installation_9`
-
-> On peut aussi partir d'une branche pour en faire une autre, à partir du moment où l'arborescence est logique et où les branches concernent la même feature
-
-Sur votre nouvelle branche, à chaque commit vous devrez respecter cette semantique : `git commit -m "release/0.1/prisma_installation_9 : prisma installed and working"`, Donc sous la forme : nom de l'issue, double point, commentaire du commit en anglais
-
-Faites régulièrement des commits et des push, tant que vous êtes sur votre propre branche vous n'avez pas de risque de casser main/master
-
-> On ne travaille jamais sur main/master, on ne s'en sert que comme point de départ pour une nouvelle branche, ou pour faire les merge
-
-tip : On peut utiliser `git status` pour voir l'état de notre branche actuelle
-
-### Pull Request
-
-Je vous montre ça dans la demo directement
-
-### Pull
-
-Dans le cas où des features ont été validé par l'équipe, et donc mergé sur la branche main/master, vous pouvez les récupérer en faisant un `git checkout main` , suivi d'un `git pull`
+```

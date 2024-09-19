@@ -20,7 +20,7 @@ describe('GET /api/users/:user_id', () => {
             .set('Accept', 'application/json')
 
         expect(response.status).to.equal(404);
-        expect(response.body.message).to.equal('Utilisateur non trouvé');
+        expect(response.body.message).to.equal('User not found');
     });
 
     it('should succeed if user is found', async function () {

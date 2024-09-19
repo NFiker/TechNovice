@@ -33,7 +33,7 @@ describe('POST /api/watches/courses/:course_id/users/:user_id',  () => {
        
             
         expect(response.status).to.equal(404);
-        expect(response.body).to.deep.equal({ error: 'Cours non trouvé.' });
+        expect(response.body).to.deep.equal({ error: 'Course not found.' });
 ;
     });
 
@@ -46,11 +46,10 @@ describe('POST /api/watches/courses/:course_id/users/:user_id',  () => {
             .send(badPayload);
 
         expect(response.status).to.equal(404);
-        expect(response.body).to.deep.equal({ error: 'Utilisateur non trouvé.' });
+        expect(response.body).to.deep.equal({ error: 'User not found.' });
     });
 
     it('should succeed if watche is created', async function () {
-    // Supprimer les données existantes pour éviter les conflits
         await prisma.watches.deleteMany({
             where: {
                 course_id: courseId,

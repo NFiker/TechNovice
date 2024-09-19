@@ -9,8 +9,8 @@ describe('GET /api/courses/:course_id', () => {
     let courseId = null;
 
     before(async () => {
-        await prisma.courses.deleteMany(); // Nettoyer la base de données de test
-        const course = await createTestCourse(); // Insérer des données de test
+        await prisma.courses.deleteMany(); 
+        const course = await createTestCourse(); 
         courseId = course.course_id;
     });
 
@@ -20,7 +20,7 @@ describe('GET /api/courses/:course_id', () => {
             .set('Accept', 'application/json')
 
         expect(response.status).to.equal(404);
-        expect(response.body.message).to.equal('Cours non trouvé');
+        expect(response.body.message).to.equal('Course not found');
     });
 
     it('should succeed if course is found', async function () {
@@ -41,6 +41,7 @@ describe('GET /api/courses/:course_id', () => {
                 "creation_date",
                 "update_date"
             ]);
+            
         expect(response.body.course_id).to.eq(courseId);
         expect(response.body.course_title).to.be.a("string");
         expect(response.body.course_desc).to.be.a("string");

@@ -10,8 +10,8 @@ describe('PATCH /api/courses/:course_id', () => {
     let courseId = null;
 
     before(async () => {
-        await prisma.courses.deleteMany(); // Nettoyer la base de données de test
-        const course = await createTestCourse(); // Insérer des données de test
+        await prisma.courses.deleteMany(); 
+        const course = await createTestCourse(); 
         courseId = course.course_id;
     });
     const payload = {
@@ -44,6 +44,7 @@ describe('PATCH /api/courses/:course_id', () => {
                     "creation_date",
                     "update_date"
                 ]);
+                
             expect(response.body.course_id).to.eq(courseId);
             expect(response.body.course_title).to.be.a("string");
             expect(response.body.course_desc).to.be.a("string");

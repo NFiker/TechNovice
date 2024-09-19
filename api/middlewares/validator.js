@@ -1,32 +1,26 @@
-//* middlewares/Validator.js
 
-import createHttpError from 'http-errors';
-
-//* Importe tous les validadors 
+import createHttpError from 'http-errors'; 
 import validators from '../validator/index.js';
 
-// utilisattion de validator pour verifiér les données
+//use Validator to check data
 export default function Validator(validator) {
-    //Cette méthode vérifie si l'objet validators possède une propriété spécifique appelée validator. 
-    //Si ce n'est pas le cas, une erreur est levée.
+    //This method checks if the validators object has a specific property called validator. 
     if (!Object.prototype.hasOwnProperty.call(validators, validator)) {
         throw new Error(`'${validator}' validator is not exist`)
     }
 
     return async function (req, res, next) {
         try {
-            //on utilise un validateur spécifique (validator) pour valider les données contenues dans req.body
-            // validateAsync : C'est une méthode asynchrone qui vérifie les données de manière non bloquante 
+            // validateAsync: This is an asynchronous method that verifies data in a non-blocking manner
             const validated = await validators[validator].validateAsync(req.body)
             req.body = validated;
             next()
         } catch (err) {
-            //Si l'erreur vient de Joi, cela signifie que les données envoyées par le client ne sont pas conformes (erreur HTTP 400 )
-            //Cette ligne vérifie si l'erreur provient de la validation (via la bibliothèque Joi).
+            //If the error comes from Joi, it means that the data sent by the client is not compliant (HTTP error 400)
             if (err.isJoi) {
                 return next(createHttpError(400, err));
             }
-            // Si l'erreur n'est pas liée à la validation,  cette ligne crée une erreur HTTP 500
+            // If the error is not related to validation, this line creates an HTTP 500 error
             next(createHttpError(500))
         }        
     }

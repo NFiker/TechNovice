@@ -30,15 +30,15 @@ describe('POST /api/topics/', () => {
 
             expect(response.status).to.equal(201);
             expect(response.body)
-                .to.be.an('object')
-                .with.all.keys([
+            .to.be.an('object')
+            .with.all.keys([
                 "topic_id",
                 "topic_title",
                 "topic_tag",
                 "topic_content",
                 "author_user_id",
                 "topic_date",
-                ]);
+            ]);
 
             expect(response.body.topic_id).to.not.be.null;
             expect(response.body.topic_title).to.be.a("string");

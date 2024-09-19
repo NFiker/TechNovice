@@ -9,8 +9,8 @@ describe('DELETE /api/users/:user_id', () => {
     let userId = null;
 
     before(async () => {
-        await prisma.users.deleteMany(); // Nettoyer la base de données de test
-        const user = await createTestUser(); // Insérer des données de test
+        await prisma.users.deleteMany(); 
+        const user = await createTestUser(); 
         userId = user.user_id;
     });
 

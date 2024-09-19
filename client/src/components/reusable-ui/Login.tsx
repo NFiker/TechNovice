@@ -40,6 +40,7 @@ const SignInComponent = () => {
                     setUser(userResponse.data);
                 }
             }
+            console.log(user)
         } catch (error) {
             if (axios.isAxiosError(error) && error.response) {
                 setErrMsg(error.response.data.message);

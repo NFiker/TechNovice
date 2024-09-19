@@ -9,7 +9,7 @@ export default interface UserTypes {
     comments: string[];
     watches: {
         course_id: number;
-        author_user_id: number;
+        user_id: number;
         start_date: string;
     }[];
 }

@@ -1,70 +1,57 @@
-import TopicCard from '@/components/reusable-ui/cards/TopicCard';
 import type TopicTypes from '@/components/types/TopicTypes';
 import React, { useEffect, useState } from 'react';
+import TopicCard from '../../reusable-ui/cards/TopicCard';
 
-const TopicList: React.FC = () => {
+interface TopicListProps {
+    slicer?: number;
+    tagFilter?: string;
+}
+
+const TopicList: React.FC<TopicListProps> = ({ slicer, tagFilter }) => {
     const [topics, setTopics] = useState<TopicTypes[]>([]);
-    const [displayedTopics, setDisplayedTopics] = useState<TopicTypes[]>([]);
-    const [topicsToShow, setTopicsToShow] = useState<number>(6);
-    const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchTopics = async () => {
             try {
-                const response = await fetch('https://technovice-app-196e28ed15ce.herokuapp.com/api/topics');
-                const data = await response.json();
-                setTopics(data);
-                setDisplayedTopics(data.slice(0, topicsToShow));
+                const response = await fetch(`https://technovice-app-196e28ed15ce.herokuapp.com/api/topics`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch topics');
+                }
+                let data: TopicTypes[] = await response.json();
+
+                if (tagFilter) {
+                    const tagsArray = tagFilter.split(',');
+                    data = data.filter(topic => tagsArray.every(tag => topic.topic_tag.includes(tag)));
+                }
+
+                setTopics(slicer ? data.slice(0, slicer) : data);
             } catch (error) {
-                console.error('Error fetching topics:', error);
+                if (error instanceof Error) {
+                    setError(error.message);
+                }
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchTopics();
-    }, [topicsToShow]);
+    }, [slicer, tagFilter]);
 
-    const handleShowMore = () => {
-        setTopicsToShow(prev => prev + 6);
-    };
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
-    const handleTagClick = (tag: string) => {
-        const updatedTags = selectedTags.includes(tag)
-            ? selectedTags.filter(t => t !== tag)
-            : [...selectedTags, tag];
-
-        setSelectedTags(updatedTags);
-
-        if (updatedTags.length === 0) {
-            setDisplayedTopics(topics.slice(0, topicsToShow));
-        } else {
-            const filteredTopics = topics.filter(topic =>
-                updatedTags.every(selectedTag => topic.topic_tag.includes(selectedTag)),
-            );
-            setDisplayedTopics(filteredTopics.slice(0, topicsToShow));
-        }
-    };
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     return (
-        <div>
-            <div className="tag-filter">
-                {/* Remplace par tes tags réels */}
-                {['JavaScript', 'React', 'Node.js'].map(tag => (
-                    <button
-                        key={tag}
-                        className={selectedTags.includes(tag) ? 'selected' : ''}
-                        onClick={() => handleTagClick(tag)}>
-                        {tag}
-                    </button>
-                ))}
-            </div>
-            <div className="topic-list">
-                {displayedTopics.map(topic => (
-                    <TopicCard key={topic.topic_id} topic={topic} />
-                ))}
-            </div>
-            {displayedTopics.length < topics.length && (
-                <button onClick={handleShowMore}>Voir plus de topics</button>
-            )}
+        <div className="flex flex-row-1 sm:flex-cols-2 lg:flex-row-3 gap-6">
+            {topics.map(topic => (
+                <TopicCard key={topic.topic_id} topic={topic} />
+            ))}
         </div>
     );
 };

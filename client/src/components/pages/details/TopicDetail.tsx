@@ -1,14 +1,17 @@
 import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
 import type TopicTypes from '@/components/types/TopicTypes';
+import type UserTypes from '@/components/types/UserTypes';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const TopicDetail: React.FC = () => {
     const { topic_id } = useParams<{ topic_id: string }>();
     const [oneTopic, setTopic] = useState<TopicTypes>();
+    const [oneUser, setUser] = useState<UserTypes>();
     const [error, setError] = useState<string | null>(null);
     const [loadingTopic, setLoadingTopic] = useState<boolean>(true);
+    const [loadingUser, setLoadingUser] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchOneTopic = async () => {
@@ -22,18 +25,31 @@ const TopicDetail: React.FC = () => {
                 const data: TopicTypes = await response.json();
                 setTopic(data);
                 setLoadingTopic(false);
+
+                if (data.author_user_id) {
+                    setLoadingUser(true);
+                    const userResponse = await fetch(
+                        `https://technovice-app-196e28ed15ce.herokuapp.com/api/users/${data.author_user_id}`,
+                    );
+                    if (!userResponse.ok) {
+                        throw new Error('Failed to fetch user');
+                    }
+                    const userData: UserTypes = await userResponse.json();
+                    setUser(userData);
+                }
             } catch (error) {
                 if (error instanceof Error) {
                     setError(error.message);
                 }
             } finally {
                 setLoadingTopic(false);
+                setLoadingUser(false);
             }
         };
         fetchOneTopic();
     }, [topic_id]);
 
-    if (loadingTopic) {
+    if (loadingTopic || loadingUser) {
         return <div>Loading...</div>;
     }
 
@@ -58,6 +74,9 @@ const TopicDetail: React.FC = () => {
                         alt={oneTopic.topic_title}
                     />
                     <p className="text-lg">{oneTopic.topic_content}</p>
+                    <p className="text-sm text-gray-500">
+                        Créé par: {oneUser?.first_name} {oneUser?.last_name} ({oneUser?.nickname})
+                    </p>
                     <p className="mt-4">{oneTopic.topic_content}</p>
                 </div>
             </main>

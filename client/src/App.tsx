@@ -15,7 +15,6 @@ import Conditions from './components/pages/annexes/Conditions';
 import Legal from './components/pages/annexes/Legal';
 import Error404 from './components/pages/errors/Error404';
 import TeacherList from './components/pages/lists/TeacherList';
-import TopicList from './components/pages/lists/TopicList';
 import SignInComponent from './components/reusable-ui/Login';
 import Signup from './components/reusable-ui/Signup';
 
@@ -25,6 +24,7 @@ import { useUser } from './context/UserContext';
 
 import UserDashboard from './components/pages/UserDashboard';
 import CoursesCatalog from './components/pages/catalogs/CoursesCatalog';
+import TopicsCatalog from './components/pages/catalogs/TopicsCatalog';
 
 function App() {
     const { setUser } = useUser();
@@ -53,7 +53,7 @@ function App() {
                 <Route path="/" element={<Homepage />} />
                 {/* Catalogues */}
                 <Route path="/catalogue-des-cours" element={<CoursesCatalog />} />
-                <Route path="/forums" element={<TopicList variant="public" />} />
+                <Route path="/forums" element={<TopicsCatalog />} />
                 <Route path="/catalogue-des-enseignants" element={<TeacherList />} />
                 {/* Connexion */}
                 <Route path="/connexion" element={<Login />} />

@@ -12,7 +12,7 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic, className }) => {
     const navigate = useNavigate();
 
     const handleTopicClick = () => {
-        navigate(`/topics/${topic.topic_id}`);
+        navigate(`/forum/${topic.topic_id}`);
     };
 
     return (

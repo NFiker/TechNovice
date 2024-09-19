@@ -73,12 +73,12 @@ const TopicsCatalog: React.FC = () => {
                                     <div className="flex bg-white border-2 border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 max-w-6xl h-40">
                                         {/* Image Section */}
                                         <img
-                                            className="rounded-l-lg object-cover h-full w-1/3"
+                                            className="rounded-l-lg object-cover h-full w-1/5"
                                             src="https://placehold.co/600x400"
                                             alt={topic.topic_title}
                                         />
                                         {/* Content Section */}
-                                        <div className="p-4 w-2/3 flex sm:flex-row justify-between">
+                                        <div className="p-4 w-4/5 flex sm:flex-row justify-between overflow-hidden">
                                             <h5 className="text-lg font-bold mb-2">{topic.topic_title}</h5>
                                             <p className="text-sm text-gray-600">{topic.topic_content}</p>
                                             <div className="flex justify-between">

@@ -13,7 +13,7 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic, variant }) => {
         <div
             className={`rounded-lg p-4 ${
                 isDashboard
-                    ? 'bg-gray-200 border-2 rounded-2xl border-indigo-500 flex items-center justify-between '
+                    ? 'bg-gray-200 border-2 rounded-2xl border-indigo-500 flex sm:items-center flex-col sm:flex-row sm:justify-between '
                     : 'bg-gray-100 cursor-pointer'
             }`}>
             <div className={isDashboard ? 'flex-grow' : ''}>
@@ -43,7 +43,7 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic, variant }) => {
             </div>
             {isDashboard && (
                 <div className="flex flex-col items-end gap-2">
-                    <button className="bg-gray-900 text-white px-4 py-2 rounded-xl whitespace-nowrap">
+                    <button className="bg-gray-900 w-full sm:w-auto text-white px-4 py-2 rounded-xl whitespace-nowrap">
                         Voir le topic
                     </button>
                 </div>

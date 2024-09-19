@@ -4,10 +4,10 @@ import validators from '../middlewares/validator.js';
 
 const courseRouter = Router();
 
-// Récupérer les informations de tous les cours
+// Fetch data from all courses
 courseRouter.get('/api/courses', coursesController.getAllCourses);
 
-// Récupérer les informations d'un seul cours via son id
+// Fetch data from a co
 courseRouter.get('/api/courses/:course_id(\\d+)', coursesController.getOneCourseById);
 
 // Créer un cours

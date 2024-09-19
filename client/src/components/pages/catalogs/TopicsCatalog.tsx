@@ -107,7 +107,7 @@ const TopicsCatalog: React.FC = () => {
                                                 <button
                                                     className="px-4 py-2 bg-indigo-600 text-white rounded-lg"
                                                     onClick={() =>
-                                                        (window.location.href = `/topics/${topic.topic_id}`)
+                                                        (window.location.href = `/forums/${topic.topic_id}`)
                                                     }>
                                                     Voir ce forum
                                                 </button>

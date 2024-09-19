@@ -26,20 +26,28 @@ const CourseList: React.FC<CourseListProps> = ({
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const response = await fetch(`https://technovice-app-196e28ed15ce.herokuapp.com/api/courses`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch courses');
-                }
-                let data: CourseTypes[] = await response.json();
+                if (variant === 'dashboard') {
+                    console.log('dashboard');
+                } else {
+                    const response = await fetch(
+                        `https://technovice-app-196e28ed15ce.herokuapp.com/api/courses`,
+                    );
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch courses');
+                    }
+                    let data: CourseTypes[] = await response.json();
 
-                if (tagFilter) {
-                    const tagsArray = tagFilter.split(','); // Sépare les tags sélectionnés
-                    data = data.filter(course => tagsArray.every(tag => course.course_tags.includes(tag)));
+                    if (tagFilter) {
+                        const tagsArray = tagFilter.split(','); // Sépare les tags sélectionnés
+                        data = data.filter(course =>
+                            tagsArray.every(tag => course.course_tags.includes(tag)),
+                        );
+                    }
+                    if (slicer) {
+                        data = data.slice(0, slicer); // Limiter les cours selon le slicer
+                    }
+                    setCourses(data);
                 }
-                if (slicer) {
-                    data = data.slice(0, slicer); // Limiter les cours selon le slicer
-                }
-                setCourses(data);
             } catch (error) {
                 if (error instanceof Error) {
                     setError(error.message);
@@ -49,7 +57,7 @@ const CourseList: React.FC<CourseListProps> = ({
             }
         };
         fetchCourses();
-    }, [slicer, tagFilter]);
+    }, [slicer, tagFilter, variant]);
 
     if (loading) {
         return <div>Loading...</div>;

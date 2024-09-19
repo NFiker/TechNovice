@@ -3,7 +3,31 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const watchesController = {
-    
+    getAllWatchesByUserId: async (req, res) => {
+        try {
+            const user_id = req.params.user_id;
+            
+            const user = prisma.users.findFirst({
+                where: { user_id : parseInt(user_id)}
+            })
+
+            if(!user){
+                res.status(404).json({error: "User not found"});
+            }
+            const watches = await prisma.watches.findMany({
+                where: { user_id : parseInt(user_id)}
+            })
+
+            if (!watches) {
+                return res.status(404).json({ error: "Watches not found"})
+            }
+
+            res.status(200).json(watches)
+
+        } catch(error) {
+            res.status(500).json({ message: 'Internal Server Error', error });
+        } 
+    },
     // Create a new view
     createWatch: async (req, res) => {
         try {

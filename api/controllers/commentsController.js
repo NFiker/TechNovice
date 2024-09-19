@@ -96,7 +96,7 @@ const commentsController = {
             });
             res.status(200).json(comment);
         } catch (error) {
-            res.status(500).json({ message: 'Erreur lors de suppresion du message', error });
+            res.status(500).json({ message: 'Error while trying to delete comment', error });
         } finally {
             prisma.$disconnect();
         }

@@ -53,11 +53,11 @@ const userController = {
             });
 
             if (!teachers) {
-                return res.status(404).json({ message: 'Aucun enseignant trouvé' });
+                return res.status(404).json({ message: 'No teacher found' });
             }
             res.status(200).json(teachers);
         } catch (error) {
-            res.status(500).json({ message: 'Erreur lors de la récupération des enseignants', error });
+            res.status(500).json({ message: 'Error retrieving teachers', error });
         } finally {
             prisma.$disconnect();
         }

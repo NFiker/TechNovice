@@ -1,4 +1,6 @@
 import type CourseTypes from '@/components/types/CourseTypes';
+import type WatchesTypes from '@/components/types/WatchesTypes';
+import { useUser } from '@/context/UserContext';
 import React, { useEffect, useState } from 'react';
 import CourseCard from '../../reusable-ui/cards/CourseCard';
 
@@ -22,12 +24,32 @@ const CourseList: React.FC<CourseListProps> = ({
     const [courses, setCourses] = useState<CourseTypes[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-
+    const { user } = useUser();
     useEffect(() => {
         const fetchCourses = async () => {
             try {
                 if (variant === 'dashboard') {
-                    console.log('dashboard');
+                    const response = await fetch(
+                        `https://technovice-app-196e28ed15ce.herokuapp.com/api/watches/users/${user?.user_id}`,
+                    );
+
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch courses');
+                    }
+
+                    const watchesData: WatchesTypes[] = await response.json();
+                    const coursesIds = watchesData.map(watch => watch.course_id);
+                    const responseCourses = await fetch(
+                        `https://technovice-app-196e28ed15ce.herokuapp.com/api/courses`,
+                    );
+
+                    if (!responseCourses.ok) {
+                        throw new Error('Failed to fetch courses');
+                    }
+                    let data: CourseTypes[] = await responseCourses.json();
+                    data = data.filter(course => coursesIds.includes(course.course_id));
+
+                    setCourses(data);
                 } else {
                     const response = await fetch(
                         `https://technovice-app-196e28ed15ce.herokuapp.com/api/courses`,

@@ -5,9 +5,10 @@ import TopicCard from '../../reusable-ui/cards/TopicCard';
 interface TopicListProps {
     slicer?: number;
     tagFilter?: string;
+    variant?: 'public' | 'dashboard';
 }
 
-const TopicList: React.FC<TopicListProps> = ({ slicer, tagFilter }) => {
+const TopicList: React.FC<TopicListProps> = ({ slicer, tagFilter, variant = 'public' }) => {
     const [topics, setTopics] = useState<TopicTypes[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -48,9 +49,12 @@ const TopicList: React.FC<TopicListProps> = ({ slicer, tagFilter }) => {
     }
 
     return (
-        <div className="flex flex-row-1 sm:flex-cols-2 lg:flex-row-3 gap-6">
+        <div
+            className={`${
+                variant === 'public' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-6' // Affichage en colonne pour le dashboard
+            }`}>
             {topics.map(topic => (
-                <TopicCard key={topic.topic_id} topic={topic} />
+                <TopicCard key={topic.topic_id} topic={topic} variant={variant} />
             ))}
         </div>
     );

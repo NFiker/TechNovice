@@ -1,86 +1,65 @@
 import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
-import type TopicTypes from '@/components/types/TopicTypes';
-import type UserTypes from '@/components/types/UserTypes';
+import TopicTypes from '@/components/types/TopicTypes';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const TopicDetail: React.FC = () => {
-    const { topic_id } = useParams<{ topic_id: string }>();
-    const [oneTopic, setTopic] = useState<TopicTypes>();
-    const [oneUser, setUser] = useState<UserTypes>();
-    const [error, setError] = useState<string | null>(null);
-    const [loadingTopic, setLoadingTopic] = useState<boolean>(true);
-    const [loadingUser, setLoadingUser] = useState<boolean>(false);
+    const { id } = useParams<{ id: string }>();
+    const [topic, setTopic] = useState<TopicTypes | null>(null);
 
     useEffect(() => {
-        const fetchOneTopic = async () => {
+        const fetchTopicDetails = async () => {
             try {
                 const response = await fetch(
-                    `https://technovice-app-196e28ed15ce.herokuapp.com/api/topics/${topic_id}`,
+                    `https://technovice-app-196e28ed15ce.herokuapp.com/api/topics/${id}`,
                 );
-                if (!response.ok) {
-                    throw new Error('Failed to fetch topic');
-                }
-                const data: TopicTypes = await response.json();
-                setTopic(data);
-                setLoadingTopic(false);
-
-                if (data.author_user_id) {
-                    setLoadingUser(true);
-                    const userResponse = await fetch(
-                        `https://technovice-app-196e28ed15ce.herokuapp.com/api/users/${data.author_user_id}`,
-                    );
-                    if (!userResponse.ok) {
-                        throw new Error('Failed to fetch user');
-                    }
-                    const userData: UserTypes = await userResponse.json();
-                    setUser(userData);
-                }
+                const fetchedTopic: TopicTypes = await response.json();
+                setTopic(fetchedTopic);
             } catch (error) {
-                if (error instanceof Error) {
-                    setError(error.message);
-                }
-            } finally {
-                setLoadingTopic(false);
-                setLoadingUser(false);
+                console.error('Error fetching topic details:', error);
             }
         };
-        fetchOneTopic();
-    }, [topic_id]);
 
-    if (loadingTopic || loadingUser) {
-        return <div>Loading...</div>;
-    }
+        fetchTopicDetails();
+    }, [id]);
 
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
-
-    if (!oneTopic) {
-        return <div>Topic introuvable</div>;
+    if (!topic) {
+        return <p>Loading...</p>;
     }
 
     return (
         <>
             <Header />
+            <main className="mt-32 flex flex-col items-center">
+                <div className="max-w-4xl w-full px-6 py-8">
+                    <h1 className="text-3xl font-bold mb-4">{topic.topic_title}</h1>
 
-            <main className="mt-32 flex justify-center">
-                <div className="p-8 flex-col md:max-w-[50%]">
-                    <h1 className="text-3xl font-bold mb-4">{oneTopic.topic_title}</h1>
-                    <img
-                        className="mb-4 max-w-full"
-                        src="https://placehold.co/600x400"
-                        alt={oneTopic.topic_title}
-                    />
-                    <p className="text-lg">{oneTopic.topic_content}</p>
-                    <p className="text-sm text-gray-500">
-                        Créé par: {oneUser?.first_name} {oneUser?.last_name} ({oneUser?.nickname})
-                    </p>
-                    <p className="mt-4">{oneTopic.topic_content}</p>
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        {topic.topic_tag.map(tag => (
+                            <span key={tag} className="bg-indigo-600 text-white text-xs px-2 py-1 rounded">
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+
+                    {/* Content */}
+                    <div className="bg-white border-2 border-gray-200 rounded-lg p-4 shadow-md">
+                        <p className="text-gray-700 mb-4">{topic.topic_content}</p>
+                        <div className="flex justify-between text-gray-500 text-sm">
+                            <span>Posted by {topic.author_name}</span>
+                            <span>{new Date(topic.topic_date!).toLocaleDateString()}</span>
+                        </div>
+                    </div>
+
+                    {/* Comments */}
+                    <div className="mt-8">
+                        <h2 className="text-xl font-bold">Comments ({topic.comments_count || 0})</h2>
+                        {/* Add logic for displaying comments here */}
+                    </div>
                 </div>
             </main>
-
             <Footer />
         </>
     );

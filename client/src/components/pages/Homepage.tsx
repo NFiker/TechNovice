@@ -13,7 +13,7 @@ const Homepage: React.FC = () => {
     const navigate = useNavigate();
 
     const handleForum = () => {
-        navigate('/catalogue-des-sujets');
+        navigate('/forums');
     };
 
     const handleCourse = () => {

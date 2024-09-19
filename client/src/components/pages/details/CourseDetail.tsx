@@ -71,7 +71,7 @@ const CourseDetail: React.FC = () => {
                     <h1 className="text-3xl font-bold mb-4">{oneCourse.course_title}</h1>
                     <img
                         className="mb-4 max-w-full"
-                        src="https://placehold.co/600x400"
+                        src="https://picsum.photos/600/400"
                         alt={oneCourse.course_title}
                     />
                     <p className="text-lg">{oneCourse.course_desc}</p>

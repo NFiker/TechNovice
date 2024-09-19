@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../Button';
 
-
 interface CourseCardProps {
     course: CourseTypes;
     variant?: 'public' | 'dashboard';
@@ -26,10 +25,9 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, variant = 'public', cla
         <div
             className={`bg-white border-2 border-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col ${className || ''}`}>
             <div className="relative z-10">
-
                 <img
                     className="rounded-t-lg object-cover h-40 w-full"
-                    src="https://placehold.co/600x400"
+                    src="https://picsum.photos/600/400"
                     alt={course.course_title}
                 />
                 <div className="absolute top-2 left-2 flex flex-wrap">
@@ -55,7 +53,6 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, variant = 'public', cla
                         <Button label="Arrêter de suivre" version="danger" onClick={handleUnfollowClick} />
                     </div>
                 )}
-
             </div>
         </div>
     );

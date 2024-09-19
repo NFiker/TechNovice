@@ -1,30 +1,40 @@
 import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
 import React, { useEffect, useState } from 'react';
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'; // Icônes pour afficher/masquer le mot de passe
 import { FaChalkboardTeacher, FaUser, FaUserShield } from 'react-icons/fa'; // Icônes pour les rôles
 import { useNavigate, useParams } from 'react-router-dom'; // useNavigate pour la redirection
 import type UserTypes from '../types/UserTypes';
+
+import { useUser } from '@/context/UserContext'; // Importer le contexte utilisateur
 
 const Profile: React.FC = () => {
     const { id } = useParams<{ id: string }>(); // Récupérer l'ID du profil
     const navigate = useNavigate(); // Utilisé pour rediriger après soumission
     const [userData, setUserData] = useState<UserTypes | null>(null); // Stocker les données utilisateur
     const [loading, setLoading] = useState<boolean>(true); // État de chargement
-    const [showPassword, setShowPassword] = useState<boolean>(false); // État pour afficher/masquer le mot de passe
-    const [, setPassword] = useState<string>(''); // Gérer l'affichage du mot de passe
-
+    //const [showPassword, setShowPassword] = useState<boolean>(false); // État pour afficher/masquer le mot de passe
+    //const [, setPassword] = useState<string>(''); // Gérer l'affichage du mot de passe
+    const { user } = useUser(); // Récupérer l'utilisateur du contexte
     // Fonction pour afficher l'alerte de confirmation avant suppression
     const showDeleteConfirmation = (): boolean => {
         return window.confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');
     };
 
     useEffect(() => {
-        // Récupérer les données utilisateur depuis l'API
+        if (!user) {
+            console.error('Utilsateur non connecté');
+            return;
+        }
+
         const fetchUserData = async () => {
             try {
                 const response = await fetch(
-                    `https://technovice-app-196e28ed15ce.herokuapp.com/api/users/${id}`,
+                    `https://technovice-app-196e28ed15ce.herokuapp.com/api/users/${user?.user_id}`, // Utilisation de l'ID de l'utilisateur du contexte
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`, // Si tu utilises un token pour l'authentification
+                        },
+                    },
                 );
                 const data = await response.json();
                 setUserData(data); // Mise à jour des données utilisateur
@@ -36,7 +46,7 @@ const Profile: React.FC = () => {
         };
 
         fetchUserData();
-    }, [id]);
+    }, [user]); // Dépendance à l'utilisateur du contexte
 
     // Fonction pour gérer la soumission du formulaire
     const handleSubmit = async (event: React.FormEvent) => {
@@ -109,20 +119,20 @@ const Profile: React.FC = () => {
     return (
         <>
             <Header />
-            <div className="w-screen min-h-screen flex items-center justify-center bg-teal-400 bg-opacity-50 px-4 sm:px-6 lg:px-8">
+            <div className="mt-32 w-screen min-h-screen flex items-center justify-center bg-teal-400 bg-opacity-50 px-4 sm:px-6 lg:px-8">
                 <form onSubmit={handleSubmit} className="relative py-3 sm:max-w-xs sm:mx-auto">
                     <div className="flex flex-col justify-center items-center h-full select-none p-6 bg-indigo-600 rounded-t-xl">
                         {/* Ajout des initiales dans le rond */}
                         <div className="w-32 h-32 bg-gray-300 rounded-full mb-4 flex items-center justify-center text-3xl font-bold text-indigo-800">
-                            {getInitials(userData.first_name, userData.last_name)}
+                            {getInitials(userData?.first_name, userData?.last_name)}
                         </div>
                         <h2 className="text-white text-2xl font-semibold">
-                            {userData.first_name} {userData.last_name}
+                            {userData?.first_name} {userData?.last_name}
                         </h2>
                         <h3 className="text-white text-lg flex items-center gap-2">
-                            {userData.nickname}
+                            {userData?.nickname}
                             <span className="flex items-center gap-1">
-                                {getRoleIcon(userData.role_name)} ({userData.role_name})
+                                {getRoleIcon(userData?.role_name)} ({userData?.role_name})
                             </span>
                         </h3>
                     </div>
@@ -135,7 +145,7 @@ const Profile: React.FC = () => {
                                 placeholder="Votre nom..."
                                 type="text"
                                 name="lastname"
-                                defaultValue={userData.last_name}
+                                defaultValue={userData?.last_name}
                                 onChange={e => setUserData({ ...userData, last_name: e.target.value })}
                             />
                         </div>
@@ -146,7 +156,7 @@ const Profile: React.FC = () => {
                                 placeholder="Votre prénom..."
                                 type="text"
                                 name="firstname"
-                                defaultValue={userData.first_name}
+                                defaultValue={userData?.first_name}
                                 onChange={e => setUserData({ ...userData, first_name: e.target.value })}
                             />
                         </div>
@@ -157,10 +167,11 @@ const Profile: React.FC = () => {
                                 placeholder="Votre email..."
                                 type="email"
                                 name="email"
-                                defaultValue={userData.mail}
+                                defaultValue={userData?.mail}
                                 onChange={e => setUserData({ ...userData, mail: e.target.value })}
                             />
                         </div>
+                        {/*}
                         <div className="w-full flex flex-col gap-1 relative">
                             <label className="font-semibold">Mot de passe</label>
                             <input
@@ -168,16 +179,19 @@ const Profile: React.FC = () => {
                                 name="password"
                                 className="border rounded-lg px-3 py-2 mb-5 text-sm w-full"
                                 placeholder="••••••••"
-                                value={userData.password}
+                                value={userData?.password}
                                 onChange={e => setPassword(e.target.value)}
                             />
+                            {/*}
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
                                 className="absolute right-3 top-9">
                                 {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
                             </button>
+                            
                         </div>
+                        {*/}
                         <div className="mt-5">
                             <button
                                 type="submit"

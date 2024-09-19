@@ -40,6 +40,10 @@ function App() {
                         mail: response.data.mail,
                         first_name: response.data.first_name,
                         last_name: response.data.last_name,
+                        password: response.data.password || '',
+                        role_name: response.data.role_name || '',
+                        comments: response.data.comments || [],
+                        watches: response.data.watches || [],
                     });
                 })
                 .catch(error => {
@@ -65,7 +69,6 @@ function App() {
                 <Route path="/inscription" element={<Signup />} />
                 <Route path="/sujet/:id" element={<TopicDetail />} /> {/* Route pour TopicDetail */}
                 <Route path="/cours/:course_id" element={<CourseDetail />} /> {/* Route pour CourseDetail */}
-              
                 {/* <Route path="/enseignant/:id" element={<TeacherDetail />} /> */}
                 {/* Route pour TeacherDetail */}
                 <Route

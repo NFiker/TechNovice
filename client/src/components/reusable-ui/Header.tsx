@@ -5,13 +5,21 @@ import { Link } from 'react-router-dom';
 import Searchbar from './Searchbar';
 
 const Header: React.FC = () => {
-    const { user } = useUser();
+    const { user, setUser } = useUser();
+
+    const handleDisconnect = async () => {
+        // Disconnect the user
+        if (user) {
+            localStorage.removeItem('token');
+            setUser(null);
+        }
+    };
 
     return (
         <header className="flex fixed border-b top-0 left-0 w-full z-50 bg-white shadow-md">
-            <div className="max-md:hidden container w-1/4">
+            <div className="max-md:hidden container flex flex-col place-items-center w-1/4">
                 <Link to="/">
-                    <img src="/img/logo.png" alt="Logo de TechnO'vice" />
+                    <img src="/img/logo.png" alt="Logo de TechnO'vice" className="max-h-[85%]" />
                 </Link>
                 <h1 className="text-center text-lg text-sky-500 font-semibold">Ne restez plus un novice!</h1>
             </div>
@@ -42,16 +50,40 @@ const Header: React.FC = () => {
                             className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
                             Catalogue
                         </Link>
-                        <Link
-                            to="/connexion"
-                            className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
-                            Connexion
-                        </Link>
-                        <Link
-                            to="/inscription"
-                            className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
-                            Inscription
-                        </Link>
+                        {user ? (
+                            <>
+                                <Link
+                                    to="/profil"
+                                    className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
+                                    Profil
+                                </Link>
+                                <Link
+                                    to="/tableau-de-bord"
+                                    className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
+                                    Tableau de bord
+                                </Link>
+                                <button
+                                    onClick={() => {
+                                        handleDisconnect();
+                                    }}
+                                    className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
+                                    Se déconnecter
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <Link
+                                    to="/connexion"
+                                    className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
+                                    Connexion
+                                </Link>
+                                <Link
+                                    to="/inscription"
+                                    className="my-2 block border-b border-gray-100 py-1 font-semibold text-gray-500 hover:text-indigo-600 md:mx-2">
+                                    Inscription
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
 
@@ -67,20 +99,31 @@ const Header: React.FC = () => {
                 <nav className="font-semibold">
                     <ul className="flex justify-around items-center">
                         <li>
-                            <Link
-                                to="/inscription"
-                                className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
-                                S'inscrire
-                            </Link>
+                            {' '}
+                            {user ? (
+                                <Link
+                                    to="/inscription"
+                                    className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
+                                    Profil
+                                </Link>
+                            ) : (
+                                <Link
+                                    to="/profil"
+                                    className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
+                                    S'inscrire
+                                </Link>
+                            )}
                         </li>
                         <li>
                             {' '}
                             {user ? (
-                                <Link
-                                    to="/déconnexion"
+                                <button
+                                    onClick={() => {
+                                        handleDisconnect();
+                                    }}
                                     className="text-indigo-600 hover:text-indigo-800 max-md:hidden">
                                     Se déconnecter
-                                </Link>
+                                </button>
                             ) : (
                                 <Link
                                     to="/connexion"

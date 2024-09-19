@@ -2,13 +2,24 @@ import React from 'react';
 
 import CourseList from '@/components/pages/lists/CourseList';
 import TeacherList from '@/components/pages/lists/TeacherList';
+import Button from '@/components/reusable-ui/Button';
 import Footer from '@/components/reusable-ui/Footer';
 import Header from '@/components/reusable-ui/Header';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Carousel from '../reusable-ui/Carousel';
 import Searchbar from '../reusable-ui/Searchbar';
 
 const Homepage: React.FC = () => {
+    const navigate = useNavigate();
+
+    const handleForum = () => {
+        navigate('/catalogue-des-sujets');
+    };
+
+    const handleCourse = () => {
+        navigate('/catalogue-des-cours');
+    };
+
     return (
         <>
             <Header />
@@ -26,17 +37,21 @@ const Homepage: React.FC = () => {
                             </div>
                         </div>
                         <div className="h-full md:container bg-[url('../img/homepage_graphic_semi.png')] bg-contain bg-no-repeat max-md:bg-[position:170%_0%] bg-[position:100%_0%]">
-                            <p className="font-bold text-4xl md:w-3/4 m-4 drop-shadow-md">
+                            <p className="font-bold text-4xl m-4 drop-shadow-md">
                                 Libérez votre potentiel et apprenez plus vite que jamais grâce
                                 <span className="text-sky-500"> aux cours TechnO'vice</span>
                             </p>
-                            <p className="w-3/4 m-4 drop-shadow-md">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil at neque
-                                voluptatum
+                            <p className="m-4 drop-shadow-md">
+                                TechnO'vice est une plateforme de cours en ligne pour aider les internautes
+                                les plus novices dans ce domaine ! Nous proposons une gamme de cours centrée
+                                sur les outils du numérique les plus communs.
                             </p>
-                            <p className="w-3/4 m-4 drop-shadow-md">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil at neque
-                                voluptatum dolore non quod, quas, quidem, quos quae quibusdam. Quisquam, quod.
+                            <p className="m-4 drop-shadow-md">
+                                Un souci avec votre téléphone Android ? Vous n'arrivez pas à connecter votre
+                                imprimante à votre ordinateur ? Vous avez un fichier PDF, mais vous voudriez
+                                pouvoir l'éditer ? Un thème sombre sur votre Iphone serait bien mieux pour vos
+                                yeux, non ? Alors consultez notre catalogue, ou discutez avec nos professeurs
+                                sur le forum et vous trouverez réponses à toutes vos questions !
                             </p>
                         </div>
                     </div>
@@ -49,9 +64,12 @@ const Homepage: React.FC = () => {
 
                         <CourseList className="grid grid-cols-1 md:grid-cols-2 gap-6" slicer={4} />
 
-                        <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
-                            <Link to="/catalogue-des-cours">Découvrez le catalogue</Link>
-                        </button>
+                        <Button
+                            label="Accéder au catalogue"
+                            version="secondary"
+                            onClick={handleCourse}
+                            className="mt-6"
+                        />
                     </div>
 
                     <div className="container md:col-start-1 md:row-start-2 bg-indigo-600 text-white rounded-2xl flex flex-col">
@@ -62,9 +80,12 @@ const Homepage: React.FC = () => {
                             <TeacherList slicer={4} />
                         </div>
 
-                        <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 mt-6 rounded-full self-center">
-                            <Link to="catalogue-des-sujets">Découvrez le forum</Link>
-                        </button>
+                        <Button
+                            label="Accéder au forum"
+                            version="tertiary"
+                            onClick={handleForum}
+                            className="mt-6"
+                        />
                     </div>
                 </div>
                 <div className="container">

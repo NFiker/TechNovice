@@ -31,28 +31,21 @@ const SignInComponent = () => {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true,
             });
-            console.log(response);
 
             if (response.status === 200) {
                 localStorage.setItem('token', response.data.jwToken);
-
                 const userResponse = await api.get('/my-infos');
 
                 if (userResponse.status === 200) {
                     setUser(userResponse.data);
                 }
             }
-            console.log(response.data);
         } catch (error) {
             if (axios.isAxiosError(error) && error.response) {
                 setErrMsg(error.response.data.message);
-                console.error(error.response.data.message);
-                console.log(error);
-                console.error('Error response:', error.response);
             } else {
                 setErrMsg('Echec de la connexion');
             }
-            errRef.current.focus();
         }
     };
 

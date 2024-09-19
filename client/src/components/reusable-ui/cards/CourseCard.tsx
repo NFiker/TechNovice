@@ -1,4 +1,5 @@
 import type CourseTypes from '@/components/types/CourseTypes';
+import { useUser } from '@/context/UserContext';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,12 +13,29 @@ interface CourseCardProps {
 
 const CourseCard: React.FC<CourseCardProps> = ({ course, variant = 'public', className }) => {
     const navigate = useNavigate();
+    const { user } = useUser();
 
     const handleCourseClick = () => {
         navigate(`/cours/${course.course_id}`);
     };
 
-    const handleUnfollowClick = () => {
+    const handleFollowClick = async () => {
+        // Logique pour suivre le cours
+        if (user) {
+            await fetch(
+                `https://technovice-app-196e28ed15ce.herokuapp.com/api/watches/courses/${course.course_id}/users/${user.user_id}`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                },
+            );
+        }
+    };
+
+    const handleUnfollowClick = async () => {
         // Logique pour arrêter de suivre le cours
     };
 
@@ -44,8 +62,11 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, variant = 'public', cla
                 <p className="text-sm text-gray-600 mb-4">{course.course_desc}</p>
 
                 {variant === 'public' ? (
-                    <div className="flex justify-center">
-                        <Button label="En savoir plus" version="primary" onClick={handleCourseClick} />
+                    <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2 sm:justify-between">
+                        <Button label="Voir" version="primary" onClick={handleCourseClick} />
+                        {user ? (
+                            <Button label="S'inscrire" version="tertiary" onClick={handleFollowClick} />
+                        ) : null}
                     </div>
                 ) : (
                     <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2 sm:justify-between">

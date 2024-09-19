@@ -72,11 +72,11 @@ function App() {
                 {/* <Route path="/enseignant/:id" element={<TeacherDetail />} /> */}
                 {/* Route pour TeacherDetail */}
                 <Route
-                    path="/tableau-de-bord/:user_id"
+                    path="/tableau-de-bord"
                     element={
-                        <>
+                        <ProtectedRoute>
                             <UserDashboard />
-                        </>
+                        </ProtectedRoute>
                     }
                 />
                 {/* Connexion */}

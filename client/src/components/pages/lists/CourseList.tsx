@@ -7,7 +7,8 @@ export interface CourseListProps {
     carouselClassName?: string;
     style?: React.CSSProperties;
     slicer?: number;
-    tagFilter?: string; // Tags sélectionnés pour le filtrage
+    tagFilter?: string;
+    variant?: 'public' | 'dashboard';
 }
 
 const CourseList: React.FC<CourseListProps> = ({
@@ -16,6 +17,7 @@ const CourseList: React.FC<CourseListProps> = ({
     style,
     slicer,
     tagFilter,
+    variant = 'public',
 }) => {
     const [courses, setCourses] = useState<CourseTypes[]>([]);
     const [error, setError] = useState<string | null>(null);
@@ -60,7 +62,12 @@ const CourseList: React.FC<CourseListProps> = ({
     return (
         <div className={className} style={style}>
             {courses.map(course => (
-                <CourseCard key={course.course_id} course={course} className={carouselClassName} />
+                <CourseCard
+                    key={course.course_id}
+                    course={course}
+                    className={carouselClassName}
+                    variant={variant}
+                />
             ))}
         </div>
     );

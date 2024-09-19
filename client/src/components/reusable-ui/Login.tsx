@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../api';
+
 const SignInComponent = () => {
     const { setUser, user } = useUser();
     const errRef = useRef(null);
@@ -43,16 +44,11 @@ const SignInComponent = () => {
             }
             console.log(response.data);
         } catch (error) {
-            if (!error?.response) {
-                setErrMsg('Erreur de connexion au serveur');
+            if (axios.isAxiosError(error) && error.response) {
+                setErrMsg(error.response.data.message);
+                console.error(error.response.data.message);
                 console.log(error);
-            } else if (error?.response?.status === 400) {
-                setErrMsg('Email ou mot de passe incorrect');
-            } else if (error?.response?.status === 401) {
-                setErrMsg('Accès non autorisé');
-            } else if (axios.isAxiosError(error)) {
-                console.log(error?.response?.data.message);
-                console.log(error);
+                console.error('Error response:', error.response);
             } else {
                 setErrMsg('Echec de la connexion');
             }

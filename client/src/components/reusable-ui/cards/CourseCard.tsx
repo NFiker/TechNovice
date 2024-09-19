@@ -2,22 +2,31 @@ import type CourseTypes from '@/components/types/CourseTypes';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import Button from '../Button';
+
+
 interface CourseCardProps {
     course: CourseTypes;
+    variant?: 'public' | 'dashboard';
     className?: string;
 }
 
-const CourseCard: React.FC<CourseCardProps> = ({ course, className }) => {
-    const navigate = useNavigate(); // Utilisation du hook de navigation
+const CourseCard: React.FC<CourseCardProps> = ({ course, variant = 'public', className }) => {
+    const navigate = useNavigate();
 
-    const handleClick = () => {
-        navigate(`/cours/${course.course_id}`); // Redirection vers la page de détails du cours
+    const handleCourseClick = () => {
+        navigate(`/cours/${course.course_id}`);
+    };
+
+    const handleUnfollowClick = () => {
+        // Logique pour arrêter de suivre le cours
     };
 
     return (
         <div
-            className={`bg-white border-2 border-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 max-w-xs h-full flex flex-col ${className || ''}`}>
+            className={`bg-white border-2 border-indigo-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col ${className || ''}`}>
             <div className="relative z-10">
+
                 <img
                     className="rounded-t-lg object-cover h-40 w-full"
                     src="https://placehold.co/600x400"
@@ -33,15 +42,20 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, className }) => {
             </div>
             <div className="p-4 flex-grow">
                 <p className="text-xs text-gray-500 mb-2">Enseignant: {course.author_user_id}</p>
-                <h5 className="text-lg font-bold text-gray-800 mb-2">{course.course_title}</h5>
+                <h5 className="text-lg font-bold mb-2">{course.course_title}</h5>
                 <p className="text-sm text-gray-600 mb-4">{course.course_desc}</p>
-            </div>
-            <div className="p-4 m-auto">
-                <button
-                    onClick={handleClick}
-                    className="bg-blue-600 text-white text-xs font-bold py-2 px-10 rounded-lg hover:bg-blue-700 transition-colors">
-                    S'inscrire
-                </button>
+
+                {variant === 'public' ? (
+                    <div className="flex justify-center">
+                        <Button label="En savoir plus" version="primary" onClick={handleCourseClick} />
+                    </div>
+                ) : (
+                    <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2 sm:justify-between">
+                        <Button label="Continuer le cours" version="primary" onClick={handleCourseClick} />
+                        <Button label="Arrêter de suivre" version="danger" onClick={handleUnfollowClick} />
+                    </div>
+                )}
+
             </div>
         </div>
     );
